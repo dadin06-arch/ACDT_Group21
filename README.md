@@ -173,59 +173,153 @@
         </section>
 
 
-        <!-- 5. EMBEDDED STATISTICAL CALCULATOR -->
-        <section class="mt-24 pt-16">
-            <h2 class="text-3xl font-bold text-gray-800 mb-6">📊 Embedded Statistical Calculator</h2>
-            <p class="text-gray-600 mb-8">
-                Input two datasets (X and Y) to calculate the Correlation Coefficient ($R$) and the Linear Regression Model ($Y = mX + b$). Enter data points separated by commas (e.g., 10, 20, 30, 40).
-            </p>
+    <!-- ===============================
+📊 Interactive Regression Calculator
+Based on C1–C3 Models
+==================================-->
+<section id="regression-calculator" class="bg-white p-8 rounded-xl shadow-xl border-l-4 border-[#0033A0]">
+  <h2 class="text-3xl font-bold text-gray-800 mb-6">📈 Interactive OLS Regression Calculator</h2>
+  <p class="text-gray-600 mb-6">
+    Test how <b>SIGI</b>, <b>Education Rate</b>, and <b>Government Effectiveness</b> affect the Female/Male Victim Ratio.<br>
+    Choose a model (C1–C3), enter data arrays, and compute regression results instantly.
+  </p>
 
-            <div class="bg-white p-8 rounded-xl shadow-2xl border border-gray-100">
-                <!-- Input Fields -->
-                <div class="grid md:grid-cols-2 gap-6 mb-8">
-                    <div>
-                        <label for="xData" class="block text-sm font-medium text-gray-700 mb-2">X Dataset (Independent Variable)</label>
-                        <textarea id="xData" rows="4" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500" placeholder="e.g., 10, 12, 14, 16, 18, 20"></textarea>
-                    </div>
-                    <div>
-                        <label for="yData" class="block text-sm font-medium text-gray-700 mb-2">Y Dataset (Dependent Variable)</label>
-                        <textarea id="yData" rows="4" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500" placeholder="e.g., 50, 55, 63, 68, 70, 75"></textarea>
-                    </div>
-                </div>
+  <!-- Model Selector -->
+  <div class="mb-4">
+    <label class="block text-sm font-semibold text-gray-700 mb-2">Select Model</label>
+    <select id="modelSelect" class="border border-gray-300 p-2 rounded-lg w-full">
+      <option value="C1">C1: log_Y ~ log_X (SIGI only)</option>
+      <option value="C2">C2: log_Y ~ log_X + Education</option>
+      <option value="C3">C3: log_Y ~ log_X + Education + GovEffectiveness</option>
+    </select>
+  </div>
 
-                <button id="calculateBtn" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-4 rounded-lg shadow-md transition duration-200 transform hover:scale-[1.01]">
-                    Calculate & Plot Statistics
-                </button>
+  <!-- Input Data -->
+  <div class="grid md:grid-cols-2 gap-4 mb-6">
+    <div>
+      <label class="block text-sm font-semibold mb-2 text-gray-700">log(SIGI)</label>
+      <textarea id="xInput" rows="3" class="w-full p-2 border border-gray-300 rounded-lg" placeholder="e.g. 0.3, 0.5, 0.9, 1.2, 1.5"></textarea>
+    </div>
+    <div>
+      <label class="block text-sm font-semibold mb-2 text-gray-700">log(Female/Male Victim Ratio)</label>
+      <textarea id="yInput" rows="3" class="w-full p-2 border border-gray-300 rounded-lg" placeholder="e.g. 0.7, 0.6, 0.5, 0.4, 0.3"></textarea>
+    </div>
+  </div>
 
-                <!-- Results Display -->
-                <div id="results" class="mt-8 pt-6 border-t border-gray-200 hidden">
-                    <h3 class="text-2xl font-semibold text-gray-800 mb-4">Calculation Results and Visualization</h3>
+  <div id="extraInputs" class="hidden space-y-4">
+    <div>
+      <label class="block text-sm font-semibold mb-2 text-gray-700">Education Rate</label>
+      <textarea id="eduInput" rows="2" class="w-full p-2 border border-gray-300 rounded-lg" placeholder="e.g. 80, 85, 88, 90, 92"></textarea>
+    </div>
+    <div id="govBox" class="hidden">
+      <label class="block text-sm font-semibold mb-2 text-gray-700">Government Effectiveness</label>
+      <textarea id="govInput" rows="2" class="w-full p-2 border border-gray-300 rounded-lg" placeholder="e.g. -0.5, 0.1, 0.3, 0.5, 0.8"></textarea>
+    </div>
+  </div>
 
-                    <div id="errorMsg" class="text-red-600 bg-red-50 p-3 rounded-lg border border-red-300 mb-4 hidden"></div>
+  <button id="runRegression"
+    class="bg-[#0033A0] text-white px-5 py-3 rounded-lg font-semibold mt-6 hover:bg-blue-900 transition">
+    Run Regression
+  </button>
 
-                    <div id="statResults" class="space-y-4 mb-8">
-                        <p class="text-lg">
-                            **Sample Size (N):** <span id="nValue" class="font-bold text-indigo-600"></span>
-                        </p>
-                        <p class="text-lg">
-                            **Correlation Coefficient (R):** <span id="correlationR" class="font-bold text-indigo-600"></span>
-                            <span class="text-sm text-gray-500 ml-2">(R close to 1 indicates a strong positive linear relationship.)</span>
-                        </p>
-                        <p class="text-lg">
-                            **Regression Model:** <code class="bg-gray-100 p-1 rounded font-mono text-xl text-green-700">Y = <span id="slopeM"></span>X + <span id="interceptB"></span></code>
-                            <span class="text-sm text-gray-500 ml-2">(Linear Model: Y = mX + b)</span>
-                        </p>
-                    </div>
+  <div id="regResult" class="mt-8 hidden">
+    <h3 class="text-2xl font-bold text-gray-800 mb-4">Results</h3>
+    <pre id="resultText" class="bg-gray-50 border border-gray-200 rounded-lg p-4 text-gray-800 text-sm"></pre>
+    <canvas id="regCanvas" class="w-full border mt-4 bg-gray-50 rounded-lg" height="300"></canvas>
+  </div>
+</section>
 
-                    <!-- New: Canvas for the plot -->
-                    <h4 class="text-xl font-semibold text-gray-700 mb-2">Regression Plot ($Y$ vs. $X$)</h4>
-                    <div class="border border-gray-300 rounded-lg overflow-hidden bg-white p-2">
-                        <!-- Note: The width and height are set for the coordinate system; CSS controls the display size -->
-                        <canvas id="regressionCanvas" width="500" height="300" class="w-full"></canvas>
-                    </div>
-                </div>
-            </div>
-        </section>
+<script>
+  // === Utility Functions ===
+  const mean = arr => arr.reduce((a,b)=>a+b,0)/arr.length;
+  const parseInput = id => document.getElementById(id).value.split(',')
+    .map(v=>parseFloat(v.trim())).filter(v=>!isNaN(v));
+
+  function ols(X, Y) {
+    const n = X.length;
+    const meanX = mean(X), meanY = mean(Y);
+    const cov = X.map((x,i)=>(x-meanX)*(Y[i]-meanY)).reduce((a,b)=>a+b);
+    const varX = X.map(x=>(x-meanX)**2).reduce((a,b)=>a+b);
+    const b1 = cov / varX;
+    const b0 = meanY - b1*meanX;
+    const yhat = X.map(x=>b0+b1*x);
+    const ssr = yhat.map((y,i)=>(y-meanY)**2).reduce((a,b)=>a+b);
+    const sse = Y.map((y,i)=>(y-yhat[i])**2).reduce((a,b)=>a+b);
+    const r2 = ssr/(ssr+sse);
+    return {b0,b1,r2};
+  }
+
+  document.getElementById("modelSelect").addEventListener("change", e=>{
+    const val = e.target.value;
+    const extra = document.getElementById("extraInputs");
+    const govBox = document.getElementById("govBox");
+    extra.classList.toggle("hidden", val==="C1");
+    govBox.classList.toggle("hidden", val!=="C3");
+  });
+
+  document.getElementById("runRegression").addEventListener("click", ()=>{
+    const model = document.getElementById("modelSelect").value;
+    const X = parseInput("xInput");
+    const Y = parseInput("yInput");
+    if(X.length!==Y.length || X.length<2){ alert("Please provide same-length X and Y data."); return; }
+
+    let text="", result={};
+    const ctx = document.getElementById("regCanvas").getContext("2d");
+    ctx.clearRect(0,0,500,300);
+
+    if(model==="C1"){
+      result = ols(X,Y);
+      text = `Model: C1 (log_Y ~ log_X)\nβ₀=${result.b0.toFixed(3)}, β₁=${result.b1.toFixed(3)}, R²=${result.r2.toFixed(3)}\nInterpretation: As SIGI increases, victim ratio changes linearly with slope β₁.`;
+    }
+    else if(model==="C2"){
+      const Edu = parseInput("eduInput");
+      if(Edu.length!==X.length){ alert("Education array length must match."); return; }
+      // partial regression with two predictors (simplified)
+      const X2 = X.map((x,i)=>[1,x,Edu[i]]);
+      const Xt = math.transpose(X2);
+      const XtX = math.multiply(Xt,X2);
+      const XtY = math.multiply(Xt,Y);
+      const betas = math.multiply(math.inv(XtX),XtY);
+      const [b0,b1,b2] = betas;
+      const Yhat = X.map((_,i)=>b0+b1*X[i]+b2*Edu[i]);
+      const ssr = Yhat.map((y,i)=>(y-mean(Y))**2).reduce((a,b)=>a+b);
+      const sse = Y.map((y,i)=>(y-Yhat[i])**2).reduce((a,b)=>a+b);
+      const r2 = ssr/(ssr+sse);
+      text = `Model: C2 (log_Y ~ log_X + Edu)\nβ₀=${b0.toFixed(3)}, β(SIGI)=${b1.toFixed(3)}, β(Edu)=${b2.toFixed(3)}, R²=${r2.toFixed(3)}\nInterpretation: Higher education increases reported ratios.`;
+    }
+    else {
+      const Edu=parseInput("eduInput"), Gov=parseInput("govInput");
+      if(Edu.length!==X.length||Gov.length!==X.length){ alert("Arrays must have same length."); return; }
+      const X3 = X.map((x,i)=>[1,x,Edu[i],Gov[i]]);
+      const Xt = math.transpose(X3);
+      const XtX = math.multiply(Xt,X3);
+      const XtY = math.multiply(Xt,Y);
+      const betas = math.multiply(math.inv(XtX),XtY);
+      const [b0,b1,b2,b3] = betas;
+      const Yhat = X.map((_,i)=>b0+b1*X[i]+b2*Edu[i]+b3*Gov[i]);
+      const ssr = Yhat.map((y,i)=>(y-mean(Y))**2).reduce((a,b)=>a+b);
+      const sse = Y.map((y,i)=>(y-Yhat[i])**2).reduce((a,b)=>a+b);
+      const r2 = ssr/(ssr+sse);
+      text = `Model: C3 (log_Y ~ log_X + Edu + GovEff)\nβ₀=${b0.toFixed(3)}, β(SIGI)=${b1.toFixed(3)}, β(Edu)=${b2.toFixed(3)}, β(GovEff)=${b3.toFixed(3)}, R²=${r2.toFixed(3)}\nInterpretation: Education ↑ increases reporting, GovEff ↑ reduces risk.`;
+    }
+
+    document.getElementById("regResult").classList.remove("hidden");
+    document.getElementById("resultText").textContent = text;
+
+    // scatter & regression line
+    ctx.strokeStyle="#0033A0";
+    ctx.fillStyle="#0033A0";
+    const minX=Math.min(...X), maxX=Math.max(...X);
+    const minY=Math.min(...Y), maxY=Math.max(...Y);
+    const sx=v=>40+(v-minX)/(maxX-minX)*420;
+    const sy=v=>260-(v-minY)/(maxY-minY)*220;
+    X.forEach((x,i)=>{ctx.beginPath();ctx.arc(sx(x),sy(Y[i]),4,0,2*Math.PI);ctx.fill();});
+    ctx.strokeStyle="#DC2626"; ctx.lineWidth=2;
+    ctx.beginPath(); ctx.moveTo(sx(minX),sy(result.b0+result.b1*minX));
+    ctx.lineTo(sx(maxX),sy(result.b0+result.b1*maxX)); ctx.stroke();
+  });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.8.0/math.min.js"></script>
 
         <!-- 6. DOWNLOADABLE RESOURCES -->
         <section class="mt-24 pt-16">
