@@ -174,152 +174,389 @@
 
 
     <!-- ===============================
-📊 Interactive Regression Calculator
-Based on C1–C3 Models
-==================================-->
-<section id="regression-calculator" class="bg-white p-8 rounded-xl shadow-xl border-l-4 border-[#0033A0]">
-  <h2 class="text-3xl font-bold text-gray-800 mb-6">📈 Interactive OLS Regression Calculator</h2>
-  <p class="text-gray-600 mb-6">
-    Test how <b>SIGI</b>, <b>Education Rate</b>, and <b>Government Effectiveness</b> affect the Female/Male Victim Ratio.<br>
-    Choose a model (C1–C3), enter data arrays, and compute regression results instantly.
-  </p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive OLS Regression Calculator for SIGI Models</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8; /* Light blue-gray background */
+        }
+        textarea {
+            resize: none;
+        }
+    </style>
+    <!-- Math.js for Matrix Operations (MUST be loaded before script) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.8.0/math.min.js"></script>
+</head>
+<body class="p-8 md:p-12">
 
-  <!-- Model Selector -->
-  <div class="mb-4">
-    <label class="block text-sm font-semibold text-gray-700 mb-2">Select Model</label>
-    <select id="modelSelect" class="border border-gray-300 p-2 rounded-lg w-full">
-      <option value="C1">C1: log_Y ~ log_X (SIGI only)</option>
-      <option value="C2">C2: log_Y ~ log_X + Education</option>
-      <option value="C3">C3: log_Y ~ log_X + Education + GovEffectiveness</option>
-    </select>
-  </div>
+    <!-- ===============================
+    📊 Interactive Regression Calculator
+    Based on C1–C3 Models
+    ==================================-->
+    <section id="regression-calculator" class="max-w-4xl mx-auto bg-white p-8 rounded-xl shadow-2xl border-l-4 border-[#0033A0]">
+        <h2 class="text-3xl font-bold text-gray-800 mb-6 flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-[#0033A0] mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M14.5 9c-.1.08-.2.17-.3.25-.7.54-1.4.92-2.1.92s-1.4-.38-2.1-.92c-.1-.08-.2-.17-.3-.25m4.8 0c.2.16.4.32.6.48.9.7 1.8 1.1 2.7 1.1s1.8-.4 2.7-1.1c.2-.16.4-.32.6-.48m-9.6 0v2.5M12 9v4m-3.6-4.5h2.5M9.9 9.9c-.2.2-.4.4-.6.6" />
+            </svg>
+            Interactive OLS Regression Calculator
+        </h2>
+        <p class="text-gray-600 mb-6 border-b pb-4">
+            Test how **SIGI** (log\_X), **Education Rate**, and **Government Effectiveness** affect the Female/Male Victim Ratio (log\_Y). Select a model (C1–C3), enter data arrays, and run the regression.
+        </p>
 
-  <!-- Input Data -->
-  <div class="grid md:grid-cols-2 gap-4 mb-6">
-    <div>
-      <label class="block text-sm font-semibold mb-2 text-gray-700">log(SIGI)</label>
-      <textarea id="xInput" rows="3" class="w-full p-2 border border-gray-300 rounded-lg" placeholder="e.g. 0.3, 0.5, 0.9, 1.2, 1.5"></textarea>
-    </div>
-    <div>
-      <label class="block text-sm font-semibold mb-2 text-gray-700">log(Female/Male Victim Ratio)</label>
-      <textarea id="yInput" rows="3" class="w-full p-2 border border-gray-300 rounded-lg" placeholder="e.g. 0.7, 0.6, 0.5, 0.4, 0.3"></textarea>
-    </div>
-  </div>
+        <!-- Model Selector -->
+        <div class="mb-6">
+            <label for="modelSelect" class="block text-sm font-semibold text-gray-700 mb-2">Select Analysis Model</label>
+            <select id="modelSelect" class="border border-gray-300 p-3 rounded-lg w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition">
+                <option value="C1">C1: log_Y ~ log_X (SIGI Simple Regression)</option>
+                <option value="C2">C2: log_Y ~ log_X + Education (Controlling for Education)</option>
+                <option value="C3">C3: log_Y ~ log_X + Education + GovEffectiveness (Controlling for Education & Governance)</option>
+            </select>
+        </div>
 
-  <div id="extraInputs" class="hidden space-y-4">
-    <div>
-      <label class="block text-sm font-semibold mb-2 text-gray-700">Education Rate</label>
-      <textarea id="eduInput" rows="2" class="w-full p-2 border border-gray-300 rounded-lg" placeholder="e.g. 80, 85, 88, 90, 92"></textarea>
-    </div>
-    <div id="govBox" class="hidden">
-      <label class="block text-sm font-semibold mb-2 text-gray-700">Government Effectiveness</label>
-      <textarea id="govInput" rows="2" class="w-full p-2 border border-gray-300 rounded-lg" placeholder="e.g. -0.5, 0.1, 0.3, 0.5, 0.8"></textarea>
-    </div>
-  </div>
+        <!-- Error Message Display (Replaces Alert) -->
+        <div id="errorMsg" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4 hidden" role="alert">
+            <strong class="font-bold">Error:</strong>
+            <span id="errorText" class="block sm:inline"></span>
+        </div>
 
-  <button id="runRegression"
-    class="bg-[#0033A0] text-white px-5 py-3 rounded-lg font-semibold mt-6 hover:bg-blue-900 transition">
-    Run Regression
-  </button>
+        <!-- Input Data -->
+        <div class="grid md:grid-cols-2 gap-6 mb-6">
+            <div>
+                <label for="xInput" class="block text-sm font-semibold mb-2 text-gray-700">log(SIGI) [X]</label>
+                <textarea id="xInput" rows="3" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-[#0033A0] focus:border-[#0033A0]" placeholder="e.g. 0.3, 0.5, 0.9, 1.2, 1.5"></textarea>
+            </div>
+            <div>
+                <label for="yInput" class="block text-sm font-semibold mb-2 text-gray-700">log(Female/Male Victim Ratio) [Y]</label>
+                <textarea id="yInput" rows="3" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-[#0033A0] focus:border-[#0033A0]" placeholder="e.g. 0.7, 0.5, 0.3, 0.1, -0.1"></textarea>
+            </div>
+        </div>
 
-  <div id="regResult" class="mt-8 hidden">
-    <h3 class="text-2xl font-bold text-gray-800 mb-4">Results</h3>
-    <pre id="resultText" class="bg-gray-50 border border-gray-200 rounded-lg p-4 text-gray-800 text-sm"></pre>
-    <canvas id="regCanvas" class="w-full border mt-4 bg-gray-50 rounded-lg" height="300"></canvas>
-  </div>
-</section>
+        <!-- Extra Inputs for C2/C3 -->
+        <div id="extraInputs" class="hidden space-y-4 mb-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
+            <div>
+                <label for="eduInput" class="block text-sm font-semibold mb-2 text-gray-700">Education Rate</label>
+                <textarea id="eduInput" rows="2" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-green-500 focus:border-green-500" placeholder="e.g. 80, 85, 88, 90, 92 (Required for C2, C3)"></textarea>
+            </div>
+            <div id="govBox" class="hidden">
+                <label for="govInput" class="block text-sm font-semibold mb-2 text-gray-700">Government Effectiveness</label>
+                <textarea id="govInput" rows="2" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-red-500 focus:border-red-500" placeholder="e.g. -0.5, 0.1, 0.3, 0.5, 0.8 (Required for C3)"></textarea>
+            </div>
+        </div>
 
-<script>
-  // === Utility Functions ===
-  const mean = arr => arr.reduce((a,b)=>a+b,0)/arr.length;
-  const parseInput = id => document.getElementById(id).value.split(',')
-    .map(v=>parseFloat(v.trim())).filter(v=>!isNaN(v));
+        <button id="runRegression"
+            class="w-full bg-[#0033A0] text-white px-5 py-3 rounded-lg font-bold shadow-md hover:bg-blue-900 transition duration-200 transform hover:scale-[1.005]">
+            Run Regression
+        </button>
 
-  function ols(X, Y) {
-    const n = X.length;
-    const meanX = mean(X), meanY = mean(Y);
-    const cov = X.map((x,i)=>(x-meanX)*(Y[i]-meanY)).reduce((a,b)=>a+b);
-    const varX = X.map(x=>(x-meanX)**2).reduce((a,b)=>a+b);
-    const b1 = cov / varX;
-    const b0 = meanY - b1*meanX;
-    const yhat = X.map(x=>b0+b1*x);
-    const ssr = yhat.map((y,i)=>(y-meanY)**2).reduce((a,b)=>a+b);
-    const sse = Y.map((y,i)=>(y-yhat[i])**2).reduce((a,b)=>a+b);
-    const r2 = ssr/(ssr+sse);
-    return {b0,b1,r2};
-  }
+        <!-- Results Display -->
+        <div id="regResult" class="mt-8 pt-6 border-t border-gray-200 hidden">
+            <h3 class="text-2xl font-bold text-gray-800 mb-4">Regression Results</h3>
+            <pre id="resultText" class="bg-gray-100 border border-gray-200 rounded-lg p-4 text-gray-800 text-sm overflow-x-auto whitespace-pre-wrap"></pre>
 
-  document.getElementById("modelSelect").addEventListener("change", e=>{
-    const val = e.target.value;
-    const extra = document.getElementById("extraInputs");
-    const govBox = document.getElementById("govBox");
-    extra.classList.toggle("hidden", val==="C1");
-    govBox.classList.toggle("hidden", val!=="C3");
-  });
+            <h4 class="text-xl font-semibold text-gray-700 mt-6 mb-2">Visualization (SIGI [X] vs. Ratio [Y])</h4>
+            <div class="p-2 border border-gray-300 rounded-lg bg-white">
+                 <!-- Canvas for plotting X vs Y (primary relationship) -->
+                <canvas id="regCanvas" class="w-full" height="300" width="500"></canvas>
+            </div>
+            <p id="plotNote" class="text-xs text-gray-500 mt-2">
+                *For models C2 and C3, the plot only visualizes the simple linear relationship between **SIGI and the Victim Ratio** (C1 baseline). Refer to the result text for the multi-variable coefficients.
+            </p>
+        </div>
+    </section>
 
-  document.getElementById("runRegression").addEventListener("click", ()=>{
-    const model = document.getElementById("modelSelect").value;
-    const X = parseInput("xInput");
-    const Y = parseInput("yInput");
-    if(X.length!==Y.length || X.length<2){ alert("Please provide same-length X and Y data."); return; }
+    <script>
+        // === Utility Functions ===
+        // Calculates the arithmetic mean of an array.
+        const mean = arr => arr.reduce((a, b) => a + b, 0) / arr.length;
+        
+        // Helper to display errors instead of using alert()
+        function displayError(message) {
+            document.getElementById("errorText").textContent = message;
+            document.getElementById("errorMsg").classList.remove("hidden");
+            document.getElementById("regResult").classList.add("hidden");
+        }
 
-    let text="", result={};
-    const ctx = document.getElementById("regCanvas").getContext("2d");
-    ctx.clearRect(0,0,500,300);
+        // Helper to hide errors
+        function hideError() {
+            document.getElementById("errorMsg").classList.add("hidden");
+        }
 
-    if(model==="C1"){
-      result = ols(X,Y);
-      text = `Model: C1 (log_Y ~ log_X)\nβ₀=${result.b0.toFixed(3)}, β₁=${result.b1.toFixed(3)}, R²=${result.r2.toFixed(3)}\nInterpretation: As SIGI increases, victim ratio changes linearly with slope β₁.`;
-    }
-    else if(model==="C2"){
-      const Edu = parseInput("eduInput");
-      if(Edu.length!==X.length){ alert("Education array length must match."); return; }
-      // partial regression with two predictors (simplified)
-      const X2 = X.map((x,i)=>[1,x,Edu[i]]);
-      const Xt = math.transpose(X2);
-      const XtX = math.multiply(Xt,X2);
-      const XtY = math.multiply(Xt,Y);
-      const betas = math.multiply(math.inv(XtX),XtY);
-      const [b0,b1,b2] = betas;
-      const Yhat = X.map((_,i)=>b0+b1*X[i]+b2*Edu[i]);
-      const ssr = Yhat.map((y,i)=>(y-mean(Y))**2).reduce((a,b)=>a+b);
-      const sse = Y.map((y,i)=>(y-Yhat[i])**2).reduce((a,b)=>a+b);
-      const r2 = ssr/(ssr+sse);
-      text = `Model: C2 (log_Y ~ log_X + Edu)\nβ₀=${b0.toFixed(3)}, β(SIGI)=${b1.toFixed(3)}, β(Edu)=${b2.toFixed(3)}, R²=${r2.toFixed(3)}\nInterpretation: Higher education increases reported ratios.`;
-    }
-    else {
-      const Edu=parseInput("eduInput"), Gov=parseInput("govInput");
-      if(Edu.length!==X.length||Gov.length!==X.length){ alert("Arrays must have same length."); return; }
-      const X3 = X.map((x,i)=>[1,x,Edu[i],Gov[i]]);
-      const Xt = math.transpose(X3);
-      const XtX = math.multiply(Xt,X3);
-      const XtY = math.multiply(Xt,Y);
-      const betas = math.multiply(math.inv(XtX),XtY);
-      const [b0,b1,b2,b3] = betas;
-      const Yhat = X.map((_,i)=>b0+b1*X[i]+b2*Edu[i]+b3*Gov[i]);
-      const ssr = Yhat.map((y,i)=>(y-mean(Y))**2).reduce((a,b)=>a+b);
-      const sse = Y.map((y,i)=>(y-Yhat[i])**2).reduce((a,b)=>a+b);
-      const r2 = ssr/(ssr+sse);
-      text = `Model: C3 (log_Y ~ log_X + Edu + GovEff)\nβ₀=${b0.toFixed(3)}, β(SIGI)=${b1.toFixed(3)}, β(Edu)=${b2.toFixed(3)}, β(GovEff)=${b3.toFixed(3)}, R²=${r2.toFixed(3)}\nInterpretation: Education ↑ increases reporting, GovEff ↑ reduces risk.`;
-    }
+        // Parses comma-separated string input into a filtered number array.
+        const parseInput = id => document.getElementById(id).value.split(',')
+            .map(v => parseFloat(v.trim())).filter(v => !isNaN(v));
 
-    document.getElementById("regResult").classList.remove("hidden");
-    document.getElementById("resultText").textContent = text;
+        // Simple Linear Regression (OLS for C1)
+        function ols(X, Y) {
+            const n = X.length;
+            const meanX = mean(X), meanY = mean(Y);
+            const cov = X.map((x, i) => (x - meanX) * (Y[i] - meanY)).reduce((a, b) => a + b);
+            const varX = X.map(x => (x - meanX) ** 2).reduce((a, b) => a + b);
+            
+            if (varX === 0) {
+                 return { error: "X values are identical, slope cannot be calculated." };
+            }
 
-    // scatter & regression line
-    ctx.strokeStyle="#0033A0";
-    ctx.fillStyle="#0033A0";
-    const minX=Math.min(...X), maxX=Math.max(...X);
-    const minY=Math.min(...Y), maxY=Math.max(...Y);
-    const sx=v=>40+(v-minX)/(maxX-minX)*420;
-    const sy=v=>260-(v-minY)/(maxY-minY)*220;
-    X.forEach((x,i)=>{ctx.beginPath();ctx.arc(sx(x),sy(Y[i]),4,0,2*Math.PI);ctx.fill();});
-    ctx.strokeStyle="#DC2626"; ctx.lineWidth=2;
-    ctx.beginPath(); ctx.moveTo(sx(minX),sy(result.b0+result.b1*minX));
-    ctx.lineTo(sx(maxX),sy(result.b0+result.b1*maxX)); ctx.stroke();
-  });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.8.0/math.min.js"></script>
+            const b1 = cov / varX;
+            const b0 = meanY - b1 * meanX;
+            const yhat = X.map(x => b0 + b1 * x);
+            const ssr = yhat.map((y, i) => (y - meanY) ** 2).reduce((a, b) => a + b);
+            const sse = Y.map((y, i) => (y - yhat[i]) ** 2).reduce((a, b) => a + b);
+            const r2 = ssr / (ssr + sse);
+            
+            return { b0, b1, r2, error: null };
+        }
+        
+        // Multiple Regression (OLS using Matrix Math for C2, C3)
+        function olsMulti(X_matrix, Y_vector) {
+            try {
+                // Check if mathjs is available
+                if (typeof math === 'undefined' || !math.inv) {
+                    return { error: "Matrix library (math.js) is not loaded or available." };
+                }
+
+                const Xt = math.transpose(X_matrix);
+                const XtX = math.multiply(Xt, X_matrix);
+                const XtX_inv = math.inv(XtX); // (X'X)^-1
+                const XtY = math.multiply(Xt, Y_vector);
+                const betas = math.multiply(XtX_inv, XtY); // (X'X)^-1 X'Y = Beta
+
+                // R-squared Calculation
+                const n = Y_vector.length;
+                const meanY = mean(Y_vector);
+                
+                // Calculate Yhat (Predicted Y)
+                const Yhat = Y_vector.map((_, i) => {
+                    let y_hat_i = 0;
+                    for (let j = 0; j < betas.length; j++) {
+                        // Access matrix element correctly
+                        y_hat_i += X_matrix[i][j] * betas.get([j]); // Use .get() for math.js Matrix object
+                    }
+                    return y_hat_i;
+                });
+
+                const ssr = Yhat.map(y => (y - meanY) ** 2).reduce((a, b) => a + b); // Sum of Squares Regression
+                const sse = Y_vector.map((y, i) => (y - Yhat[i]) ** 2).reduce((a, b) => a + b); // Sum of Squares Error
+                const r2 = ssr / (ssr + sse);
+
+                return { betas: betas.toArray(), r2, error: null };
+
+            } catch (e) {
+                console.error("Matrix Calculation Error:", e);
+                return { error: "Matrix calculation error occurred. Please check data for collinearity or singularity." };
+            }
+        }
+
+        // Function to draw the plot
+        function drawScatterPlot(X, Y, b0, b1) {
+            const canvas = document.getElementById("regCanvas");
+            const ctx = canvas.getContext("2d");
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            const padding = 35;
+            const width = canvas.width - 2 * padding;
+            const height = canvas.height - 2 * padding;
+
+            if (X.length < 2) return;
+
+            // Determine data range
+            const minX = Math.min(...X);
+            const maxX = Math.max(...X);
+            const minY = Math.min(...Y);
+            const maxY = Math.max(...Y);
+
+            const rangeX = maxX - minX;
+            const rangeY = maxY - minY;
+
+            // Scaling functions (with buffer)
+            const bufferX = rangeX * 0.1 || 1;
+            const bufferY = rangeY * 0.1 || 1;
+
+            const plotMinX = minX - bufferX * 0.5;
+            const plotMaxX = maxX + bufferX * 0.5;
+            const plotMinY = minY - bufferY * 0.5;
+            const plotMaxY = maxY + bufferY * 0.5;
+
+            const plotRangeX = plotMaxX - plotMinX;
+            const plotRangeY = plotMaxY - plotMinY;
+
+            const sx = v => padding + (v - plotMinX) / plotRangeX * width;
+            const sy = v => padding + height - (v - plotMinY) / plotRangeY * height;
+
+            // 1. Draw Axes
+            ctx.strokeStyle = '#9ca3af'; 
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(padding, padding + height); // X-Axis start
+            ctx.lineTo(padding + width, padding + height); // X-Axis end
+            ctx.moveTo(padding, padding); // Y-Axis start
+            ctx.lineTo(padding, padding + height); // Y-Axis end
+            ctx.stroke();
+
+            // 2. Draw Data Points (Scatter)
+            ctx.fillStyle = '#0033A0'; // Blue dot
+            X.forEach((x, i) => {
+                ctx.beginPath();
+                ctx.arc(sx(x), sy(Y[i]), 4, 0, 2 * Math.PI);
+                ctx.fill();
+            });
+
+            // 3. Draw Regression Line (using b0, b1 from C1)
+            ctx.strokeStyle = '#DC2626'; // Red line
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            
+            const lineX1 = plotMinX;
+            const lineY1 = b0 + b1 * lineX1;
+            const lineX2 = plotMaxX;
+            const lineY2 = b0 + b1 * lineX2;
+            
+            ctx.moveTo(sx(lineX1), sy(lineY1));
+            ctx.lineTo(sx(lineX2), sy(lineY2));
+            ctx.stroke();
+
+            // 4. Draw Labels
+            ctx.fillStyle = '#374151';
+            ctx.font = '10px Inter';
+            ctx.textAlign = 'center';
+            ctx.fillText(minX.toFixed(2), sx(minX), padding + height + 15);
+            ctx.fillText(maxX.toFixed(2), sx(maxX), padding + height + 15);
+            ctx.textAlign = 'right';
+            ctx.fillText(minY.toFixed(2), padding - 5, sy(minY));
+            ctx.fillText(maxY.toFixed(2), padding - 5, sy(maxY));
+            ctx.textAlign = 'left';
+        }
+
+        // =======================================================
+        // EVENT LISTENERS
+        // =======================================================
+        
+        // Set initial default data (Negative Correlation, matching SIGI analysis)
+        document.getElementById("xInput").value = "0.3, 0.6, 0.9, 1.2, 1.5, 1.8"; 
+        document.getElementById("yInput").value = "0.7, 0.5, 0.3, 0.1, -0.1, -0.3"; 
+        document.getElementById("eduInput").value = "80, 85, 88, 90, 92, 95"; 
+        document.getElementById("govInput").value = "-0.5, 0.1, 0.3, 0.5, 0.8, 1.0"; 
+
+        // Model Selector Logic
+        document.getElementById("modelSelect").addEventListener("change", e => {
+            const val = e.target.value;
+            const extra = document.getElementById("extraInputs");
+            const govBox = document.getElementById("govBox");
+            
+            if (val === "C1") {
+                extra.classList.add("hidden");
+                govBox.classList.add("hidden");
+            } else {
+                extra.classList.remove("hidden");
+                govBox.classList.toggle("hidden", val !== "C3");
+            }
+            hideError();
+            document.getElementById("regResult").classList.add("hidden");
+        });
+
+        // Regression Button Click Handler
+        document.getElementById("runRegression").addEventListener("click", () => {
+            hideError();
+            const model = document.getElementById("modelSelect").value;
+            const X = parseInput("xInput");
+            const Y = parseInput("yInput");
+
+            // 1. Basic Data Validation
+            if (X.length !== Y.length || X.length < 2) {
+                displayError("The length of the X and Y data arrays must match, and at least 2 data points are required.");
+                return;
+            }
+
+            let text = "";
+            let c1Result = ols(X, Y); // C1 result is always calculated for plotting baseline
+
+            if (c1Result.error) {
+                displayError("C1 Simple Regression Calculation Error: " + c1Result.error);
+                return;
+            }
+            
+            let finalResult = c1Result; // Default to C1
+
+            if (model === "C1") {
+                // Use Simple OLS Result
+                text = 
+                    `*** Model: C1 (log_Y ~ log_X) ***\n` +
+                    `Regression Equation: Y = ${c1Result.b1.toFixed(4)} * X + ${c1Result.b0.toFixed(4)}\n` +
+                    `SIGI Coefficient (β₁): ${c1Result.b1.toFixed(4)} (A negative value suggests a decrease in victim ratio as SIGI increases)\n` +
+                    `Intercept (β₀): ${c1Result.b0.toFixed(4)}\n` +
+                    `R² (Explained Variance): ${c1Result.r2.toFixed(4)}\n\n` +
+                    `Interpretation: For a one-unit increase in SIGI, the Victim Ratio changes linearly by β₁.`;
+            } 
+            else if (model === "C2") {
+                const Edu = parseInput("eduInput");
+                if (Edu.length !== X.length) {
+                    displayError("For the C2 model, the length of the Education Rate data must match X and Y.");
+                    return;
+                }
+                // Prepare X matrix for multiple regression: [1, SIGI, Education]
+                const X2 = X.map((x, i) => [1, x, Edu[i]]); 
+                finalResult = olsMulti(X2, Y);
+
+                if (finalResult.error) { displayError("C2 Model Calculation Error: " + finalResult.error); return; }
+
+                const [b0, b1, b2] = finalResult.betas;
+                text = 
+                    `*** Model: C2 (log_Y ~ log_X + Education) ***\n` +
+                    `Regression Equation: Y = ${b0.toFixed(4)} + ${b1.toFixed(4)} * SIGI + ${b2.toFixed(4)} * Education\n\n` +
+                    `SIGI Coefficient (β₁): ${b1.toFixed(4)}\n` +
+                    `Education Coefficient (β₂): ${b2.toFixed(4)} (A positive value suggests education increases reporting)\n` +
+                    `Intercept (β₀): ${b0.toFixed(4)}\n` +
+                    `R² (Explained Variance): ${finalResult.r2.toFixed(4)}\n\n` +
+                    `Interpretation: This model shows the individual effects of SIGI and Education when controlling for both.`;
+            } 
+            else if (model === "C3") {
+                const Edu = parseInput("eduInput");
+                const Gov = parseInput("govInput");
+                if (Edu.length !== X.length || Gov.length !== X.length) {
+                    displayError("For the C3 model, the lengths of Education Rate and Government Effectiveness data must match X and Y.");
+                    return;
+                }
+                // Prepare X matrix for multiple regression: [1, SIGI, Education, GovEffectiveness]
+                const X3 = X.map((x, i) => [1, x, Edu[i], Gov[i]]); 
+                finalResult = olsMulti(X3, Y);
+
+                if (finalResult.error) { displayError("C3 Model Calculation Error: " + finalResult.error); return; }
+
+                const [b0, b1, b2, b3] = finalResult.betas;
+                text = 
+                    `*** Model: C3 (log_Y ~ log_X + Education + GovEff) ***\n` +
+                    `Regression Equation: Y = ${b0.toFixed(4)} + ${b1.toFixed(4)} * SIGI + ${b2.toFixed(4)} * Education + ${b3.toFixed(4)} * GovEff\n\n` +
+                    `SIGI Coefficient (β₁): ${b1.toFixed(4)}\n` +
+                    `Education Coefficient (β₂): ${b2.toFixed(4)} (Suggests increased reporting)\n` +
+                    `Gov. Effectiveness Coefficient (β₃): ${b3.toFixed(4)} (Suggests reduced actual risk or improved institutional protection)\n` +
+                    `Intercept (β₀): ${b0.toFixed(4)}\n` +
+                    `R² (Explained Variance): ${finalResult.r2.toFixed(4)}\n\n` +
+                    `Interpretation: Shows the individual effect of each variable when controlling for the others in a multi-factor environment.`;
+            }
+
+            document.getElementById("regResult").classList.remove("hidden");
+            document.getElementById("resultText").textContent = text;
+            
+            // Draw Plot only using C1 coefficients (for visualization baseline)
+            drawScatterPlot(X, Y, c1Result.b0, c1Result.b1);
+        });
+        
+        // Initial setup for C1 display and calculation on load
+        document.getElementById("modelSelect").dispatchEvent(new Event('change')); 
+        document.getElementById("runRegression").click(); 
+    </script>
+</body>
+</html>
+
 
         <!-- 6. DOWNLOADABLE RESOURCES -->
         <section class="mt-24 pt-16">
