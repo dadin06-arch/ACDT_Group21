@@ -600,37 +600,24 @@
       calculateBtn.addEventListener('click', calculateAndPlot);
       calculateAndPlot(); // initial plot
 
-     <!doctype html>
-<html lang="ko">
-<head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Group 21 ACDT Downloads</title>
-  <style>
-    body{font-family:system-ui,-apple-system,Segoe UI,Roboto;background:#f6f7fb;margin:0;min-height:100vh;display:grid;place-items:center}
-    .card{background:#fff;padding:28px;border-radius:16px;box-shadow:0 8px 30px rgba(0,0,0,.08);width:min(720px,92%)}
-    h1{margin:0 0 10px;font-size:22px}
-    p{margin:0 0 16px;color:#444}
-    .row{display:flex;gap:12px;flex-wrap:wrap}
-    button,a.btn{border:0;padding:12px 16px;border-radius:12px;cursor:pointer;background:#111;color:#fff;font-weight:600;text-decoration:none;display:inline-block}
-    small{display:block;margin-top:14px;color:#666}
-  </style>
-</head>
-<body>
-  <div class="card">
-    <h1>Group 21 ACDT Summary and Data Files</h1>
-    <p>아래 버튼을 눌러 실제 보고서와 데이터 파일을 다운로드하세요.</p>
+    
+      // 3) Downloads
+      const downloadCsvBtn=document.getElementById('downloadCsvBtn');
+      const downloadPdfBtn=document.getElementById('downloadPdfBtn');
 
-    <div class="row">
-      <!-- 실제 파일 링크를 깃허브에 올린 경로로 교체하세요 -->
-      <a class="btn" href="Groups%2021%20ACDT%20summary%20..pdf" download="Group21_ACDT_Summary.pdf">📄 Summary Report (PDF)</a>
-      <a class="btn" href="Group21.csv" download="Group21_Data.csv">📊 Data CSV</a>
-    </div>
+      function downloadFile(filename, content, mime){ const blob=new Blob([content],{type:mime}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download=filename; document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url); }
 
-    <small>
-      ⚙️ 두 파일(<code>Groups 21 ACDT summary ..pdf</code>, <code>Group21.csv</code>)을 같은 폴더(예: 루트 또는 assets 폴더)에 올려두세요.<br>
-      깃허브 Pages URL에서 버튼을 누르면 바로 다운로드됩니다.
-    </small>
-  </div>
+      downloadCsvBtn.addEventListener('click', ()=>{
+        const csv="Country,Log_SIGI,Log_Victim_Ratio,Education_Rate,Gov_Effectiveness\nA,2.0,0.8,0.85,1.2\nB,2.5,0.4,0.60,0.5\nC,3.0,0.1,0.45,-0.1\nD,3.5,-0.2,0.30,-0.8\nE,4.0,-0.6,0.15,-1.2";
+        downloadFile("SIGI_Analysis_Data.csv", csv, "text/csv");
+      });
+
+      downloadPdfBtn.addEventListener('click', ()=>{
+        const txt="Analysis Report: SIGI and Female Victimization Rates\n\nConclusion:\nThe analysis showed that a higher SIGI index (greater inequality) correlates with a lower reported female victimization ratio. This counter-intuitive finding is interpreted as evidence of widespread underreporting in highly unequal societies, not lower actual violence.\n\nPolicy Focus: Increase Visibility (Education) and Strengthen Protection (Government Effectiveness).\n\nR-squared (Model C1): 0.257 | F-statistic: 10.40 (p=0.00304)";
+        downloadFile("SIGI_Analysis_Report_Mock.pdf", txt, "text/plain"); // mock text "pdf"
+      });
+    });
+  </script>
 </body>
 </html>
+
