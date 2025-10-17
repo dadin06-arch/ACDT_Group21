@@ -163,7 +163,7 @@
                             <tr>
                                 <td class="font-semibold">Prob (F-statistic)</td>
                                 <td class="font-bold text-red-600">0.00304</td>
-                                <td class="text-red-700 font-medium">The relationship between SIGI and the victim ratio is statistically significantt.</td>
+                                <td class="text-red-700 font-medium">The relationship between SIGI and the victim ratio is statistically significant.</td>
                             </tr>
                         </tbody>
                     </table>
@@ -178,12 +178,18 @@
 </div>
 
            
- <h2 class="text-3xl font-bold text-gray-800 mb-6">Model C2: Confounder — Education</h2>
+ <!-- ===================== -->
+<!-- Model C2: Confounder (Education) -->
+<!-- ===================== -->
+<section id="model-c2" class="data-step pt-16 border-l-4 border-indigo-500 pl-6 bg-white p-8 rounded-xl shadow-lg">
+  <p class="text-sm font-semibold text-indigo-500 mb-2">Phase 2: Statistical Analysis</p>
+  <h2 class="text-3xl font-bold text-gray-800 mb-6">Model C2: Confounder — Education</h2>
 
-  <!-- Model C1 Image and Table (Updated) -->
+  <!-- Model C2 Image and Table (Updated) -->
   <div class="mb-10">
     <h3 class="text-2xl font-bold text-gray-800 mb-4">
-      Model C2: Confounder — Education</h3>
+      Model C2: log(Female/Male) ~ log(SIGI) + Education_Rate
+    </h3>
 
     <p class="text-lg mb-6 text-gray-700">
       Model: <span class="font-mono">log(Y) = β₀ + β₁·log(SIGI) + β₂·Education</span>
@@ -192,8 +198,8 @@
     <!-- Regression Plot Image -->
     <figure class="mb-8 border border-gray-200 rounded-xl p-4 shadow-inner text-center">
       <img
-        src="https://github.com/user-attachments/assets/1916fb2a-fe63-4a6b-ab5b-18578efea53d](https://github.com/user-attachments/assets/168429df-5dbb-4c74-a074-ed2241527f7a)"
-        alt="Partial regression view for Education as a confounder (Model C2)"
+        src="https://github.com/user-attachments/assets/168429df-5dbb-4c74-a074-ed2241527f7a"
+        alt="Regression plot for Model C2 (Education as a confounder)"
         width="689" height="547" loading="lazy" class="mx-auto rounded-lg"
       />
       <figcaption class="mt-3 text-sm text-gray-600">
@@ -201,51 +207,51 @@
       </figcaption>
     </figure>
   </div>
-</section>
-                
-                <!-- OLS Regression Table - Summary Metrics ONLY -->
-                <h4 class="text-xl font-semibold text-gray-800 mb-3 mt-8">OLS Regression Summary Metrics (Model C2)</h4>
-                <div class="overflow-x-auto">
-                    <table class="min-w-full bg-white rounded-lg shadow ols-table">
-                        <thead>
-                            <tr class="bg-indigo-50">
-                                <th class="w-1/4">Metric</th>
-                                <th class="w-1/4">Value</th>
-                                <th class="w-1/2">Interpretation</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="font-semibold">R-squared</td>
-                                <td class="font-bold text-indigo-600">0.366</td>
-                                <td class="text-gray-600">SIGI explains about 25.7% of the variance in the victim ratio.</td>
-                            </tr>
-                            <tr>
-                                <td class="font-semibold">Adj. R-squared</td>
-                                <td>0.322</td>
-                                <td class="text-gray-600">The model maintains a reasonable fit even with one predictor.</td>
-                            </tr>
-                            <tr>
-                                <td class="font-semibold">F-statistic</td>
-                                <td>8.376</td>
-                                <td class="text-gray-600">The overall model is statistically significant.</td>
-                            </tr>
-                            <tr>
-                                <td class="font-semibold">Prob (F-statistic)</td>
-                                <td class="font-bold text-red-600">0.00135</td>
-                                <td class="text-red-700 font-medium">The relationship between SIGI and the victim ratio is statistically significantt.</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
 
-                <!-- Interpretation -->
-<div class="mt-6 p-4 border border-red-300 rounded-lg bg-red-50">
-  <p class="text-lg font-bold text-red-700 mb-2">Key Finding (Model C1)</p>
-  <p class="text-base text-gray-800">
-    Higher SIGI is significantly associated with a lower female victim ratio.
-  </p>
-</div>
+  <!-- OLS Regression Table - Summary Metrics ONLY -->
+  <h4 class="text-xl font-semibold text-gray-800 mb-3 mt-8">OLS Regression Summary Metrics (Model C2)</h4>
+  <div class="overflow-x-auto">
+    <table class="min-w-full bg-white rounded-lg shadow ols-table">
+      <thead>
+        <tr class="bg-indigo-50">
+          <th class="w-1/4">Metric</th>
+          <th class="w-1/4">Value</th>
+          <th class="w-1/2">Interpretation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="font-semibold">R-squared</td>
+          <td class="font-bold text-indigo-600">0.366</td>
+          <td class="text-gray-600">Adding Education increases the explained variance to 36.6%.</td>
+        </tr>
+        <tr>
+          <td class="font-semibold">Adj. R-squared</td>
+          <td>0.322</td>
+          <td class="text-gray-600">The model maintains a good fit after including two predictors.</td>
+        </tr>
+        <tr>
+          <td class="font-semibold">F-statistic</td>
+          <td>8.376</td>
+          <td class="text-gray-600">The overall model is statistically significant.</td>
+        </tr>
+        <tr>
+          <td class="font-semibold">Prob (F-statistic)</td>
+          <td class="font-bold text-red-600">0.00135</td>
+          <td class="text-red-700 font-medium">The relationship is statistically significant (p &lt; 0.01).</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Interpretation -->
+  <div class="mt-6 p-4 border border-red-300 rounded-lg bg-red-50">
+    <p class="text-lg font-bold text-red-700 mb-2">Key Finding (Model C2)</p>
+    <p class="text-base text-gray-800">
+      Higher education levels are significantly associated with higher reported female victim ratios.
+    </p>
+  </div>
+</section>
 
 
         <!-- STEP 3: KEY INSIGHT -->
