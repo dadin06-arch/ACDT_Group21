@@ -59,12 +59,12 @@
 
             <div class="space-y-4 text-lg text-gray-700">
                 <p>
-                    Our analysis investigates the hypothesis that a higher level of gender discrimination (measured by SIGI) leads to a higher female crime victimization rate.
+                    Our analysis investigates the hypothesis that Countries with higher Social Institutions and Gender Index(SIGI) tend to have higher female victimization rates.
                 </p>
                 <ul class="list-disc list-inside space-y-2 ml-4">
-                    <li>**Independent Variable (X):** $\log(\text{SIGI})$ — Social Institutions and Gender Index. A higher value indicates greater inequality.</li>
-                    <li>**Dependent Variable (Y):** $\log(\text{Female/Male Victim Ratio})$ — The standardized relative female victimization rate.</li>
-                    <li>**Control Variables:** Education Rate, Government Effectiveness, and GDP.</li>
+                    <li>**Independent Variable (X): Social Institutions and Gender Index(SIGI)</li>
+                    <li>**Dependent Variable (Y):Female victimization rate.</li>
+                    <li>**Variables:** Education Rate, Government Effectiveness, and GDP.</li>
                 </ul>
             </div>
             <div class="mt-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
