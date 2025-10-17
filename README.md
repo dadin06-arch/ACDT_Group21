@@ -251,7 +251,6 @@
         width="689" height="547" loading="lazy" class="mx-auto rounded-lg"
       />
       <figcaption class="mt-3 text-sm text-gray-600">
-        Regression Visualization: Gov. Effectiveness vs. log(Victim Ratio)
         Regression Visualization: The graph itself is not log-transformed, but the values used are log-transformed.
       </figcaption>
     </figure>
