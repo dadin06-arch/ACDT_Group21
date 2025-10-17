@@ -85,16 +85,16 @@
                             <a href="https://www.oecd.org/en/data/dashboards/social-institutions-gender-index.html" target="_blank" class="text-blue-600 hover:text-blue-800 hover:underline transition ml-0 sm:ml-4 mt-1 sm:mt-0">OECD</a>
                         </li>
                         <li class="flex flex-col sm:flex-row items-start sm:items-baseline">
-                            <span class="text-gray-700 font-semibold w-64 shrink-0">GDP:</span>
+                            <span class="text-gray-700 font-semibold w-64 shrink-0">GDP:
                             <a href="https://www.worldbank.org/ext/en/home" target="_blank" class="text-blue-600 hover:text-blue-800 hover:underline transition ml-0 sm:ml-4 mt-1 sm:mt-0">World Back</a>/span>
                         </li>
                         <li class="flex flex-col sm:flex-row items-start sm:items-baseline">
-                            <span class="text-gray-700 font-semibold w-64 shrink-0">Education level:</span>
+                            <span class="text-gray-700 font-semibold w-64 shrink-0">Education level:
                             <a href="https://www.oecd.org/en/data/indicators.html?orderBy=mostRelevant&page=0" target="_blank" class="text-blue-600 hover:text-blue-800 hover:underline transition ml-0 sm:ml-4 mt-1 sm:mt-0">OECD</a>/span>
                             </li>
                             <li class="flex flex-col sm:flex-row items-start sm:items-baseline">
-                            <span class="text-gray-700 font-semibold w-64 shrink-0">Government Effectiveness:</span>
-                            <a href="https://www.worldbank.org/ext/en/home " target="_blank" class="text-blue-600 hover:text-blue-800 hover:underline transition ml-0 sm:ml-4 mt-1 sm:mt-0">Woeld Back</a>/span>
+                            <span class="text-gray-700 font-semibold w-64 shrink-0">Government Effectiveness:
+                            <a href="https://www.worldbank.org/ext/en/home " target="_blank" class="text-blue-600 hover:text-blue-800 hover:underline transition ml-0 sm:ml-4 mt-1 sm:mt-0">World Back</a>/span>
                              </li>
                     </ul>
                 </div>
@@ -104,8 +104,8 @@
 
         <!-- STEP 2: ANALYSIS RESULTS (UPDATED) -->
         <section id="step-2" class="data-step pt-16 border-l-4 border-indigo-500 pl-6 bg-white p-8 rounded-xl shadow-lg">
-            <p class="text-sm font-semibold text-indigo-500 mb-2">Phase 2: Statistical Analysis (OLS Regression)</p>
-            <h2 class="text-3xl font-bold text-gray-800 mb-6">Model C1: Simple Regression Finding</h2>
+            <p class="text-sm font-semibold text-indigo-500 mb-2">Phase 2: Statistical Analysis</p>
+            <h2 class="text-3xl font-bold text-gray-800 mb-6">Model C1: Simple Regression</h2>
 
             <!-- Model C1 Image and Table (Updated) -->
             <div class="mb-10">
