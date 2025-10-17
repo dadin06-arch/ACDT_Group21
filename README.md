@@ -600,24 +600,44 @@
       calculateBtn.addEventListener('click', calculateAndPlot);
       calculateAndPlot(); // initial plot
 
-    
-      // 3) Downloads
-      const downloadCsvBtn=document.getElementById('downloadCsvBtn');
-      const downloadPdfBtn=document.getElementById('downloadPdfBtn');
+  // 1) 버튼 참조
+  const downloadCsvBtn = document.getElementById('downloadCsvBtn');
+  const downloadPdfBtn = document.getElementById('downloadPdfBtn');
 
-      function downloadFile(filename, content, mime){ const blob=new Blob([content],{type:mime}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download=filename; document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url); }
+  // 2) 공통: 서버의 '기존 파일'을 받아 강제 다운로드
+  async function downloadExisting(path, suggestedName) {
+    const res = await fetch(path);            // 같은 저장소에 있으면 same-origin으로 OK
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const blob = await res.blob();
+    const url = URL.createObjectURL(blob);
 
-      downloadCsvBtn.addEventListener('click', ()=>{
-        const csv="Country,Log_SIGI,Log_Victim_Ratio,Education_Rate,Gov_Effectiveness\nA,2.0,0.8,0.85,1.2\nB,2.5,0.4,0.60,0.5\nC,3.0,0.1,0.45,-0.1\nD,3.5,-0.2,0.30,-0.8\nE,4.0,-0.6,0.15,-1.2";
-        downloadFile("SIGI_Analysis_Data.csv", csv, "text/csv");
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = suggestedName;               // 저장할 파일명(사용자에게 보이는 이름)
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  }
+
+  // 3) CSV 버튼: 실제 Group21.csv 내려받기
+  downloadCsvBtn.addEventListener('click', () => {
+    downloadExisting('Group21.csv', 'Group21_Data.csv')
+      .catch(() => {                          // fetch가 막히면 href로 폴백
+        window.location.href = 'Group21.csv';
       });
+  });
 
-      downloadPdfBtn.addEventListener('click', ()=>{
-        const txt="Analysis Report: SIGI and Female Victimization Rates\n\nConclusion:\nThe analysis showed that a higher SIGI index (greater inequality) correlates with a lower reported female victimization ratio. This counter-intuitive finding is interpreted as evidence of widespread underreporting in highly unequal societies, not lower actual violence.\n\nPolicy Focus: Increase Visibility (Education) and Strengthen Protection (Government Effectiveness).\n\nR-squared (Model C1): 0.257 | F-statistic: 10.40 (p=0.00304)";
-        downloadFile("SIGI_Analysis_Report_Mock.pdf", txt, "text/plain"); // mock text "pdf"
+  // 4) PDF 버튼: 실제 "Groups 21 ACDT summary ..pdf" 내려받기
+  downloadPdfBtn.addEventListener('click', () => {
+    // 공백은 URL 인코딩 필수!
+    const pdfPath = 'Groups%2021%20ACDT%20summary%20..pdf';
+    downloadExisting(pdfPath, 'Group21_ACDT_Summary.pdf')
+      .catch(() => {
+        window.location.href = pdfPath;
       });
-    });
-  </script>
+  });
+</script>
 </body>
 </html>
 
