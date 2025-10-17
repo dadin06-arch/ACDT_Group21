@@ -301,12 +301,190 @@
 </section>
 
 <!-- ===================== -->
+<!-- STEP 5: MODEL Mod1 (GDP AS Moderator) -->
+<!-- ===================== -->
+<section id="step-4" class="data-step pt-16 border-l-4 border-indigo-500 pl-6 bg-white p-8 rounded-xl shadow-lg">
+  <p class="text-sm font-semibold text-indigo-500 mb-2">Phase 2.3: Confounder Analysis</p>
+  <h2 class="text-3xl font-bold text-gray-800 mb-6">Model C3: Confounder — Government Effectiveness</h2>
+
+  <!-- Model C3 Image and Text -->
+  <div class="mb-10">
+    <h3 class="text-2xl font-bold text-gray-800 mb-4">
+      Model C3: $\log(\text{Victim Ratio}) \sim \log(\text{SIGI}) + \text{Government Effectiveness}$
+    </h3>
+
+    <p class="text-lg mb-6 text-gray-700">
+      Model: $\log(\text{Y}) = \beta_0 + \beta_1 \cdot \log(\text{SIGI}) + \beta_2 \cdot \text{Gov. Effectiveness}$
+    </p>
+
+    <!-- Regression Plot Image -->
+    <figure class="mb-8 border border-gray-200 rounded-xl p-4 shadow-inner text-center">
+      <img
+        src="https://github.com/user-attachments/assets/fe84909a-526c-43dd-a988-ac125c217cd0"
+        alt="Regression plot for Model C3 (Government Effectiveness as a confounder)"
+        width="689" height="547" loading="lazy" class="mx-auto rounded-lg"
+      />
+      <figcaption class="mt-3 text-sm text-gray-600">
+        Regression Visualization: Gov. Effectiveness vs. log(Victim Ratio)
+      </figcaption>
+    </figure>
+  </div>
+
+  <!-- OLS Regression Table - Summary Metrics ONLY -->
+  <h4 class="text-xl font-semibold text-gray-800 mb-3 mt-8">OLS Regression Summary Metrics (Model C3)</h4>
+  <div class="overflow-x-auto">
+    <table class="min-w-full bg-white rounded-lg shadow ols-table">
+      <thead>
+        <tr class="bg-indigo-50">
+          <th class="w-1/4">Metric</th>
+          <th class="w-1/4">Value</th>
+          <th class="w-1/2">Interpretation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="font-semibold">R-squared</td>
+          <td class="font-bold text-indigo-600">0.366</td>
+          <td class="text-gray-600">Including Government Effectiveness raises explained variance to 36.6%.</td>
+        </tr>
+        <tr>
+          <td class="font-semibold">Adj. R-squared</td>
+          <td>0.322</td>
+          <td class="text-gray-600">The model maintains a good fit after including two predictors.</td>
+        </tr>
+        <tr>
+          <td class="font-semibold">F-statistic</td>
+          <td>8.378</td>
+          <td class="text-gray-600">The overall model is statistically significant.</td>
+        </tr>
+        <tr>
+          <td class="font-semibold">Prob (F-statistic)</td>
+          <td class="font-bold text-red-600">0.00134</td>
+          <td class="text-red-700 font-medium">The relationship remains statistically significant.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Interpretation -->
+  <div class="mt-6 p-4 border border-yellow-300 rounded-lg bg-yellow-50">
+    <p class="text-lg font-bold text-yellow-700 mb-2">Key Finding (Model C3)</p>
+    <p class="text-base text-gray-800">
+      Higher education levels are associated with higher reported female victim ratios.
+    </p>
+  </div>
+</section>
+
+<!-- ===================== -->
 <!-- MathJax for LaTeX rendering (optional; remove if not needed) -->
 <!-- ===================== -->
 <script>
   window.MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] } };
 </script>
 <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<!-- ===================== -->
+<!-- STEP 5: MODEL Mod1 (GDP AS MODERATOR) -->
+<!-- ===================== -->
+<section id="step-5" class="data-step pt-16 border-l-4 border-indigo-500 pl-6 bg-white p-8 rounded-xl shadow-lg">
+  <p class="text-sm font-semibold text-indigo-500 mb-2">Phase 2.4: Moderator Analysis</p>
+  <h2 class="text-3xl font-bold text-gray-800 mb-6">Model Mod1: Moderator — GDP</h2>
+
+  <!-- Model Mod1 Image and Text -->
+  <div class="mb-10">
+    <h3 class="text-2xl font-bold text-gray-800 mb-4">
+      Model Mod1: $\log(\text{Victim Ratio}) \sim \log(\text{SIGI}) + \text{GDP} + \log(\text{SIGI}) \times \text{GDP}$
+    </h3>
+
+    <p class="text-lg mb-6 text-gray-700">
+      Model: $\log(\text{Y}) = \beta_0 + \beta_1 \cdot \log(\text{SIGI}) + \beta_2 \cdot \text{GDP} + \beta_3 \cdot \big(\log(\text{SIGI}) \times \text{GDP}\big)$
+      <br/>
+      <span class="text-sm text-gray-500">
+        (Tip: Consider mean-centering GDP to reduce multicollinearity before creating the interaction term.)
+      </span>
+    </p>
+
+    <!-- Regression Plot Image -->
+    <figure class="mb-8 border border-gray-200 rounded-xl p-4 shadow-inner text-center">
+      <img
+        src="https://via.placeholder.com/689x547.png?text=Model+Mod1+%28GDP+Moderator%29"
+        alt="Regression plot for Model Mod1 (GDP as moderator with interaction)"
+        width="689" height="547" loading="lazy" class="mx-auto rounded-lg"
+      />
+      <figcaption class="mt-3 text-sm text-gray-600">
+        Regression Visualization: Predicted lines by GDP level (low / medium / high).
+        The graph itself may be on raw axes, but the regression uses log-transformed variables as specified.
+      </figcaption>
+    </figure>
+  </div>
+
+  <!-- OLS Regression Table - Summary Metrics ONLY -->
+  <h4 class="text-xl font-semibold text-gray-800 mb-3 mt-8">OLS Regression Summary Metrics (Model Mod1)</h4>
+  <div class="overflow-x-auto">
+    <table class="min-w-full bg-white rounded-lg shadow ols-table">
+      <thead>
+        <tr class="bg-indigo-50">
+          <th class="w-1/4">Metric</th>
+          <th class="w-1/4">Value</th>
+          <th class="w-1/2">Interpretation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="font-semibold">R-squared</td>
+          <td class="font-bold text-indigo-600">—</td>
+          <td class="text-gray-600">Overall variance explained by the model including the interaction.</td>
+        </tr>
+        <tr>
+          <td class="font-semibold">Adj. R-squared</td>
+          <td>—</td>
+          <td class="text-gray-600">Model fit after adjusting for added predictors.</td>
+        </tr>
+        <tr>
+          <td class="font-semibold">F-statistic</td>
+          <td>—</td>
+          <td class="text-gray-600">Overall model significance.</td>
+        </tr>
+        <tr>
+          <td class="font-semibold">Prob (F-statistic)</td>
+          <td class="font-bold text-red-600">—</td>
+          <td class="text-red-700 font-medium">p-value for overall model significance.</td>
+        </tr>
+        <tr class="bg-gray-50">
+          <td class="font-semibold">Coef: log(SIGI)</td>
+          <td>—</td>
+          <td class="text-gray-600">Main effect of log(SIGI) when GDP is at its reference (e.g., mean-centered 0).</td>
+        </tr>
+        <tr class="bg-gray-50">
+          <td class="font-semibold">Coef: GDP</td>
+          <td>—</td>
+          <td class="text-gray-600">Main effect of GDP when log(SIGI) is at its reference.</td>
+        </tr>
+        <tr class="bg-gray-50">
+          <td class="font-semibold">Coef: log(SIGI) × GDP</td>
+          <td class="font-bold">—</td>
+          <td class="text-gray-600">Interaction term. If non-significant, GDP does not meaningfully moderate the SIGI–victim ratio relationship.</td>
+        </tr>
+        <tr>
+          <td class="font-semibold">p-value (Interaction)</td>
+          <td class="font-bold text-red-600">—</td>
+          <td class="text-gray-600">Significance of the moderation effect (β₃).</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Interpretation -->
+  <div class="mt-6 p-4 border border-blue-300 rounded-lg bg-blue-50">
+    <p class="text-lg font-bold text-blue-700 mb-2">Key Finding (Model Mod1)</p>
+    <p class="text-base text-gray-800">
+      The GDP × log(SIGI) interaction is <em>not statistically significant</em>, indicating that GDP does not meaningfully change the relationship between gender inequality and the reported female/male victim ratio.
+    </p>
+    <p class="text-base text-gray-800 mt-2">
+      <strong>Interpretation:</strong> Economic size alone does not alter the inequality–reporting linkage; visibility of victimization appears to depend more on social and institutional factors (e.g., education, governance) than on GDP level.
+    </p>
+  </div>
+</section>
 
 
     <!-- STEP 3: KEY INSIGHT -->
