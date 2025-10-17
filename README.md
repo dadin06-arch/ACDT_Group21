@@ -599,43 +599,38 @@
 
       calculateBtn.addEventListener('click', calculateAndPlot);
       calculateAndPlot(); // initial plot
-     // 3) Downloads (수정된 부분)
-      const downloadCsvBtn=document.getElementById('downloadCsvBtn');
-      const downloadPdfBtn=document.getElementById('downloadPdfBtn');
-      const downloadStatus=document.getElementById('downloadStatus');
 
-      /**
-       * 사용자가 업로드한 파일을 다운로드하도록 환경에 알리는 함수.
-       * alert() 대신 커스텀 메시지를 사용합니다.
-       */
-      function showDownloadStatus(filename) {
-          downloadStatus.textContent = `"${filename}" 파일 다운로드를 시작합니다. (실제 파일 ID 참조)`;
-          downloadStatus.classList.remove('hidden');
-          setTimeout(() => {
-            downloadStatus.classList.add('hidden');
-          }, 4000);
-      }
+     <!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Group 21 ACDT Downloads</title>
+  <style>
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto;background:#f6f7fb;margin:0;min-height:100vh;display:grid;place-items:center}
+    .card{background:#fff;padding:28px;border-radius:16px;box-shadow:0 8px 30px rgba(0,0,0,.08);width:min(720px,92%)}
+    h1{margin:0 0 10px;font-size:22px}
+    p{margin:0 0 16px;color:#444}
+    .row{display:flex;gap:12px;flex-wrap:wrap}
+    button,a.btn{border:0;padding:12px 16px;border-radius:12px;cursor:pointer;background:#111;color:#fff;font-weight:600;text-decoration:none;display:inline-block}
+    small{display:block;margin-top:14px;color:#666}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Group 21 ACDT Summary and Data Files</h1>
+    <p>아래 버튼을 눌러 실제 보고서와 데이터 파일을 다운로드하세요.</p>
 
-      // Group21.csv 파일 다운로드
-      downloadCsvBtn.addEventListener('click', ()=>{
-        // 업로드된 파일의 contentFetchId와 실제 파일명
-        const contentId = "uploaded:Group21.csv";
-        const filename = "Group21.csv";
-        // 실제 환경에서는 contentId를 사용하여 다운로드를 요청합니다.
-        console.log(`Download request for Content ID: ${contentId}`);
-        showDownloadStatus(filename);
-      });
+    <div class="row">
+      <!-- 실제 파일 링크를 깃허브에 올린 경로로 교체하세요 -->
+      <a class="btn" href="Groups%2021%20ACDT%20summary%20..pdf" download="Group21_ACDT_Summary.pdf">📄 Summary Report (PDF)</a>
+      <a class="btn" href="Group21.csv" download="Group21_Data.csv">📊 Data CSV</a>
+    </div>
 
-      // Groups 21 ACDT summary ..pdf 파일 다운로드
-      downloadPdfBtn.addEventListener('click', ()=>{
-        // 업로드된 파일의 contentFetchId와 실제 파일명
-        const contentId = "uploaded:Groups 21 ACDT summary ..pdf";
-        const filename = "Groups 21 ACDT summary.pdf";
-        // 실제 환경에서는 contentId를 사용하여 다운로드를 요청합니다.
-        console.log(`Download request for Content ID: ${contentId}`);
-        showDownloadStatus(filename);
-      });
-    });
-  </script>
+    <small>
+      ⚙️ 두 파일(<code>Groups 21 ACDT summary ..pdf</code>, <code>Group21.csv</code>)을 같은 폴더(예: 루트 또는 assets 폴더)에 올려두세요.<br>
+      깃허브 Pages URL에서 버튼을 누르면 바로 다운로드됩니다.
+    </small>
+  </div>
 </body>
 </html>
