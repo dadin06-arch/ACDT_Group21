@@ -77,7 +77,7 @@
                 <div class="p-5 bg-gray-50 rounded-xl border border-gray-200 shadow-inner">
                     <ul class="space-y-3 text-base">
                         <li class="flex flex-col sm:flex-row items-start sm:items-baseline">
-                            <span class="text-gray-700 font-semibold w-64 shrink-0">Victims by Gender (Dependent Variable):</span>
+                            <span class="text-gray-700 font-semibold w-64 shrink-0">Victims by Gender:</span>
                             <a href="https://dataunodc.un.org/" target="_blank" class="text-blue-600 hover:text-blue-800 hover:underline transition ml-0 sm:ml-4 mt-1 sm:mt-0">UNODC Data Portal</a>
                         </li>
                         <li class="flex flex-col sm:flex-row items-start sm:items-baseline">
@@ -85,9 +85,17 @@
                             <a href="https://www.oecd.org/en/data/dashboards/social-institutions-gender-index.html" target="_blank" class="text-blue-600 hover:text-blue-800 hover:underline transition ml-0 sm:ml-4 mt-1 sm:mt-0">OECD SIGI Dashboard</a>
                         </li>
                         <li class="flex flex-col sm:flex-row items-start sm:items-baseline">
-                            <span class="text-gray-700 font-semibold w-64 shrink-0">Economic & Governance Factors:</span>
-                            <span class="text-gray-600 ml-0 sm:ml-4 mt-1 sm:mt-0">World Bank Data & OECD Indicators (GDP, Education, Gov. Effectiveness)</span>
+                            <span class="text-gray-700 font-semibold w-64 shrink-0">GDP:</span>
+                            <a href="https://www.worldbank.org/ext/en/home" target="_blank" class="text-blue-600 hover:text-blue-800 hover:underline transition ml-0 sm:ml-4 mt-1 sm:mt-0">OECD SIGI Dashboard</a>/span>
                         </li>
+                        <li class="flex flex-col sm:flex-row items-start sm:items-baseline">
+                            <span class="text-gray-700 font-semibold w-64 shrink-0">Education level:</span>
+                            <a href="https://www.oecd.org/en/data/indicators.html?orderBy=mostRelevant&page=0" target="_blank" class="text-blue-600 hover:text-blue-800 hover:underline transition ml-0 sm:ml-4 mt-1 sm:mt-0">OECD SIGI Dashboard</a>/span>
+                            </li>
+                            <li class="flex flex-col sm:flex-row items-start sm:items-baseline">
+                            <span class="text-gray-700 font-semibold w-64 shrink-0">Government Effectiveness:</span>
+                            <a href="https://www.worldbank.org/ext/en/home " target="_blank" class="text-blue-600 hover:text-blue-800 hover:underline transition ml-0 sm:ml-4 mt-1 sm:mt-0">OECD SIGI Dashboard</a>/span>
+                             </li>
                     </ul>
                 </div>
             </div>
