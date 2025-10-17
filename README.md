@@ -73,7 +73,7 @@
       <span class="text-indigo-600 mr-2" aria-hidden="true">🔗</span> Data Sources
     </h3>
     <p class="text-base text-gray-600 mb-4">
-      Note: Both SIGI and the Victim Ratio were <strong>log-transformed</strong> to normalize distributions and ensure model robustness.
+     
     </p>
     <div class="p-5 bg-gray-50 rounded-xl border border-gray-200 shadow-inner">
       <ul class="space-y-3 text-base">
@@ -104,23 +104,35 @@
 <!-- END DATA SOURCES -->
 
 
-        <!-- STEP 2: ANALYSIS RESULTS (UPDATED) -->
-        <section id="step-2" class="data-step pt-16 border-l-4 border-indigo-500 pl-6 bg-white p-8 rounded-xl shadow-lg">
-            <p class="text-sm font-semibold text-indigo-500 mb-2">Phase 2: Statistical Analysis</p>
-            <h2 class="text-3xl font-bold text-gray-800 mb-6">Model C1: Simple Regression</h2>
+      <!-- STEP 2: ANALYSIS RESULTS (UPDATED) -->
+<section id="step-2" class="data-step pt-16 border-l-4 border-indigo-500 pl-6 bg-white p-8 rounded-xl shadow-lg">
+  <p class="text-sm font-semibold text-indigo-500 mb-2">Phase 2: Statistical Analysis</p>
+  <h2 class="text-3xl font-bold text-gray-800 mb-6">Model C1: Simple Regression</h2>
 
-            <!-- Model C1 Image and Table (Updated) -->
-            <div class="mb-10">
-                <h3 class="text-2xl font-bold text-gray-800 mb-4">Model C1: Simple Regression (X = $\log(\text{SIGI})$)</h3>
-                <p class="text-lg mb-6 text-gray-700">
-                    Model: $\log(\text{Female/Male Victim Ratio}) = \beta_0 + \beta_1 \cdot \log(\text{SIGI})$
-                </p>
+  <!-- Model C1 Image and Table (Updated) -->
+  <div class="mb-10">
+    <h3 class="text-2xl font-bold text-gray-800 mb-4">
+      Model C1: Simple Regression (X = <span class="font-mono">log(SIGI)</span>)
+    </h3>
 
-                <!-- Regression Plot Image -->
-                <div class="mb-8 border border-gray-200 rounded-xl p-4 shadow-inner text-center">
-                    <h4 class="text-xl font-semibold text-gray-800 mb-4">Regression Visualization: <img width="689" height="547" alt="Image" src="https://github.com/user-attachments/assets/1916fb2a-fe63-4a6b-ab5b-18578efea53d" />
-                    
-                </div>
+    <p class="text-lg mb-6 text-gray-700">
+      Model: <span class="font-mono">log(Female/Male Victim Ratio) = β₀ + β₁ · log(SIGI)</span>
+    </p>
+
+    <!-- Regression Plot Image -->
+    <figure class="mb-8 border border-gray-200 rounded-xl p-4 shadow-inner text-center">
+      <img
+        src="https://github.com/user-attachments/assets/1916fb2a-fe63-4a6b-ab5b-18578efea53d"
+        alt="Scatter of log(SIGI) vs. log(Female/Male Victim Ratio) with fitted OLS line (Model C1)"
+        width="689" height="547" loading="lazy" class="mx-auto rounded-lg"
+      />
+      <figcaption class="mt-3 text-sm text-gray-600">
+        Regression Visualization: OLS fit on log–log scale (Model C1)
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
                 
                 <!-- OLS Regression Table - Summary Metrics ONLY -->
                 <h4 class="text-xl font-semibold text-gray-800 mb-3 mt-8">OLS Regression Summary Metrics (Model C1)</h4>
