@@ -69,17 +69,21 @@
             </div>
             <div class="mt-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
                 <h3 class="text-xl font-semibold mb-2 text-gray-700">Data Note</h3>
-                <p class="text-gray-600">-  Victims by gender : https://dataunodc.un.org/
-- Social Institutions and Gender Index : https://www.oecd.org/en/data/dashboards/social-institutions-gender-index.html
-- Gross Domestic Product(GDP) : https://www.worldbank.org/ext/en/home
-- Education level: https://www.oecd.org/en/data/indicators.html?orderBy=mostRelevant&page=0
-- Government Effectiveness: https://www.worldbank.org/ext/en/home </p>
+                <p class="text-gray-600">-  Here are the primary data sources used in this project. Click on each link to navigate to the respective website.
+
+| Data Item | Source Website |
+| :--- | :--- |
+| **Victims by gender** | [UNODC Data](https://dataunodc.un.org/) |
+| **Social Institutions and Gender Index (SIGI)** | [OECD - SIGI](https://www.oecd.org/en/data/dashboards/social-institutions-gender-index.html) |
+| **Gross Domestic Product (GDP)** | [World Bank](https://www.worldbank.org/ext/en/home) |
+| **Education level** | [OECD Data Indicators](https://www.oecd.org/en/data/indicators.html?orderBy=mostRelevant&page=0) |
+| **Government Effectiveness** | [World Bank](https://www.worldbank.org/ext/en/home) |</p>
             </div>
         </section>
 
         <!-- STEP 2: ANALYSIS RESULTS -->
         <section id="step-2" class="data-step pt-16 border-l-4 border-indigo-500 pl-6 bg-white p-8 rounded-xl shadow-lg">
-            <p class="text-sm font-semibold text-indigo-500 mb-2">Phase 2: Statistical Analysis (OLS Regression)</p>
+            <p class="text-sm font-semibold text-indigo-500 mb-2">Phase 2: Statistical Analysis</p>
             <h2 class="text-3xl font-bold text-gray-800 mb-6">Model C1: The Counter-Intuitive Finding</h2>
 
             <!-- Model C1 -->
