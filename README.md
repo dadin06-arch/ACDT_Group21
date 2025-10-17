@@ -178,25 +178,82 @@
   </p>
 </div>
 
-            <!-- Confounder Analysis (Remaining C2, C3) -->
-            <div class="space-y-6">
-                <h3 class="text-2xl font-bold text-gray-800 mb-3 border-t pt-6">Follow-up Analysis (Confounder Effects)</h3>
-                
-                <!-- C2 -->
-                <div class="p-4 border border-gray-200 rounded-lg bg-yellow-50">
-                    <p class="text-xl font-semibold text-gray-800">C2: Education Rate</p>
-                    <p class="text-lg mt-2">**Result:** Education Rate was found to have a significant **Positive Coefficient** (+0.0284) in the multiple regression model.</p>
-                    <p class="text-base text-gray-600">**Implication:** Higher education levels correlate with a **higher reported** ratio, suggesting that education improves public awareness and the likelihood of victims reporting crimes.</p>
-                </div>
-                
-                <!-- C3 -->
-                <div class="p-4 border border-gray-200 rounded-lg bg-green-50">
-                    <p class="text-xl font-semibold text-gray-800">C3: Government Effectiveness</p>
-                    <p class="text-lg mt-2">**Result:** Government Effectiveness showed a significant **Negative Coefficient** (-0.0173).</p>
-                    <p class="text-base text-gray-600">**Implication:** Better governance likely strengthens institutional protection and reduces distrust in the legal system, potentially leading to a reduction in **actual** crime risk (or better mechanisms for prevention).</p>
-                </div>
-            </div>
-        </section>
+           
+          <!-- ===================== -->
+<!-- Model C2: Confounder (Education) -->
+<!-- ===================== -->
+<section id="model-c2" class="data-step pt-16 border-l-4 border-indigo-500 pl-6 bg-white p-8 rounded-xl shadow-lg">
+  <p class="text-sm font-semibold text-indigo-500 mb-2">Phase 2: Statistical Analysis</p>
+  <h2 class="text-3xl font-bold text-gray-800 mb-6">Model C2: Confounder — Education</h2>
+
+  <div class="mb-10">
+    <h3 class="text-2xl font-bold text-gray-800 mb-4">
+      Model C2: log(Female/Male) ~ log(SIGI) + Education_Rate
+    </h3>
+
+    <p class="text-lg mb-6 text-gray-700">
+      <span class="font-mono">log(Y) = β₀ + β₁·log(SIGI) + β₂·Education</span>
+    </p>
+
+    <!-- (Optional) Plot -->
+    <figure class="mb-8 border border-gray-200 rounded-xl p-4 shadow-inner text-center">
+      <img
+        src=""
+        alt="Partial regression view for Education as a confounder (Model C2)"
+        width="689" height="547" loading="lazy" class="mx-auto rounded-lg"
+      />
+      <figcaption class="mt-3 text-sm text-gray-600">
+        Education as a confounder (Model C2)
+      </figcaption>
+    </figure>
+  </div>
+
+  <!-- Summary table -->
+  <h4 class="text-xl font-semibold text-gray-800 mb-3 mt-2">OLS Regression Summary Metrics (Model C2)</h4>
+  <div class="overflow-x-auto">
+    <table class="min-w-full bg-white rounded-lg shadow ols-table">
+      <thead>
+        <tr class="bg-indigo-50">
+          <th class="w-1/4">Metric</th>
+          <th class="w-1/4">Value</th>
+          <th class="w-1/2">Interpretation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="font-semibold">R-squared</td>
+          <td class="font-bold text-indigo-600">0.366</td>
+          <td class="text-gray-600">Adding Education increases explained variance to 36.6%.</td>
+        </tr>
+        <tr>
+          <td class="font-semibold">Adj. R-squared</td>
+          <td>0.326</td>
+          <td class="text-gray-600">Model fit improves after adjusting for two predictors.</td>
+        </tr>
+        <tr>
+          <td class="font-semibold">F-statistic</td>
+          <td>8.976</td>
+          <td class="text-gray-600">The overall model is statistically significant.</td>
+        </tr>
+        <tr>
+          <td class="font-semibold">Prob (F-statistic)</td>
+          <td class="font-bold text-red-600">0.00135</td>
+          <td class="text-red-700 font-medium">Model C2 is significant (p &lt; 0.01).</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Interpretation -->
+  <div class="mt-6 p-4 border border-red-300 rounded-lg bg-red-50">
+    <p class="text-lg font-bold text-red-700 mb-2">Key Finding (Model C2)</p>
+    <p class="text-base text-gray-800">
+      Education rate has a positive, statistically significant association with the victim ratio (p ≈ 0.034),
+      while the log(SIGI) effect weakens and becomes non-significant.
+    </p>
+  </div>
+</section>
+
 
         <!-- STEP 3: KEY INSIGHT -->
         <section id="step-3" class="data-step pt-16 border-l-4 border-indigo-500 pl-6 bg-white p-8 rounded-xl shadow-lg">
