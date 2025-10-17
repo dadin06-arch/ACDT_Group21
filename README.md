@@ -220,7 +220,7 @@
   <div class="mt-6 p-4 border border-green-300 rounded-lg bg-green-50">
     <p class="text-lg font-bold text-green-700 mb-2">Key Finding (Model C2)</p>
     <p class="text-base text-gray-800">
-      Higher education levels are significantly associated with higher reported female victim ratios.
+      Higher education levels are associated with higher reported female victim ratios.
     </p>
   </div>
 </section>
@@ -245,7 +245,7 @@
     <!-- Regression Plot Image -->
     <figure class="mb-8 border border-gray-200 rounded-xl p-4 shadow-inner text-center">
       <img
-        src="https://via.placeholder.com/689x547.png?text=Model+C3+Plot"
+        src="https://github.com/user-attachments/assets/fe84909a-526c-43dd-a988-ac125c217cd0"
         alt="Regression plot for Model C3 (Government Effectiveness as a confounder)"
         width="689" height="547" loading="lazy" class="mx-auto rounded-lg"
       />
@@ -269,23 +269,23 @@
       <tbody>
         <tr>
           <td class="font-semibold">R-squared</td>
-          <td class="font-bold text-indigo-600">0.301</td>
-          <td class="text-gray-600">Including Government Effectiveness raises explained variance to 30.1%.</td>
+          <td class="font-bold text-indigo-600">0.366</td>
+          <td class="text-gray-600">Including Government Effectiveness raises explained variance to 36.6%.</td>
         </tr>
         <tr>
           <td class="font-semibold">Adj. R-squared</td>
-          <td>0.274</td>
+          <td>0.322</td>
           <td class="text-gray-600">The model maintains a good fit after including two predictors.</td>
         </tr>
         <tr>
           <td class="font-semibold">F-statistic</td>
-          <td>6.467</td>
+          <td>8.378</td>
           <td class="text-gray-600">The overall model is statistically significant.</td>
         </tr>
         <tr>
           <td class="font-semibold">Prob (F-statistic)</td>
-          <td class="font-bold text-red-600">0.00521</td>
-          <td class="text-red-700 font-medium">The relationship remains statistically significant ($p < 0.01$).</td>
+          <td class="font-bold text-red-600">0.00134</td>
+          <td class="text-red-700 font-medium">The relationship remains statistically significant.</td>
         </tr>
       </tbody>
     </table>
@@ -295,10 +295,7 @@
   <div class="mt-6 p-4 border border-yellow-300 rounded-lg bg-yellow-50">
     <p class="text-lg font-bold text-yellow-700 mb-2">Key Finding (Model C3)</p>
     <p class="text-base text-gray-800">
-      The coefficient for <strong>Government Effectiveness</strong> is reported as significantly negative (approx. −0.0173).
-    </p>
-    <p class="text-base text-gray-800 mt-2">
-      <strong>Interpretation:</strong> Better governance likely strengthens institutional protection and reduces distrust in the legal system, potentially reducing actual crime risk or improving prevention mechanisms.
+      Higher education levels are associated with higher reported female victim ratios.
     </p>
   </div>
 </section>
