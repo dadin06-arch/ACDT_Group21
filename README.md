@@ -112,8 +112,7 @@
   <!-- Model C1 Image and Table (Updated) -->
   <div class="mb-10">
     <h3 class="text-2xl font-bold text-gray-800 mb-4">
-      Model C1: Simple Regression (X = <span class="font-mono">log(SIGI)</span>)
-    </h3>
+      Model C1: Simple Regression</h3>
 
     <p class="text-lg mb-6 text-gray-700">
       Model: <span class="font-mono">log(Female/Male Victim Ratio) = β₀ + β₁ · log(SIGI)</span>
@@ -179,35 +178,33 @@
 </div>
 
            
- <h2 class="text-3xl font-bold text-gray-800 mb-6">Model C2: Simple Regression</h2>
+ <h2 class="text-3xl font-bold text-gray-800 mb-6">Model C2: Confounder — Education</h2>
 
   <!-- Model C1 Image and Table (Updated) -->
   <div class="mb-10">
     <h3 class="text-2xl font-bold text-gray-800 mb-4">
-      Model C1: Simple Regression (X = <span class="font-mono">log(SIGI)</span>)
-    </h3>
+      Model C2: Confounder — Education</h3>
 
     <p class="text-lg mb-6 text-gray-700">
-      Model: <span class="font-mono">log(Female/Male Victim Ratio) = β₀ + β₁ · log(SIGI)</span>
+      Model: <span class="font-mono">log(Y) = β₀ + β₁·log(SIGI) + β₂·Education</span>
     </p>
 
     <!-- Regression Plot Image -->
     <figure class="mb-8 border border-gray-200 rounded-xl p-4 shadow-inner text-center">
       <img
-        src="https://github.com/user-attachments/assets/1916fb2a-fe63-4a6b-ab5b-18578efea53d"
-        alt="Scatter of log(SIGI) vs. log(Female/Male Victim Ratio) with fitted OLS line (Model C1)"
+        src="https://github.com/user-attachments/assets/1916fb2a-fe63-4a6b-ab5b-18578efea53d](https://github.com/user-attachments/assets/168429df-5dbb-4c74-a074-ed2241527f7a)"
+        alt="Partial regression view for Education as a confounder (Model C2)"
         width="689" height="547" loading="lazy" class="mx-auto rounded-lg"
       />
       <figcaption class="mt-3 text-sm text-gray-600">
-        Regression Visualization: OLS fit on log–log scale (Model C1)
+        Regression Visualization: The graph itself is not log-transformed, but the values used are log-transformed.
       </figcaption>
     </figure>
   </div>
 </section>
-
                 
                 <!-- OLS Regression Table - Summary Metrics ONLY -->
-                <h4 class="text-xl font-semibold text-gray-800 mb-3 mt-8">OLS Regression Summary Metrics (Model C1)</h4>
+                <h4 class="text-xl font-semibold text-gray-800 mb-3 mt-8">OLS Regression Summary Metrics (Model C2)</h4>
                 <div class="overflow-x-auto">
                     <table class="min-w-full bg-white rounded-lg shadow ols-table">
                         <thead>
@@ -220,22 +217,22 @@
                         <tbody>
                             <tr>
                                 <td class="font-semibold">R-squared</td>
-                                <td class="font-bold text-indigo-600">0.257</td>
+                                <td class="font-bold text-indigo-600">0.366</td>
                                 <td class="text-gray-600">SIGI explains about 25.7% of the variance in the victim ratio.</td>
                             </tr>
                             <tr>
                                 <td class="font-semibold">Adj. R-squared</td>
-                                <td>0.233</td>
+                                <td>0.322</td>
                                 <td class="text-gray-600">The model maintains a reasonable fit even with one predictor.</td>
                             </tr>
                             <tr>
                                 <td class="font-semibold">F-statistic</td>
-                                <td>10.40</td>
+                                <td>8.376</td>
                                 <td class="text-gray-600">The overall model is statistically significant.</td>
                             </tr>
                             <tr>
                                 <td class="font-semibold">Prob (F-statistic)</td>
-                                <td class="font-bold text-red-600">0.00304</td>
+                                <td class="font-bold text-red-600">0.00135</td>
                                 <td class="text-red-700 font-medium">The relationship between SIGI and the victim ratio is statistically significantt.</td>
                             </tr>
                         </tbody>
