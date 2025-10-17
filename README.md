@@ -60,9 +60,9 @@
                    Our analysis investigates the hypothesis that Countries with higher Social Institutions and Gender Index(SIGI) tend to have higher female victimization rates.
                 </p>
                 <ul class="list-disc list-inside space-y-2 ml-4">
-                    <li>**Independent Variable (X): Social Institutions and Gender Index(SIGI)</li>
-                    <li>**Dependent Variable (Y): Female victimization rate.</li>
-                    <li>**Variables: Education Rate, Government Effectiveness, and GDP.</li>
+                    <li>Independent Variable (X): Social Institutions and Gender Index(SIGI)</li>
+                    <li>Dependent Variable (Y): Female victimization rate.</li>
+                    <li>Variables: Education Rate, Government Effectiveness, and GDP.</li>
                 </ul>
             </div>
             
@@ -82,19 +82,19 @@
                         </li>
                         <li class="flex flex-col sm:flex-row items-start sm:items-baseline">
                             <span class="text-gray-700 font-semibold w-64 shrink-0">Social Institutions and Gender Index (SIGI):</span>
-                            <a href="https://www.oecd.org/en/data/dashboards/social-institutions-gender-index.html" target="_blank" class="text-blue-600 hover:text-blue-800 hover:underline transition ml-0 sm:ml-4 mt-1 sm:mt-0">OECD SIGI Dashboard</a>
+                            <a href="https://www.oecd.org/en/data/dashboards/social-institutions-gender-index.html" target="_blank" class="text-blue-600 hover:text-blue-800 hover:underline transition ml-0 sm:ml-4 mt-1 sm:mt-0">OECD</a>
                         </li>
                         <li class="flex flex-col sm:flex-row items-start sm:items-baseline">
                             <span class="text-gray-700 font-semibold w-64 shrink-0">GDP:</span>
-                            <a href="https://www.worldbank.org/ext/en/home" target="_blank" class="text-blue-600 hover:text-blue-800 hover:underline transition ml-0 sm:ml-4 mt-1 sm:mt-0">OECD SIGI Dashboard</a>/span>
+                            <a href="https://www.worldbank.org/ext/en/home" target="_blank" class="text-blue-600 hover:text-blue-800 hover:underline transition ml-0 sm:ml-4 mt-1 sm:mt-0">World Back</a>/span>
                         </li>
                         <li class="flex flex-col sm:flex-row items-start sm:items-baseline">
                             <span class="text-gray-700 font-semibold w-64 shrink-0">Education level:</span>
-                            <a href="https://www.oecd.org/en/data/indicators.html?orderBy=mostRelevant&page=0" target="_blank" class="text-blue-600 hover:text-blue-800 hover:underline transition ml-0 sm:ml-4 mt-1 sm:mt-0">OECD SIGI Dashboard</a>/span>
+                            <a href="https://www.oecd.org/en/data/indicators.html?orderBy=mostRelevant&page=0" target="_blank" class="text-blue-600 hover:text-blue-800 hover:underline transition ml-0 sm:ml-4 mt-1 sm:mt-0">OECD</a>/span>
                             </li>
                             <li class="flex flex-col sm:flex-row items-start sm:items-baseline">
                             <span class="text-gray-700 font-semibold w-64 shrink-0">Government Effectiveness:</span>
-                            <a href="https://www.worldbank.org/ext/en/home " target="_blank" class="text-blue-600 hover:text-blue-800 hover:underline transition ml-0 sm:ml-4 mt-1 sm:mt-0">OECD SIGI Dashboard</a>/span>
+                            <a href="https://www.worldbank.org/ext/en/home " target="_blank" class="text-blue-600 hover:text-blue-800 hover:underline transition ml-0 sm:ml-4 mt-1 sm:mt-0">Woeld Back</a>/span>
                              </li>
                     </ul>
                 </div>
