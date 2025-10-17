@@ -142,19 +142,19 @@
                             <tr class="bg-indigo-50">
                                 <th class="w-1/4">Metric</th>
                                 <th class="w-1/4">Value</th>
-                                <th class="w-1/2">Interpretation of Fit</th>
+                                <th class="w-1/2">Interpretation</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td class="font-semibold">R-squared ($R^2$)</td>
+                                <td class="font-semibold">R-squared</td>
                                 <td class="font-bold text-indigo-600">0.257</td>
-                                <td class="text-gray-600">$R^2$ indicates that $\log(\text{SIGI})$ explains 25.7% of the variance in the Victim Ratio.</td>
+                                <td class="text-gray-600">SIGI explains about 25.7% of the variance in the victim ratio.</td>
                             </tr>
                             <tr>
-                                <td class="font-semibold">Adj. R-squared (Adjusted $R^2$)</td>
+                                <td class="font-semibold">Adj. R-squared</td>
                                 <td>0.233</td>
-                                <td class="text-gray-600">The model remains reasonably fit after adjusting for the number of variables (which is only one in this simple model).</td>
+                                <td class="text-gray-600">The model maintains a reasonable fit even with one predictor.</td>
                             </tr>
                             <tr>
                                 <td class="font-semibold">F-statistic</td>
@@ -162,25 +162,21 @@
                                 <td class="text-gray-600">The overall model is statistically significant.</td>
                             </tr>
                             <tr>
-                                <td class="font-semibold">Prob (F-statistic) ($p$-value)</td>
+                                <td class="font-semibold">Prob (F-statistic)</td>
                                 <td class="font-bold text-red-600">0.00304</td>
-                                <td class="text-red-700 font-medium">This low $p$-value confirms that the relationship between SIGI and the Victim Ratio is statistically significant.</td>
+                                <td class="text-red-700 font-medium">The relationship between SIGI and the victim ratio is statistically significantt.</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
 
                 <!-- Interpretation -->
-                <div class="mt-6 p-4 border border-red-300 rounded-lg bg-red-50">
-                    <p class="text-lg font-bold text-red-700 mb-2">Key Finding (Model C1)</p>
-                    <p class="text-base text-gray-800">
-                        The coefficient for $\log(\text{SIGI})$ was found to be **significantly negative** (approx. -0.9805).
-                    </p>
-                    <p class="text-base text-gray-800 mt-2">
-                        **Interpretation:** Contrary to the initial hypothesis, the simple regression suggests that countries with higher gender inequality (higher $\log(\text{SIGI})$) tend to have a **lower reported** Female/Male Victim Ratio. This counter-intuitive result points toward a major confounding factor, likely **underreporting**.
-                    </p>
-                </div>
-            </div>
+<div class="mt-6 p-4 border border-red-300 rounded-lg bg-red-50">
+  <p class="text-lg font-bold text-red-700 mb-2">Key Finding (Model C1)</p>
+  <p class="text-base text-gray-800">
+    Higher SIGI is significantly associated with a lower female victim ratio.
+  </p>
+</div>
 
             <!-- Confounder Analysis (Remaining C2, C3) -->
             <div class="space-y-6">
