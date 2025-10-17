@@ -67,17 +67,32 @@
                     <li>**Variables: Education Rate, Government Effectiveness, and GDP.</li>
                 </ul>
             </div>
-            <div class="mt-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
-                <h3 class="text-xl font-semibold mb-2 text-gray-700">Data Note</h3>
-                <p class="text-gray-600">-  Here are the primary data sources used in this project. Click on each link to navigate to the respective website.
-
-| Data Item | Source Website |
-| :--- | :--- |
-| **Victims by gender** | [UNODC Data](https://dataunodc.un.org/) |
-| **Social Institutions and Gender Index (SIGI)** | [OECD - SIGI](https://www.oecd.org/en/data/dashboards/social-institutions-gender-index.html) |
-| **Gross Domestic Product (GDP)** | [World Bank](https://www.worldbank.org/ext/en/home) |
-| **Education level** | [OECD Data Indicators](https://www.oecd.org/en/data/indicators.html?orderBy=mostRelevant&page=0) |
-| **Government Effectiveness** | [World Bank](https://www.worldbank.org/ext/en/home) |</p>
+                   <!-- 4.5. DATA SOURCES (New Section) -->
+        <section class="mt-24 pt-16">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6">🔗 Data Sources
+            <div class="p-5 bg-gray-50 rounded-xl border border-gray-200 shadow-inner">
+                <ul class="space-y-3 text-lg">
+                    <li class="flex flex-col sm:flex-row items-start sm:items-baseline">
+                        <span class="text-gray-700 font-semibold w-64 shrink-0">Victims by Gender (Dependent Variable):</span>
+                        <a href="https://dataunodc.un.org/" target="_blank" class="text-blue-600 hover:text-blue-800 hover:underline transition ml-0 sm:ml-4 mt-1 sm:mt-0">UNODC Data Portal</a>
+                    </li>
+                    <li class="flex flex-col sm:flex-row items-start sm:items-baseline">
+                        <span class="text-gray-700 font-semibold w-64 shrink-0">Social Institutions and Gender Index (SIGI):</span>
+                        <a href="https://www.oecd.org/en/data/dashboards/social-institutions-gender-index.html" target="_blank" class="text-blue-600 hover:text-blue-800 hover:underline transition ml-0 sm:ml-4 mt-1 sm:mt-0">OECD SIGI Dashboard</a>
+                    </li>
+                    <li class="flex flex-col sm:flex-row items-start sm:items-baseline">
+                        <span class="text-gray-700 font-semibold w-64 shrink-0">Gross Domestic Product (GDP):</span>
+                        <a href="https://www.worldbank.org/ext/en/home" target="_blank" class="text-blue-600 hover:text-blue-800 hover:underline transition ml-0 sm:ml-4 mt-1 sm:mt-0">World Bank Data</a>
+                    </li>
+                    <li class="flex flex-col sm:flex-row items-start sm:items-baseline">
+                        <span class="text-gray-700 font-semibold w-64 shrink-0">Education Level:</span>
+                        <a href="https://www.oecd.org/en/data/indicators.html?orderBy=mostRelevant&page=0" target="_blank" class="text-blue-600 hover:text-blue-800 hover:underline transition ml-0 sm:ml-4 mt-1 sm:mt-0">OECD Indicators</a>
+                    </li>
+                    <li class="flex flex-col sm:flex-row items-start sm:items-baseline">
+                        <span class="text-gray-700 font-semibold w-64 shrink-0">Government Effectiveness:</span>
+                        <a href="https://www.worldbank.org/ext/en/home" target="_blank" class="text-blue-600 hover:text-blue-800 hover:underline transition ml-0 sm:ml-4 mt-1 sm:mt-0">World Bank Governance Indicators</a>
+                    </li>
+                </ul>
             </div>
         </section>
 
