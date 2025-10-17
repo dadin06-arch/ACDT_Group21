@@ -118,7 +118,7 @@
 
                 <!-- Regression Plot Image -->
                 <div class="mb-8 border border-gray-200 rounded-xl p-4 shadow-inner text-center">
-                    <h4 class="text-xl font-semibold text-gray-800 mb-4">Regression Visualization: $\log(\text{SIGI})$ vs $\log(\text{Victim Ratio})$</h4>
+                    <h4 class="text-xl font-semibold text-gray-800 mb-4">Regression Visualization: <img width="689" height="547" alt="Image" src="https://github.com/user-attachments/assets/1916fb2a-fe63-4a6b-ab5b-18578efea53d" />
                     
                 </div>
                 
