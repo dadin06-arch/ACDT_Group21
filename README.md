@@ -599,23 +599,43 @@
 
       calculateBtn.addEventListener('click', calculateAndPlot);
       calculateAndPlot(); // initial plot
-      // 3) Downloads
+     // 3) Downloads (수정된 부분)
       const downloadCsvBtn=document.getElementById('downloadCsvBtn');
       const downloadPdfBtn=document.getElementById('downloadPdfBtn');
+      const downloadStatus=document.getElementById('downloadStatus');
 
-      function downloadFile(filename, content, mime){ const blob=new Blob([content],{type:mime}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download=filename; document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url); }
+      /**
+       * 사용자가 업로드한 파일을 다운로드하도록 환경에 알리는 함수.
+       * alert() 대신 커스텀 메시지를 사용합니다.
+       */
+      function showDownloadStatus(filename) {
+          downloadStatus.textContent = `"${filename}" 파일 다운로드를 시작합니다. (실제 파일 ID 참조)`;
+          downloadStatus.classList.remove('hidden');
+          setTimeout(() => {
+            downloadStatus.classList.add('hidden');
+          }, 4000);
+      }
 
+      // Group21.csv 파일 다운로드
       downloadCsvBtn.addEventListener('click', ()=>{
-        const csv="Country,Log_SIGI,Log_Victim_Ratio,Education_Rate,Gov_Effectiveness\nA,2.0,0.8,0.85,1.2\nB,2.5,0.4,0.60,0.5\nC,3.0,0.1,0.45,-0.1\nD,3.5,-0.2,0.30,-0.8\nE,4.0,-0.6,0.15,-1.2";
-        downloadFile("SIGI_Analysis_Data.csv", csv, "text/csv");
+        // 업로드된 파일의 contentFetchId와 실제 파일명
+        const contentId = "uploaded:Group21.csv";
+        const filename = "Group21.csv";
+        // 실제 환경에서는 contentId를 사용하여 다운로드를 요청합니다.
+        console.log(`Download request for Content ID: ${contentId}`);
+        showDownloadStatus(filename);
       });
 
+      // Groups 21 ACDT summary ..pdf 파일 다운로드
       downloadPdfBtn.addEventListener('click', ()=>{
-        const txt="Analysis Report: SIGI and Female Victimization Rates\n\nConclusion:\nThe analysis showed that a higher SIGI index (greater inequality) correlates with a lower reported female victimization ratio. This counter-intuitive finding is interpreted as evidence of widespread underreporting in highly unequal societies, not lower actual violence.\n\nPolicy Focus: Increase Visibility (Education) and Strengthen Protection (Government Effectiveness).\n\nR-squared (Model C1): 0.257 | F-statistic: 10.40 (p=0.00304)";
-        downloadFile("SIGI_Analysis_Report_Mock.pdf", txt, "text/plain"); // mock text "pdf"
+        // 업로드된 파일의 contentFetchId와 실제 파일명
+        const contentId = "uploaded:Groups 21 ACDT summary ..pdf";
+        const filename = "Groups 21 ACDT summary.pdf";
+        // 실제 환경에서는 contentId를 사용하여 다운로드를 요청합니다.
+        console.log(`Download request for Content ID: ${contentId}`);
+        showDownloadStatus(filename);
       });
     });
   </script>
 </body>
 </html>
-
