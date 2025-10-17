@@ -226,81 +226,6 @@
 </section>
 
 <!-- ===================== -->
-<!-- STEP 4: MODEL C3 (GOVERNMENT EFFECTIVENESS AS CONFOUNDER) -->
-<!-- ===================== -->
-<section id="step-4" class="data-step pt-16 border-l-4 border-indigo-500 pl-6 bg-white p-8 rounded-xl shadow-lg">
-  <p class="text-sm font-semibold text-indigo-500 mb-2">Phase 2.3: Confounder Analysis</p>
-  <h2 class="text-3xl font-bold text-gray-800 mb-6">Model C3: Confounder — Government Effectiveness</h2>
-
-  <!-- Model C3 Image and Text -->
-  <div class="mb-10">
-    <h3 class="text-2xl font-bold text-gray-800 mb-4">
-      Model C3: $\log(\text{Victim Ratio}) \sim \log(\text{SIGI}) + \text{Government Effectiveness}$
-    </h3>
-
-    <p class="text-lg mb-6 text-gray-700">
-      Model: $\log(\text{Y}) = \beta_0 + \beta_1 \cdot \log(\text{SIGI}) + \beta_2 \cdot \text{Gov. Effectiveness}$
-    </p>
-
-    <!-- Regression Plot Image -->
-    <figure class="mb-8 border border-gray-200 rounded-xl p-4 shadow-inner text-center">
-      <img
-        src="https://github.com/user-attachments/assets/fe84909a-526c-43dd-a988-ac125c217cd0"
-        alt="Regression plot for Model C3 (Government Effectiveness as a confounder)"
-        width="689" height="547" loading="lazy" class="mx-auto rounded-lg"
-      />
-      <figcaption class="mt-3 text-sm text-gray-600">
-        Regression Visualization: The graph itself is not log-transformed, but the values used are log-transformed.
-      </figcaption>
-    </figure>
-  </div>
-
-  <!-- OLS Regression Table - Summary Metrics ONLY -->
-  <h4 class="text-xl font-semibold text-gray-800 mb-3 mt-8">OLS Regression Summary Metrics (Model C3)</h4>
-  <div class="overflow-x-auto">
-    <table class="min-w-full bg-white rounded-lg shadow ols-table">
-      <thead>
-        <tr class="bg-indigo-50">
-          <th class="w-1/4">Metric</th>
-          <th class="w-1/4">Value</th>
-          <th class="w-1/2">Interpretation</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="font-semibold">R-squared</td>
-          <td class="font-bold text-indigo-600">0.366</td>
-          <td class="text-gray-600">Including Government Effectiveness raises explained variance to 36.6%.</td>
-        </tr>
-        <tr>
-          <td class="font-semibold">Adj. R-squared</td>
-          <td>0.322</td>
-          <td class="text-gray-600">The model maintains a good fit after including two predictors.</td>
-        </tr>
-        <tr>
-          <td class="font-semibold">F-statistic</td>
-          <td>8.378</td>
-          <td class="text-gray-600">The overall model is statistically significant.</td>
-        </tr>
-        <tr>
-          <td class="font-semibold">Prob (F-statistic)</td>
-          <td class="font-bold text-red-600">0.00134</td>
-          <td class="text-red-700 font-medium">The relationship remains statistically significant.</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <!-- Interpretation -->
-  <div class="mt-6 p-4 border border-yellow-300 rounded-lg bg-yellow-50">
-    <p class="text-lg font-bold text-yellow-700 mb-2">Key Finding (Model C3)</p>
-    <p class="text-base text-gray-800">
-      Higher education levels are associated with higher reported female victim ratios.
-    </p>
-  </div>
-</section>
-
-<!-- ===================== -->
 <!-- STEP 5: MODEL Mod1 (GDP AS Moderator) -->
 <!-- ===================== -->
 <section id="step-4" class="data-step pt-16 border-l-4 border-indigo-500 pl-6 bg-white p-8 rounded-xl shadow-lg">
@@ -432,12 +357,12 @@
         <tr>
           <td class="font-semibold">R-squared</td>
           <td class="font-bold text-indigo-600">0.299</td>
-          <td class="text-gray-600">Overall variance explained by the model including the interaction.</td>
+          <td class="text-gray-600">The model explains about 29.9% of the variance in the victim ratio when including GDP and its interaction with SIGI.</td>
         </tr>
         <tr>
           <td class="font-semibold">Adj. R-squared</td>
           <td>0.224</td>
-          <td class="text-gray-600">Model fit after adjusting for added predictors.</td>
+          <td class="text-gray-600">After adjusting for predictors, the model maintains moderate explanatory power.</td>
         </tr>
         <tr>
           <td class="font-semibold">F-statistic</td>
@@ -447,7 +372,7 @@
         <tr>
           <td class="font-semibold">Prob (F-statistic)</td>
           <td class="font-bold text-red-600">0.0177</td>
-          <td class="text-red-700 font-medium">p-value for overall model significance.</td>
+          <td class="text-red-700 font-medium">The overall model is significant at the 5% level (p < 0.05).</td>
         </tr>
       </tbody>
     </table>
@@ -457,60 +382,43 @@
   <div class="mt-6 p-4 border border-blue-300 rounded-lg bg-blue-50">
     <p class="text-lg font-bold text-blue-700 mb-2">Key Finding (Model Mod1)</p>
     <p class="text-base text-gray-800">
-      The GDP × log(SIGI) interaction is <em>not statistically significant</em>, indicating that GDP does not meaningfully change the relationship between gender inequality and the reported female/male victim ratio.
-    </p>
-    <p class="text-base text-gray-800 mt-2">
-      <strong>Interpretation:</strong> Economic size alone does not alter the inequality–reporting linkage; visibility of victimization appears to depend more on social and institutional factors (e.g., education, governance) than on GDP level.
+      The GDP × log(SIGI) interaction is not statistically significant, meaning GDP does not change the relationship between gender inequality and female victimization.
     </p>
   </div>
 </section>
 
 
-    <!-- STEP 3: KEY INSIGHT -->
-    <section id="step-3" class="data-step pt-16 border-l-4 border-indigo-500 pl-6 bg-white p-8 rounded-xl shadow-lg">
-      <p class="text-sm font-semibold text-indigo-500 mb-2">Phase 3: Key Insight</p>
-      <h2 class="text-3xl font-bold text-gray-800 mb-6">The Paradox of Hidden Violence</h2>
-
-      <p class="text-xl font-bold text-red-700 mb-6">
-        "Gender inequality does not lower violence itself; it lowers the <strong>visibility</strong> of violence."
-      </p>
-
-      <h3 class="text-2xl font-semibold text-gray-800 mb-3 border-b pb-2">The Underreporting Hypothesis</h3>
-      <p class="text-lg mb-4 text-gray-700">
-        The unexpectedly low reported victimization rates in high-SIGI countries are attributed to widespread <strong>underreporting</strong> stemming from systemic barriers and cultural norms in unequal societies.
-      </p>
-
-      <ul class="list-disc list-outside space-y-3 ml-6 text-lg text-gray-700">
-        <li><strong>Fear and Stigma:</strong> Victims fear social backlash and societal stigma associated with reporting, especially in patriarchal societies.</li>
-        <li><strong>Distrust of the System:</strong> Lack of confidence in law enforcement and the justice system, which may be rooted in gender-biased institutions.</li>
-      </ul>
-    </section>
-
     <!-- STEP 4: CONCLUSION -->
     <section id="step-4" class="data-step pt-16 border-l-4 border-indigo-500 pl-6 bg-white p-8 rounded-xl shadow-lg">
-      <p class="text-sm font-semibold text-indigo-500 mb-2">Phase 4: Conclusion</p>
-      <h2 class="text-3xl font-bold text-gray-800 mb-6">Summary and Policy Implications</h2>
+      <p class="text-sm font-semibold text-indigo-500 mb-2">Phase 3: Conclusion</p>
+      <h2 class="text-3xl font-bold text-gray-800 mb-6">Conclusion and Implications</h2>
 
       <div class="bg-indigo-100 p-6 rounded-lg mb-6">
         <p class="text-xl font-bold text-indigo-800">
-          <strong>Conclusion:</strong> The reported female victimization rate serves as a proxy for a society’s <strong>“willingness and ability to report and track”</strong> crime, rather than the actual prevalence of violence.
+          <strong>Conclusion:</strong> Across all models (C1–C3 and Mod1), gender inequality (SIGI) exhibits a statistically significant relationship with the female/male victim ratio, yet in the opposite direction of the conventional belief: nations with higher gender inequality tend to report lower female victimization ratios.
         </p>
       </div>
 
-      <h3 class="text-2xl font-semibold text-gray-800 mb-3 border-b pb-2">Policy Recommendations</h3>
+      <h3 class="text-2xl font-semibold text-gray-800 mb-3 border-b pb-2">Implications</h3>
       <div class="space-y-4 text-lg text-gray-700">
         <div class="flex items-start space-x-3">
           <span class="text-2xl text-green-600 font-bold">1.</span>
           <p>
-            <strong>Increase Visibility:</strong> Leverage the positive effect of education to promote public awareness and encourage reporting, breaking down social and cultural barriers that fuel stigma.
+            <strong>The Paradox of Gender Inequality:</strong> SIGI is associated with lower reported female victimization, suggesting underreporting rather than lower crime rates.
           </p>
         </div>
         <div class="flex items-start space-x-3">
           <span class="text-2xl text-green-600 font-bold">2.</span>
           <p>
-            <strong>Strengthen Protection:</strong> Improve government effectiveness and the legal system to reinforce institutional safeguards, thereby reducing actual crime risk and building public trust.
+            <strong>Institutional and Social Effects:</strong> Higher education improves reporting visibility, while stronger government effectiveness reduces actual risks by ensuring better protection systems.
           </p>
         </div>
+        <div class="flex items-start space-x-3">
+          <span class="text-2xl text-green-600 font-bold">2.</span>
+          <p>
+            <strong>Weak Economic Influence:</strong> GDP shows no significant moderation effect, implying that economic development alone does not guarantee gender safety.
+          </p>
+         </div>  
       </div>
     </section>
 
