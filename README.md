@@ -82,7 +82,7 @@
 <!-- STEP 2: MODEL C1 (SIMPLE REGRESSION) -->
 <!-- ===================== -->
 <section id="step-2" class="data-step pt-16 border-l-4 border-indigo-500 pl-6 bg-white p-8 rounded-xl shadow-lg">
-  <p class="text-sm font-semibold text-indigo-500 mb-2">Phase 2: Statistical Analysis</p>
+  <p class="text-sm font-semibold text-indigo-500 mb-2">Phase 2.1: Statistical Analysis</p>
   <h2 class="text-3xl font-bold text-gray-800 mb-6">Model C1: Simple Regression</h2>
 
   <!-- Model C1 Image and Text -->
@@ -250,7 +250,7 @@
         width="689" height="547" loading="lazy" class="mx-auto rounded-lg"
       />
       <figcaption class="mt-3 text-sm text-gray-600">
-        Regression Visualization: Gov. Effectiveness vs. log(Victim Ratio)
+        Regression Visualization: The graph itself is not log-transformed, but the values used are log-transformed.
       </figcaption>
     </figure>
   </div>
@@ -325,7 +325,7 @@
         width="689" height="547" loading="lazy" class="mx-auto rounded-lg"
       />
       <figcaption class="mt-3 text-sm text-gray-600">
-        Regression Visualization: Gov. Effectiveness vs. log(Victim Ratio)
+        Regression Visualization: The graph itself is not log-transformed, but the values used are log-transformed.
       </figcaption>
     </figure>
   </div>
@@ -407,13 +407,12 @@
     <!-- Regression Plot Image -->
     <figure class="mb-8 border border-gray-200 rounded-xl p-4 shadow-inner text-center">
       <img
-        src="https://via.placeholder.com/689x547.png?text=Model+Mod1+%28GDP+Moderator%29"
+        src="https://github.com/user-attachments/assets/48ca929a-688f-4289-905c-510db88ba11b"
         alt="Regression plot for Model Mod1 (GDP as moderator with interaction)"
         width="689" height="547" loading="lazy" class="mx-auto rounded-lg"
       />
       <figcaption class="mt-3 text-sm text-gray-600">
-        Regression Visualization: Predicted lines by GDP level (low / medium / high).
-        The graph itself may be on raw axes, but the regression uses log-transformed variables as specified.
+        Regression Visualization: The graph itself is not log-transformed, but the values used are log-transformed.
       </figcaption>
     </figure>
   </div>
@@ -432,43 +431,23 @@
       <tbody>
         <tr>
           <td class="font-semibold">R-squared</td>
-          <td class="font-bold text-indigo-600">—</td>
+          <td class="font-bold text-indigo-600">0.299</td>
           <td class="text-gray-600">Overall variance explained by the model including the interaction.</td>
         </tr>
         <tr>
           <td class="font-semibold">Adj. R-squared</td>
-          <td>—</td>
+          <td>0.224</td>
           <td class="text-gray-600">Model fit after adjusting for added predictors.</td>
         </tr>
         <tr>
           <td class="font-semibold">F-statistic</td>
-          <td>—</td>
+          <td>3.975</td>
           <td class="text-gray-600">Overall model significance.</td>
         </tr>
         <tr>
           <td class="font-semibold">Prob (F-statistic)</td>
-          <td class="font-bold text-red-600">—</td>
+          <td class="font-bold text-red-600">0.0177</td>
           <td class="text-red-700 font-medium">p-value for overall model significance.</td>
-        </tr>
-        <tr class="bg-gray-50">
-          <td class="font-semibold">Coef: log(SIGI)</td>
-          <td>—</td>
-          <td class="text-gray-600">Main effect of log(SIGI) when GDP is at its reference (e.g., mean-centered 0).</td>
-        </tr>
-        <tr class="bg-gray-50">
-          <td class="font-semibold">Coef: GDP</td>
-          <td>—</td>
-          <td class="text-gray-600">Main effect of GDP when log(SIGI) is at its reference.</td>
-        </tr>
-        <tr class="bg-gray-50">
-          <td class="font-semibold">Coef: log(SIGI) × GDP</td>
-          <td class="font-bold">—</td>
-          <td class="text-gray-600">Interaction term. If non-significant, GDP does not meaningfully moderate the SIGI–victim ratio relationship.</td>
-        </tr>
-        <tr>
-          <td class="font-semibold">p-value (Interaction)</td>
-          <td class="font-bold text-red-600">—</td>
-          <td class="text-gray-600">Significance of the moderation effect (β₃).</td>
         </tr>
       </tbody>
     </table>
