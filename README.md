@@ -179,80 +179,76 @@
 </div>
 
            
-          <!-- ===================== -->
-<!-- Model C2: Confounder (Education) -->
-<!-- ===================== -->
-<section id="model-c2" class="data-step pt-16 border-l-4 border-indigo-500 pl-6 bg-white p-8 rounded-xl shadow-lg">
-  <p class="text-sm font-semibold text-indigo-500 mb-2">Phase 2: Statistical Analysis</p>
-  <h2 class="text-3xl font-bold text-gray-800 mb-6">Model C2: Confounder — Education</h2>
+ <h2 class="text-3xl font-bold text-gray-800 mb-6">Model C2: Simple Regression</h2>
 
+  <!-- Model C1 Image and Table (Updated) -->
   <div class="mb-10">
     <h3 class="text-2xl font-bold text-gray-800 mb-4">
-      Model C2: log(Female/Male) ~ log(SIGI) + Education_Rate
+      Model C1: Simple Regression (X = <span class="font-mono">log(SIGI)</span>)
     </h3>
 
     <p class="text-lg mb-6 text-gray-700">
-      <span class="font-mono">log(Y) = β₀ + β₁·log(SIGI) + β₂·Education</span>
+      Model: <span class="font-mono">log(Female/Male Victim Ratio) = β₀ + β₁ · log(SIGI)</span>
     </p>
 
-    <!-- (Optional) Plot -->
+    <!-- Regression Plot Image -->
     <figure class="mb-8 border border-gray-200 rounded-xl p-4 shadow-inner text-center">
       <img
-        src=""
-        alt="Partial regression view for Education as a confounder (Model C2)"
+        src="https://github.com/user-attachments/assets/1916fb2a-fe63-4a6b-ab5b-18578efea53d"
+        alt="Scatter of log(SIGI) vs. log(Female/Male Victim Ratio) with fitted OLS line (Model C1)"
         width="689" height="547" loading="lazy" class="mx-auto rounded-lg"
       />
       <figcaption class="mt-3 text-sm text-gray-600">
-        Education as a confounder (Model C2)
+        Regression Visualization: OLS fit on log–log scale (Model C1)
       </figcaption>
     </figure>
   </div>
-
-  <!-- Summary table -->
-  <h4 class="text-xl font-semibold text-gray-800 mb-3 mt-2">OLS Regression Summary Metrics (Model C2)</h4>
-  <div class="overflow-x-auto">
-    <table class="min-w-full bg-white rounded-lg shadow ols-table">
-      <thead>
-        <tr class="bg-indigo-50">
-          <th class="w-1/4">Metric</th>
-          <th class="w-1/4">Value</th>
-          <th class="w-1/2">Interpretation</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="font-semibold">R-squared</td>
-          <td class="font-bold text-indigo-600">0.366</td>
-          <td class="text-gray-600">Adding Education increases explained variance to 36.6%.</td>
-        </tr>
-        <tr>
-          <td class="font-semibold">Adj. R-squared</td>
-          <td>0.326</td>
-          <td class="text-gray-600">Model fit improves after adjusting for two predictors.</td>
-        </tr>
-        <tr>
-          <td class="font-semibold">F-statistic</td>
-          <td>8.976</td>
-          <td class="text-gray-600">The overall model is statistically significant.</td>
-        </tr>
-        <tr>
-          <td class="font-semibold">Prob (F-statistic)</td>
-          <td class="font-bold text-red-600">0.00135</td>
-          <td class="text-red-700 font-medium">Model C2 is significant (p &lt; 0.01).</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <!-- Interpretation -->
-  <div class="mt-6 p-4 border border-red-300 rounded-lg bg-red-50">
-    <p class="text-lg font-bold text-red-700 mb-2">Key Finding (Model C2)</p>
-    <p class="text-base text-gray-800">
-      Education rate has a positive, statistically significant association with the victim ratio (p ≈ 0.034),
-      while the log(SIGI) effect weakens and becomes non-significant.
-    </p>
-  </div>
 </section>
+
+                
+                <!-- OLS Regression Table - Summary Metrics ONLY -->
+                <h4 class="text-xl font-semibold text-gray-800 mb-3 mt-8">OLS Regression Summary Metrics (Model C1)</h4>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full bg-white rounded-lg shadow ols-table">
+                        <thead>
+                            <tr class="bg-indigo-50">
+                                <th class="w-1/4">Metric</th>
+                                <th class="w-1/4">Value</th>
+                                <th class="w-1/2">Interpretation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="font-semibold">R-squared</td>
+                                <td class="font-bold text-indigo-600">0.257</td>
+                                <td class="text-gray-600">SIGI explains about 25.7% of the variance in the victim ratio.</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">Adj. R-squared</td>
+                                <td>0.233</td>
+                                <td class="text-gray-600">The model maintains a reasonable fit even with one predictor.</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">F-statistic</td>
+                                <td>10.40</td>
+                                <td class="text-gray-600">The overall model is statistically significant.</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">Prob (F-statistic)</td>
+                                <td class="font-bold text-red-600">0.00304</td>
+                                <td class="text-red-700 font-medium">The relationship between SIGI and the victim ratio is statistically significantt.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Interpretation -->
+<div class="mt-6 p-4 border border-red-300 rounded-lg bg-red-50">
+  <p class="text-lg font-bold text-red-700 mb-2">Key Finding (Model C1)</p>
+  <p class="text-base text-gray-800">
+    Higher SIGI is significantly associated with a lower female victim ratio.
+  </p>
+</div>
 
 
         <!-- STEP 3: KEY INSIGHT -->
