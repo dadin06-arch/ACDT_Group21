@@ -383,8 +383,8 @@
   </div>
 </section>
 
-    <!-- STEP 4: CONCLUSION -->
-    <section id="step-4" class="data-step pt-16 border-l-4 border-indigo-500 pl-6 bg-white p-8 rounded-xl shadow-lg">
+ <!-- STEP 4: CONCLUSION (CORRECTED SECTION) -->
+    <section id="step-4" class="data-step pt-16 border-l-4 border-indigo-500 pl-6 bg-white p-8 rounded-xl shadow-lg mb-12">
       <p class="text-sm font-semibold text-indigo-500 mb-2">Phase 3: Conclusion</p>
       <h2 class="text-3xl font-bold text-gray-800 mb-6">Conclusion and Implications</h2>
 
@@ -396,22 +396,27 @@
 
       <h3 class="text-2xl font-semibold text-gray-800 mb-3 border-b pb-2">Policy Recommendations</h3>
       <div class="space-y-4 text-lg text-gray-700">
+        <!-- Recommendation 1 -->
         <div class="flex items-start space-x-3">
           <span class="text-2xl text-green-600 font-bold">1.</span>
           <p>
             <strong>The Paradox of Gender Inequality:</strong> SIGI is associated with lower reported female victimization, suggesting underreporting rather than lower crime rates.
           </p>
         </div>
+        <!-- Recommendation 2 -->
         <div class="flex items-start space-x-3">
           <span class="text-2xl text-green-600 font-bold">2.</span>
           <p>
-            <strong> Institutional and Social Effects:</strong> Higher education improves reporting visibility, while stronger government effectiveness reduces actual risks by ensuring better protection systems.
+            <strong>Institutional and Social Effects:</strong> Higher education improves reporting visibility, while stronger government effectiveness reduces actual risks by ensuring better protection systems.
           </p>
         </div>
+        <!-- Recommendation 3 (Fixed numbering and closed tag) -->
         <div class="flex items-start space-x-3">
-          <span class="text-2xl text-green-600 font-bold">2.</span>
+          <span class="text-2xl text-green-600 font-bold">3.</span> <!-- Changed from 2. to 3. -->
           <p>
             <strong>Weak Economic Influence:</strong> GDP shows no significant moderation effect, implying that economic development alone does not guarantee gender safety.
+          </p> <!-- <--- TAG WAS MISSING HERE! NOW FIXED. -->
+        </div>
       </div>
     </section>
 
@@ -447,8 +452,8 @@
 
           <div id="statResults" class="space-y-4 mb-8">
             <p class="text-lg"><strong>Sample Size (N):</strong> <span id="nValue" class="font-bold text-indigo-600"></span></p>
-            <p class="text-lg"><strong>Correlation Coefficient (R):</strong> <span id="correlationR" class="font-bold text-indigo-600"></span> <span class="text-sm text-gray-500 ml-2">(R close to −1 indicates a strong negative linear relationship.)</span></p>
-            <p class="text-lg"><strong>Regression Model:</strong> <code class="bg-gray-100 p-1 rounded font-mono text-xl text-green-700">Y = <span id="slopeM"></span>X + <span id="interceptB"></span></code> <span class="text-sm text-gray-500 ml-2">(Linear Model: Y = mX + b)</span></p>
+            <p class="text-lg"><strong>Correlation Coefficient (R):</strong> <span id="correlationR" class="font-bold text-indigo-600"></span> <span class="text-sm text-gray-500 ml-2">(R close to $-1$ indicates a strong negative linear relationship.)</span></p>
+            <p class="text-lg"><strong>Regression Model:</strong> <code class="bg-gray-100 p-1 rounded font-mono text-xl text-green-700">Y = <span id="slopeM"></span>X + <span id="interceptB"></span></code> <span class="text-sm text-gray-500 ml-2">(Linear Model: $Y = mX + b$)</span></p>
           </div>
 
           <!-- Canvas -->
