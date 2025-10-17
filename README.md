@@ -177,82 +177,145 @@
   </p>
 </div>
 
-           
- <!-- ===================== -->
-<!-- Model C2: Confounder (Education) -->
-<!-- ===================== -->
-<section id="model-c2" class="data-step pt-16 border-l-4 border-indigo-500 pl-6 bg-white p-8 rounded-xl shadow-lg">
-  <p class="text-sm font-semibold text-indigo-500 mb-2">Phase 2: Statistical Analysis</p>
-  <h2 class="text-3xl font-bold text-gray-800 mb-6">Model C2: Confounder — Education</h2>
+<!-- STEP 3: MODEL C2 (EDUCATION) - User's detailed section -->
+        <section id="step-3" class="data-step pt-16 border-l-4 border-indigo-500 pl-6 bg-white p-8 rounded-xl shadow-lg">
+            <p class="text-sm font-semibold text-indigo-500 mb-2">Phase 2.2: Confounder Analysis</p>
+            <h2 class="text-3xl font-bold text-gray-800 mb-6">Model C2: Confounder — Education</h2>
 
-  <!-- Model C2 Image and Table (Updated) -->
-  <div class="mb-10">
-    <h3 class="text-2xl font-bold text-gray-800 mb-4">
-      Model C2: log(Female/Male) ~ log(SIGI) + Education_Rate
-    </h3>
+            <!-- Model C2 Image and Table -->
+            <div class="mb-10">
+                <h3 class="text-2xl font-bold text-gray-800 mb-4">
+                    Model C2: $\log(\text{Victim Ratio}) \sim \log(\text{SIGI}) + \text{Education Rate}$
+                </h3>
 
-    <p class="text-lg mb-6 text-gray-700">
-      Model: <span class="font-mono">log(Y) = β₀ + β₁·log(SIGI) + β₂·Education</span>
-    </p>
+                <p class="text-lg mb-6 text-gray-700">
+                    Model: $\log(\text{Y}) = \beta_0 + \beta_1 \cdot \log(\text{SIGI}) + \beta_2 \cdot \text{Education Rate}$
+                </p>
 
-    <!-- Regression Plot Image -->
-    <figure class="mb-8 border border-gray-200 rounded-xl p-4 shadow-inner text-center">
-      <img
-        src="https://github.com/user-attachments/assets/168429df-5dbb-4c74-a074-ed2241527f7a"
-        alt="Regression plot for Model C2 (Education as a confounder)"
-        width="689" height="547" loading="lazy" class="mx-auto rounded-lg"
-      />
-      <figcaption class="mt-3 text-sm text-gray-600">
-        Regression Visualization: The graph itself is not log-transformed, but the values used are log-transformed.
-      </figcaption>
-    </figure>
-  </div>
+                <!-- Regression Plot Image -->
+                <div class="mb-8 border border-gray-200 rounded-xl p-4 shadow-inner text-center">
+                    <h4 class="text-xl font-semibold text-gray-800 mb-4">Regression Visualization: Education Rate vs. $\log(\text{Victim Ratio})$</h4>
+                    
+                </div>
 
-  <!-- OLS Regression Table - Summary Metrics ONLY -->
-  <h4 class="text-xl font-semibold text-gray-800 mb-3 mt-8">OLS Regression Summary Metrics (Model C2)</h4>
-  <div class="overflow-x-auto">
-    <table class="min-w-full bg-white rounded-lg shadow ols-table">
-      <thead>
-        <tr class="bg-indigo-50">
-          <th class="w-1/4">Metric</th>
-          <th class="w-1/4">Value</th>
-          <th class="w-1/2">Interpretation</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="font-semibold">R-squared</td>
-          <td class="font-bold text-indigo-600">0.366</td>
-          <td class="text-gray-600">Adding Education increases the explained variance to 36.6%.</td>
-        </tr>
-        <tr>
-          <td class="font-semibold">Adj. R-squared</td>
-          <td>0.322</td>
-          <td class="text-gray-600">The model maintains a good fit after including two predictors.</td>
-        </tr>
-        <tr>
-          <td class="font-semibold">F-statistic</td>
-          <td>8.376</td>
-          <td class="text-gray-600">The overall model is statistically significant.</td>
-        </tr>
-        <tr>
-          <td class="font-semibold">Prob (F-statistic)</td>
-          <td class="font-bold text-red-600">0.00135</td>
-          <td class="text-red-700 font-medium">The relationship is statistically significant (p &lt; 0.01).</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+                <!-- OLS Regression Table - Summary Metrics ONLY -->
+                <h4 class="text-xl font-semibold text-gray-800 mb-3 mt-8">OLS Regression Summary Metrics (Model C2)</h4>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full bg-white rounded-lg shadow ols-table">
+                        <thead>
+                            <tr class="bg-indigo-50">
+                                <th class="w-1/4">Metric</th>
+                                <th class="w-1/4">Value</th>
+                                <th class="w-1/2">Interpretation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="font-semibold">R-squared</td>
+                                <td class="font-bold text-indigo-600">0.366</td>
+                                <td class="text-gray-600">Adding Education increases the explained variance by over 10 percentage points (from 25.7% to 36.6%).</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">Adj. R-squared</td>
+                                <td>0.322</td>
+                                <td class="text-gray-600">The model maintains a good fit after including two predictors.</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">F-statistic</td>
+                                <td>8.376</td>
+                                <td class="text-gray-600">The overall model is statistically significant.</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">Prob (F-statistic)</td>
+                                <td class="font-bold text-red-600">0.00135</td>
+                                <td class="text-red-700 font-medium">The relationship remains statistically significant ($p < 0.01$).</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
-  <!-- Interpretation -->
-  <div class="mt-6 p-4 border border-red-300 rounded-lg bg-red-50">
-    <p class="text-lg font-bold text-red-700 mb-2">Key Finding (Model C2)</p>
-    <p class="text-base text-gray-800">
-      Higher education levels are significantly associated with higher reported female victim ratios.
-    </p>
-  </div>
-</section>
+                <!-- Interpretation -->
+                <div class="mt-6 p-4 border border-green-300 rounded-lg bg-green-50">
+                    <p class="text-lg font-bold text-green-700 mb-2">Key Finding (Model C2)</p>
+                    <p class="text-base text-gray-800">
+                        The coefficient for **Education Rate** was found to be **significantly positive** (approx. +0.0284).
+                    </p>
+                    <p class="text-base text-gray-800 mt-2">
+                        **Interpretation:** Higher education levels are significantly associated with a **higher reported** Female/Male Victim Ratio. This suggests that education improves public **awareness and visibility** of gender-based crime.
+                    </p>
+                </div>
+            </div>
+        </section>
 
+        <!-- STEP 4: MODEL C3 (GOVERNMENT EFFECTIVENESS) - New detailed section -->
+        <section id="step-4" class="data-step pt-16 border-l-4 border-indigo-500 pl-6 bg-white p-8 rounded-xl shadow-lg">
+            <p class="text-sm font-semibold text-indigo-500 mb-2">Phase 2.3: Confounder Analysis</p>
+            <h2 class="text-3xl font-bold text-gray-800 mb-6">Model C3: Confounder — Government Effectiveness</h2>
+
+            <!-- Model C3 Image and Table -->
+            <div class="mb-10">
+                <h3 class="text-2xl font-bold text-gray-800 mb-4">
+                    Model C3: $\log(\text{Victim Ratio}) \sim \log(\text{SIGI}) + \text{Government Effectiveness}$
+                </h3>
+
+                <p class="text-lg mb-6 text-gray-700">
+                    Model: $\log(\text{Y}) = \beta_0 + \beta_1 \cdot \log(\text{SIGI}) + \beta_2 \cdot \text{Gov. Effectiveness}$
+                </p>
+
+                <!-- Regression Plot Image -->
+                <div class="mb-8 border border-gray-200 rounded-xl p-4 shadow-inner text-center">
+                    <h4 class="text-xl font-semibold text-gray-800 mb-4">Regression Visualization: Gov. Effectiveness vs. $\log(\text{Victim Ratio})$</h4>
+                    
+                </div>
+
+                <!-- OLS Regression Table - Summary Metrics ONLY -->
+                <h4 class="text-xl font-semibold text-gray-800 mb-3 mt-8">OLS Regression Summary Metrics (Model C3)</h4>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full bg-white rounded-lg shadow ols-table">
+                        <thead>
+                            <tr class="bg-indigo-50">
+                                <th class="w-1/4">Metric</th>
+                                <th class="w-1/4">Value</th>
+                                <th class="w-1/2">Interpretation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="font-semibold">R-squared</td>
+                                <td class="font-bold text-indigo-600">0.301</td>
+                                <td class="text-gray-600">Including Government Effectiveness moderately increases the explained variance (from 25.7% to 30.1%).</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">Adj. R-squared</td>
+                                <td>0.274</td>
+                                <td class="text-gray-600">The model maintains a good fit after including two predictors.</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">F-statistic</td>
+                                <td>6.467</td>
+                                <td class="text-gray-600">The overall model is statistically significant.</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">Prob (F-statistic)</td>
+                                <td class="font-bold text-red-600">0.00521</td>
+                                <td class="text-red-700 font-medium">The relationship remains statistically significant ($p < 0.01$).</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Interpretation -->
+                <div class="mt-6 p-4 border border-yellow-300 rounded-lg bg-yellow-50">
+                    <p class="text-lg font-bold text-yellow-700 mb-2">Key Finding (Model C3)</p>
+                    <p class="text-base text-gray-800">
+                        The coefficient for **Government Effectiveness** was found to be **significantly negative** (approx. -0.0173).
+                    </p>
+                    <p class="text-base text-gray-800 mt-2">
+                        **Interpretation:** Better governance likely strengthens institutional protection and reduces distrust in the legal system, potentially leading to a reduction in **actual** crime risk or more robust prevention mechanisms.
+                    </p>
+                </div>
+            </div>
+        </section>
 
         <!-- STEP 3: KEY INSIGHT -->
         <section id="step-3" class="data-step pt-16 border-l-4 border-indigo-500 pl-6 bg-white p-8 rounded-xl shadow-lg">
