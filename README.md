@@ -63,13 +63,17 @@
                 </p>
                 <ul class="list-disc list-inside space-y-2 ml-4">
                     <li>**Independent Variable (X): Social Institutions and Gender Index(SIGI)</li>
-                    <li>**Dependent Variable (Y):Female victimization rate.</li>
-                    <li>**Variables:** Education Rate, Government Effectiveness, and GDP.</li>
+                    <li>**Dependent Variable (Y): Female victimization rate.</li>
+                    <li>**Variables: Education Rate, Government Effectiveness, and GDP.</li>
                 </ul>
             </div>
             <div class="mt-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
-                <h3 class="text-xl font-semibold mb-2 text-gray-700">Data Preparation Note</h3>
-                <p class="text-gray-600">Both SIGI and the Victim Ratio were **Log-Transformed** to normalize distributions, ensuring robustness for OLS linear regression models.</p>
+                <h3 class="text-xl font-semibold mb-2 text-gray-700">Data Note</h3>
+                <p class="text-gray-600">-  Victims by gender : https://dataunodc.un.org/
+- Social Institutions and Gender Index : https://www.oecd.org/en/data/dashboards/social-institutions-gender-index.html
+- Gross Domestic Product(GDP) : https://www.worldbank.org/ext/en/home
+- Education level: https://www.oecd.org/en/data/indicators.html?orderBy=mostRelevant&page=0
+- Government Effectiveness: https://www.worldbank.org/ext/en/home </p>
             </div>
         </section>
 
