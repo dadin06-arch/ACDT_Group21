@@ -40,26 +40,24 @@
 </head>
 <body class="antialiased">
 
-    <!-- Header -->
+<!-- Header -->
     <header class="bg-indigo-700 text-white shadow-xl py-8 mb-12 sticky top-0 z-50">
         <div class="max-w-5xl mx-auto px-6">
-            <h1 class="text-4xl font-extrabold mb-2">Do Countries with Higher SIGI Tend to Have Higher Female Victimization Rates?</h1>
-            <p class="text-indigo-200 text-xl font-light">Re-examining the influence of the Gender Inequality Index (SIGI) on Reported Victimization Rates</p>
+            <h1 class="text-4xl font-extrabold mb-2">Revisiting the Conventional Wisdom: SIGI and Victimization</h1>
+            <p class="text-indigo-200 text-xl font-light">An OLS Regression Analysis on Gender Inequality and Reported Female Victimization Rates</p>
         </div>
     </header>
 
     <main class="max-w-5xl mx-auto px-6 pb-20 space-y-20">
 
-        <!-- Scrollytelling/Progressive Disclosure Sections -->
-
-        <!-- STEP 1: DATA DESCRIPTION -->
+        <!-- STEP 1: DATA DESCRIPTION & SOURCES -->
         <section id="step-1" class="data-step pt-16 border-l-4 border-indigo-500 pl-6 bg-white p-8 rounded-xl shadow-lg">
             <p class="text-sm font-semibold text-indigo-500 mb-2">Phase 1: Data Description</p>
-            <h2 class="text-3xl font-bold text-gray-800 mb-6">Challenging the Conventional Wisdom</h2>
+            <h2 class="text-3xl font-bold text-gray-800 mb-6">Challenging the Initial Hypothesis</h2>
 
-            <div class="space-y-4 text-lg text-gray-700">
+            <div class="space-y-4 text-lg text-gray-700 mb-10">
                 <p>
-                    Our analysis investigates the hypothesis that Countries with higher Social Institutions and Gender Index(SIGI) tend to have higher female victimization rates.
+                   Our analysis investigates the hypothesis that Countries with higher Social Institutions and Gender Index(SIGI) tend to have higher female victimization rates.
                 </p>
                 <ul class="list-disc list-inside space-y-2 ml-4">
                     <li>**Independent Variable (X): Social Institutions and Gender Index(SIGI)</li>
@@ -67,82 +65,117 @@
                     <li>**Variables: Education Rate, Government Effectiveness, and GDP.</li>
                 </ul>
             </div>
-                   <!-- 4.5. DATA SOURCES (New Section) -->
-        <section class="mt-24 pt-16">
-            <h2 class="text-3xl font-bold text-gray-800 mb-6">🔗 Data Sources
-            <div class="p-5 bg-gray-50 rounded-xl border border-gray-200 shadow-inner">
-                <ul class="space-y-3 text-lg">
-                    <li class="flex flex-col sm:flex-row items-start sm:items-baseline">
-                        <span class="text-gray-700 font-semibold w-64 shrink-0">Victims by Gender (Dependent Variable):</span>
-                        <a href="https://dataunodc.un.org/" target="_blank" class="text-blue-600 hover:text-blue-800 hover:underline transition ml-0 sm:ml-4 mt-1 sm:mt-0">UNODC Data Portal</a>
-                    </li>
-                    <li class="flex flex-col sm:flex-row items-start sm:items-baseline">
-                        <span class="text-gray-700 font-semibold w-64 shrink-0">Social Institutions and Gender Index (SIGI):</span>
-                        <a href="https://www.oecd.org/en/data/dashboards/social-institutions-gender-index.html" target="_blank" class="text-blue-600 hover:text-blue-800 hover:underline transition ml-0 sm:ml-4 mt-1 sm:mt-0">OECD SIGI Dashboard</a>
-                    </li>
-                    <li class="flex flex-col sm:flex-row items-start sm:items-baseline">
-                        <span class="text-gray-700 font-semibold w-64 shrink-0">Gross Domestic Product (GDP):</span>
-                        <a href="https://www.worldbank.org/ext/en/home" target="_blank" class="text-blue-600 hover:text-blue-800 hover:underline transition ml-0 sm:ml-4 mt-1 sm:mt-0">World Bank Data</a>
-                    </li>
-                    <li class="flex flex-col sm:flex-row items-start sm:items-baseline">
-                        <span class="text-gray-700 font-semibold w-64 shrink-0">Education Level:</span>
-                        <a href="https://www.oecd.org/en/data/indicators.html?orderBy=mostRelevant&page=0" target="_blank" class="text-blue-600 hover:text-blue-800 hover:underline transition ml-0 sm:ml-4 mt-1 sm:mt-0">OECD Indicators</a>
-                    </li>
-                    <li class="flex flex-col sm:flex-row items-start sm:items-baseline">
-                        <span class="text-gray-700 font-semibold w-64 shrink-0">Government Effectiveness:</span>
-                        <a href="https://www.worldbank.org/ext/en/home" target="_blank" class="text-blue-600 hover:text-blue-800 hover:underline transition ml-0 sm:ml-4 mt-1 sm:mt-0">World Bank Governance Indicators</a>
-                    </li>
-                </ul>
+            
+            <!-- DATA SOURCES -->
+            <div class="mt-10 pt-4 border-t border-gray-200">
+                <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                    <span class="text-indigo-600 mr-2">🔗</span> Data Sources
+                </h3>
+                <p class="text-base text-gray-600 mb-4">
+                    Note: Both SIGI and the Victim Ratio were **Log-Transformed** to normalize distributions and ensure model robustness.
+                </p>
+                <div class="p-5 bg-gray-50 rounded-xl border border-gray-200 shadow-inner">
+                    <ul class="space-y-3 text-base">
+                        <li class="flex flex-col sm:flex-row items-start sm:items-baseline">
+                            <span class="text-gray-700 font-semibold w-64 shrink-0">Victims by Gender (Dependent Variable):</span>
+                            <a href="https://dataunodc.un.org/" target="_blank" class="text-blue-600 hover:text-blue-800 hover:underline transition ml-0 sm:ml-4 mt-1 sm:mt-0">UNODC Data Portal</a>
+                        </li>
+                        <li class="flex flex-col sm:flex-row items-start sm:items-baseline">
+                            <span class="text-gray-700 font-semibold w-64 shrink-0">Social Institutions and Gender Index (SIGI):</span>
+                            <a href="https://www.oecd.org/en/data/dashboards/social-institutions-gender-index.html" target="_blank" class="text-blue-600 hover:text-blue-800 hover:underline transition ml-0 sm:ml-4 mt-1 sm:mt-0">OECD SIGI Dashboard</a>
+                        </li>
+                        <li class="flex flex-col sm:flex-row items-start sm:items-baseline">
+                            <span class="text-gray-700 font-semibold w-64 shrink-0">Economic & Governance Factors:</span>
+                            <span class="text-gray-600 ml-0 sm:ml-4 mt-1 sm:mt-0">World Bank Data & OECD Indicators (GDP, Education, Gov. Effectiveness)</span>
+                        </li>
+                    </ul>
+                </div>
             </div>
+            <!-- END DATA SOURCES -->
         </section>
 
-        <!-- STEP 2: ANALYSIS RESULTS -->
+        <!-- STEP 2: ANALYSIS RESULTS (UPDATED) -->
         <section id="step-2" class="data-step pt-16 border-l-4 border-indigo-500 pl-6 bg-white p-8 rounded-xl shadow-lg">
-            <p class="text-sm font-semibold text-indigo-500 mb-2">Phase 2: Statistical Analysis</p>
-            <h2 class="text-3xl font-bold text-gray-800 mb-6">Model C1: The Counter-Intuitive Finding</h2>
+            <p class="text-sm font-semibold text-indigo-500 mb-2">Phase 2: Statistical Analysis (OLS Regression)</p>
+            <h2 class="text-3xl font-bold text-gray-800 mb-6">Model C1: Simple Regression Finding</h2>
 
-            <!-- Model C1 -->
-            <div class="mb-8 border-b pb-4">
-                <h3 class="text-2xl font-bold text-gray-800 mb-3">Model C1: Simple Regression</h3>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center bg-indigo-50 p-4 rounded-lg">
-                    <div>
-                        <p class="text-sm text-gray-600">R-squared</p>
-                        <p class="text-2xl font-extrabold text-indigo-600">0.257</p>
-                    </div>
-                    <div>
-                        <p class="text-sm text-gray-600">Log(SIGI) Coefficient</p>
-                        <p class="text-2xl font-extrabold text-red-600">-0.9805</p>
-                    </div>
-                    <div>
-                        <p class="text-sm text-gray-600">P-value</p>
-                        <p class="text-2xl font-extrabold text-indigo-600">0.003</p>
-                    </div>
-                    <div class="col-span-2 md:col-span-1 flex flex-col justify-center">
-                        <p class="text-sm text-gray-600">Key Observation</p>
-                        <p class="text-lg font-bold text-red-700 mt-1">Significant **Negative Correlation**</p>
-                    </div>
-                </div>
-                <p class="text-lg mt-4 text-gray-700">
-                    **Interpretation:** As Gender Inequality (SIGI) increases, the **reported** Female Victim Ratio decreases. This directly contradicts the initial hypothesis.
+            <!-- Model C1 Image and Table (Updated) -->
+            <div class="mb-10">
+                <h3 class="text-2xl font-bold text-gray-800 mb-4">Model C1: Simple Regression (X = $\log(\text{SIGI})$)</h3>
+                <p class="text-lg mb-6 text-gray-700">
+                    Model: $\log(\text{Female/Male Victim Ratio}) = \beta_0 + \beta_1 \cdot \log(\text{SIGI})$
                 </p>
+
+                <!-- Regression Plot Image -->
+                <div class="mb-8 border border-gray-200 rounded-xl p-4 shadow-inner text-center">
+                    <h4 class="text-xl font-semibold text-gray-800 mb-4">Regression Visualization: $\log(\text{SIGI})$ vs $\log(\text{Victim Ratio})$</h4>
+                    
+                </div>
+                
+                <!-- OLS Regression Table - Summary Metrics ONLY -->
+                <h4 class="text-xl font-semibold text-gray-800 mb-3 mt-8">OLS Regression Summary Metrics (Model C1)</h4>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full bg-white rounded-lg shadow ols-table">
+                        <thead>
+                            <tr class="bg-indigo-50">
+                                <th class="w-1/4">Metric</th>
+                                <th class="w-1/4">Value</th>
+                                <th class="w-1/2">Interpretation of Fit</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="font-semibold">R-squared ($R^2$)</td>
+                                <td class="font-bold text-indigo-600">0.257</td>
+                                <td class="text-gray-600">$R^2$ indicates that $\log(\text{SIGI})$ explains 25.7% of the variance in the Victim Ratio.</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">Adj. R-squared (Adjusted $R^2$)</td>
+                                <td>0.233</td>
+                                <td class="text-gray-600">The model remains reasonably fit after adjusting for the number of variables (which is only one in this simple model).</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">F-statistic</td>
+                                <td>10.40</td>
+                                <td class="text-gray-600">The overall model is statistically significant.</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">Prob (F-statistic) ($p$-value)</td>
+                                <td class="font-bold text-red-600">0.00304</td>
+                                <td class="text-red-700 font-medium">This low $p$-value confirms that the relationship between SIGI and the Victim Ratio is statistically significant.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Interpretation -->
+                <div class="mt-6 p-4 border border-red-300 rounded-lg bg-red-50">
+                    <p class="text-lg font-bold text-red-700 mb-2">Key Finding (Model C1)</p>
+                    <p class="text-base text-gray-800">
+                        The coefficient for $\log(\text{SIGI})$ was found to be **significantly negative** (approx. -0.9805).
+                    </p>
+                    <p class="text-base text-gray-800 mt-2">
+                        **Interpretation:** Contrary to the initial hypothesis, the simple regression suggests that countries with higher gender inequality (higher $\log(\text{SIGI})$) tend to have a **lower reported** Female/Male Victim Ratio. This counter-intuitive result points toward a major confounding factor, likely **underreporting**.
+                    </p>
+                </div>
             </div>
 
-            <!-- Model Progression -->
+            <!-- Confounder Analysis (Remaining C2, C3) -->
             <div class="space-y-6">
-                <h3 class="text-2xl font-bold text-gray-800 mb-3">Confounder Analysis (C2, C3)</h3>
+                <h3 class="text-2xl font-bold text-gray-800 mb-3 border-t pt-6">Follow-up Analysis (Confounder Effects)</h3>
                 
                 <!-- C2 -->
                 <div class="p-4 border border-gray-200 rounded-lg bg-yellow-50">
-                    <p class="text-xl font-semibold text-gray-800">C2: Education Rate (Significant Contributor)</p>
-                    <p class="text-lg mt-2">**Result:** Education Rate showed a significant **Positive Coefficient** (+0.0284).</p>
-                    <p class="text-base text-gray-600">**Implication:** Higher education levels correlate with a **higher reported** ratio, suggesting education improves awareness and the likelihood of reporting.</p>
+                    <p class="text-xl font-semibold text-gray-800">C2: Education Rate</p>
+                    <p class="text-lg mt-2">**Result:** Education Rate was found to have a significant **Positive Coefficient** (+0.0284) in the multiple regression model.</p>
+                    <p class="text-base text-gray-600">**Implication:** Higher education levels correlate with a **higher reported** ratio, suggesting that education improves public awareness and the likelihood of victims reporting crimes.</p>
                 </div>
                 
                 <!-- C3 -->
                 <div class="p-4 border border-gray-200 rounded-lg bg-green-50">
                     <p class="text-xl font-semibold text-gray-800">C3: Government Effectiveness</p>
                     <p class="text-lg mt-2">**Result:** Government Effectiveness showed a significant **Negative Coefficient** (-0.0173).</p>
-                    <p class="text-base text-gray-600">**Implication:** Better governance likely strengthens institutional protection, potentially leading to a reduction in **actual** crime risk.</p>
+                    <p class="text-base text-gray-600">**Implication:** Better governance likely strengthens institutional protection and reduces distrust in the legal system, potentially leading to a reduction in **actual** crime risk (or better mechanisms for prevention).</p>
                 </div>
             </div>
         </section>
@@ -153,16 +186,16 @@
             <h2 class="text-3xl font-bold text-gray-800 mb-6">The Paradox of Hidden Violence</h2>
 
             <p class="text-xl font-bold text-red-700 mb-6">
-                "Gender inequality does not reduce violence itself; it reduces the **Visibility** of violence."
+                "Gender inequality does not lower violence itself; it lowers the **Visibility** of violence."
             </p>
 
             <h3 class="text-2xl font-semibold text-gray-800 mb-3 border-b pb-2">The Underreporting Hypothesis</h3>
             <p class="text-lg mb-4 text-gray-700">
-                The low reported victimization rates in high-SIGI countries are attributed to widespread **underreporting** stemming from systemic barriers in unequal societies.
+                The unexpectedly low reported victimization rates in high-SIGI countries are attributed to widespread **underreporting** stemming from systemic barriers and cultural norms in unequal societies.
             </p>
 
             <ul class="list-disc list-outside space-y-3 ml-6 text-lg text-gray-700">
-                <li>**Fear and Stigma:** Victims fear social backlash and societal stigma associated with reporting.</li>
+                <li>**Fear and Stigma:** Victims fear social backlash and societal stigma associated with reporting, especially in patriarchal societies.</li>
                 <li>**Distrust of the System:** Lack of confidence in law enforcement and the justice system, which may be rooted in gender-biased institutions.</li>
             </ul>
         </section>
@@ -174,7 +207,7 @@
 
             <div class="bg-indigo-100 p-6 rounded-lg mb-6">
                 <p class="text-xl font-bold text-indigo-800">
-                    Conclusion: The reported Female Victimization Rate is a measure of society's **'Willingness and Ability to Report and Track'** rather than the actual level of violence.
+                    Conclusion: The reported Female Victimization Rate serves as a proxy for a society's **'Willingness and Ability to Report and Track'** crime, rather than the actual prevalence of violence.
                 </p>
             </div>
 
@@ -183,7 +216,7 @@
                 <div class="flex items-start space-x-3">
                     <span class="text-2xl text-green-600 font-bold">1.</span>
                     <p>
-                        **Increase Visibility:** Leverage the positive effect of education to promote public awareness and encourage reporting, breaking down social barriers that fuel stigma.
+                        **Increase Visibility:** Leverage the positive effect of education to promote public awareness and encourage reporting, breaking down social and cultural barriers that fuel stigma.
                     </p>
                 </div>
                 <div class="flex items-start space-x-3">
@@ -196,292 +229,60 @@
         </section>
 
 
-    <!-- ===============================
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive OLS Regression Calculator for SIGI Models</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f0f4f8; /* Light blue-gray background */
-        }
-        textarea {
-            resize: none;
-        }
-    </style>
-    <!-- Math.js for Matrix Operations (MUST be loaded before script) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.8.0/math.min.js"></script>
-</head>
-<body class="p-8 md:p-12">
+        <!-- 5. EMBEDDED STATISTICAL CALCULATOR -->
+        <section class="mt-24 pt-16">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6">📊 Embedded Statistical Calculator</h2>
+            <p class="text-gray-600 mb-8">
+                Input two datasets (X and Y) to calculate the Correlation Coefficient ($R$) and the Linear Regression Model ($Y = mX + b$). Enter data points separated by commas (e.g., 10, 20, 30, 40).
+            </p>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive C1 Simple Regression Calculator</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f0f4f8; /* Light blue-gray background */
-        }
-        textarea {
-            resize: none;
-        }
-    </style>
-    <!-- We keep the math.js CDN in case of future expansion, but the C1 logic is pure JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.8.0/math.min.js"></script> 
-</head>
-<body class="p-8 md:p-12">
+            <div class="bg-white p-8 rounded-xl shadow-2xl border border-gray-100">
+                <!-- Input Fields -->
+                <div class="grid md:grid-cols-2 gap-6 mb-8">
+                    <div>
+                        <label for="xData" class="block text-sm font-medium text-gray-700 mb-2">X Dataset (Independent Variable: $\log(\text{SIGI})$)</label>
+                        <!-- Default data set to reflect negative correlation found in SIGI analysis -->
+                        <textarea id="xData" rows="4" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500" placeholder="e.g., 2.0, 2.5, 3.0, 3.5, 4.0 (Higher SIGI means more inequality)"></textarea>
+                    </div>
+                    <div>
+                        <label for="yData" class="block text-sm font-medium text-gray-700 mb-2">Y Dataset (Dependent Variable: $\log(\text{Victim Ratio})$)</label>
+                        <!-- Default data set to reflect negative correlation found in SIGI analysis -->
+                        <textarea id="yData" rows="4" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500" placeholder="e.g., 0.8, 0.4, 0.0, -0.4, -0.8 (Lower ratio means less reported victimization)"></textarea>
+                    </div>
+                </div>
 
-    <!-- ===============================
-    📊 C1 Simple Regression Calculator: log_Y ~ log_X
-    ==================================-->
-    <section id="regression-calculator" class="max-w-xl mx-auto bg-white p-8 rounded-xl shadow-2xl border-l-4 border-[#DC2626]">
-        <h2 class="text-3xl font-bold text-gray-800 mb-6 flex items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-[#DC2626] mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M7 12l3-3 3 3 7-7m-7 7v7" />
-            </svg>
-            C1: Simple OLS Regression Calculator
-        </h2>
-        <p class="text-gray-600 mb-6 border-b pb-4">
-            Model C1 focuses on the direct relationship: **log(Victim Ratio) ~ log(SIGI)**. <br>
-            Enter your data arrays below and compute the simple linear regression instantly.
-        </p>
+                <button id="calculateBtn" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-4 rounded-lg shadow-md transition duration-200 transform hover:scale-[1.01]">
+                    Calculate & Plot Statistics
+                </button>
 
-        <!-- Model Selector (Simplified to show only C1) -->
-        <div class="mb-6 bg-red-50 p-3 rounded-lg border border-red-200">
-            <label for="modelSelect" class="block text-sm font-bold text-red-700 mb-1">Active Model</label>
-            <p class="text-lg font-semibold text-red-800">C1: log_Y ~ log_X (SIGI Only)</p>
-        </div>
+                <!-- Results Display -->
+                <div id="results" class="mt-8 pt-6 border-t border-gray-200 hidden">
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-4">Calculation Results and Visualization</h3>
 
-        <!-- Error Message Display -->
-        <div id="errorMsg" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4 hidden" role="alert">
-            <strong class="font-bold">Error:</strong>
-            <span id="errorText" class="block sm:inline"></span>
-        </div>
+                    <div id="errorMsg" class="text-red-600 bg-red-50 p-3 rounded-lg border border-red-300 mb-4 hidden"></div>
 
-        <!-- Input Data -->
-        <div class="grid gap-6 mb-6">
-            <div>
-                <label for="xInput" class="block text-sm font-semibold mb-2 text-gray-700">log(SIGI) [X - Independent Variable]</label>
-                <textarea id="xInput" rows="3" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-red-500 focus:border-red-500" placeholder="e.g. 0.3, 0.6, 0.9, 1.2, 1.5, 1.8"></textarea>
+                    <div id="statResults" class="space-y-4 mb-8">
+                        <p class="text-lg">
+                            **Sample Size (N):** <span id="nValue" class="font-bold text-indigo-600"></span>
+                        </p>
+                        <p class="text-lg">
+                            **Correlation Coefficient (R):** <span id="correlationR" class="font-bold text-indigo-600"></span>
+                            <span class="text-sm text-gray-500 ml-2">(R close to -1 indicates a strong negative linear relationship.)</span>
+                        </p>
+                        <p class="text-lg">
+                            **Regression Model:** <code class="bg-gray-100 p-1 rounded font-mono text-xl text-green-700">Y = <span id="slopeM"></span>X + <span id="interceptB"></span></code>
+                            <span class="text-sm text-gray-500 ml-2">(Linear Model: Y = mX + b)</span>
+                        </p>
+                    </div>
+
+                    <!-- Canvas for the plot -->
+                    <h4 class="text-xl font-semibold text-gray-700 mb-2">Regression Plot ($Y$ vs. $X$)</h4>
+                    <div class="border border-gray-300 rounded-lg overflow-hidden bg-white p-2">
+                        <canvas id="regressionCanvas" width="500" height="300" class="w-full"></canvas>
+                    </div>
+                </div>
             </div>
-            <div>
-                <label for="yInput" class="block text-sm font-semibold mb-2 text-gray-700">log(Female/Male Victim Ratio) [Y - Dependent Variable]</label>
-                <textarea id="yInput" rows="3" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-red-500 focus:border-red-500" placeholder="e.g. 0.7, 0.5, 0.3, 0.1, -0.1, -0.3"></textarea>
-            </div>
-        </div>
-
-        <button id="runRegression"
-            class="w-full bg-[#DC2626] text-white px-5 py-3 rounded-lg font-bold shadow-md hover:bg-red-700 transition duration-200 transform hover:scale-[1.005]">
-            Run C1 Regression
-        </button>
-
-        <!-- Results Display -->
-        <div id="regResult" class="mt-8 pt-6 border-t border-gray-200 hidden">
-            <h3 class="text-2xl font-bold text-gray-800 mb-4">Regression Results (C1 Model)</h3>
-            <pre id="resultText" class="bg-gray-100 border border-gray-200 rounded-lg p-4 text-gray-800 text-sm overflow-x-auto whitespace-pre-wrap"></pre>
-
-            <h4 class="text-xl font-semibold text-gray-700 mt-6 mb-2">Visualization (SIGI [X] vs. Ratio [Y])</h4>
-            <div class="p-2 border border-gray-300 rounded-lg bg-white">
-                 <!-- Canvas for plotting X vs Y (primary relationship) -->
-                <canvas id="regCanvas" class="w-full" height="300" width="500"></canvas>
-            </div>
-        </div>
-    </section>
-
-    <script>
-        // === Core Utility Functions ===
-        // Calculates the arithmetic mean of an array.
-        const mean = arr => arr.reduce((a, b) => a + b, 0) / arr.length;
-        
-        // Helper to display errors instead of using alert()
-        function displayError(message) {
-            document.getElementById("errorText").textContent = message;
-            document.getElementById("errorMsg").classList.remove("hidden");
-            document.getElementById("regResult").classList.add("hidden");
-        }
-
-        // Helper to hide errors
-        function hideError() {
-            document.getElementById("errorMsg").classList.add("hidden");
-        }
-
-        // Parses comma-separated string input into a filtered number array.
-        const parseInput = id => document.getElementById(id).value.split(',')
-            .map(v => parseFloat(v.trim())).filter(v => !isNaN(v));
-
-        // Simple Linear Regression (OLS for C1: Y = b0 + b1*X)
-        function ols(X, Y) {
-            const n = X.length;
-            const meanX = mean(X), meanY = mean(Y);
-            // Calculate Covariance (sum((xi - meanX) * (yi - meanY)))
-            const cov = X.map((x, i) => (x - meanX) * (Y[i] - meanY)).reduce((a, b) => a + b);
-            // Calculate Variance of X (sum((xi - meanX)^2))
-            const varX = X.map(x => (x - meanX) ** 2).reduce((a, b) => a + b);
-            
-            if (varX === 0) {
-                 return { error: "X values are identical, slope cannot be calculated." };
-            }
-
-            // Calculate Slope (b1) and Intercept (b0)
-            const b1 = cov / varX;
-            const b0 = meanY - b1 * meanX;
-            
-            // Calculate R-squared
-            const yhat = X.map(x => b0 + b1 * x);
-            const ssr = yhat.map((y, i) => (y - meanY) ** 2).reduce((a, b) => a + b); // Sum of Squares Regression
-            const sse = Y.map((y, i) => (y - yhat[i]) ** 2).reduce((a, b) => a + b); // Sum of Squares Error
-            const r2 = ssr / (ssr + sse);
-            
-            return { b0, b1, r2, error: null };
-        }
-        
-        // Function to draw the plot
-        function drawScatterPlot(X, Y, b0, b1) {
-            const canvas = document.getElementById("regCanvas");
-            const ctx = canvas.getContext("2d");
-            // Clear canvas for fresh draw
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            const padding = 35;
-            const width = canvas.width - 2 * padding;
-            const height = canvas.height - 2 * padding;
-
-            if (X.length < 2) return;
-
-            // Determine data range
-            const minX = Math.min(...X);
-            const maxX = Math.max(...X);
-            const minY = Math.min(...Y);
-            const maxY = Math.max(...Y);
-
-            const rangeX = maxX - minX;
-            const rangeY = maxY - minY;
-
-            // Scaling functions (with buffer for better visualization)
-            const bufferX = rangeX * 0.1 || 1;
-            const bufferY = rangeY * 0.1 || 1;
-
-            const plotMinX = minX - bufferX * 0.5;
-            const plotMaxX = maxX + bufferX * 0.5;
-            const plotMinY = minY - bufferY * 0.5;
-            const plotMaxY = maxY + bufferY * 0.5;
-
-            const plotRangeX = plotMaxX - plotMinX;
-            const plotRangeY = plotMaxY - plotMinY;
-
-            const sx = v => padding + (v - plotMinX) / plotRangeX * width;
-            const sy = v => padding + height - (v - plotMinY) / plotRangeY * height;
-
-            // 1. Draw Axes
-            ctx.strokeStyle = '#9ca3af'; 
-            ctx.lineWidth = 1;
-            ctx.beginPath();
-            ctx.moveTo(padding, padding + height); // X-Axis start
-            ctx.lineTo(padding + width, padding + height); // X-Axis end
-            ctx.moveTo(padding, padding); // Y-Axis start
-            ctx.lineTo(padding, padding + height); // Y-Axis end
-            ctx.stroke();
-
-            // 2. Draw Data Points (Scatter)
-            ctx.fillStyle = '#0033A0'; // Blue dot
-            X.forEach((x, i) => {
-                ctx.beginPath();
-                ctx.arc(sx(x), sy(Y[i]), 4, 0, 2 * Math.PI);
-                ctx.fill();
-            });
-
-            // 3. Draw Regression Line
-            ctx.strokeStyle = '#DC2626'; // Red line
-            ctx.lineWidth = 2;
-            ctx.beginPath();
-            
-            const lineX1 = plotMinX;
-            const lineY1 = b0 + b1 * lineX1;
-            const lineX2 = plotMaxX;
-            const lineY2 = b0 + b1 * lineX2;
-            
-            ctx.moveTo(sx(lineX1), sy(lineY1));
-            ctx.lineTo(sx(lineX2), sy(lineY2));
-            ctx.stroke();
-
-            // 4. Draw Labels
-            ctx.fillStyle = '#374151';
-            ctx.font = '10px Inter';
-            ctx.textAlign = 'center';
-            ctx.fillText(minX.toFixed(2), sx(minX), padding + height + 15);
-            ctx.fillText(maxX.toFixed(2), sx(maxX), padding + height + 15);
-            ctx.textAlign = 'right';
-            ctx.fillText(minY.toFixed(2), padding - 5, sy(minY));
-            ctx.fillText(maxY.toFixed(2), padding - 5, sy(maxY));
-            ctx.textAlign = 'left';
-        }
-
-        // =======================================================
-        // EVENT LISTENERS
-        // =======================================================
-        
-        // Set initial default data (Negative Correlation, matching SIGI analysis)
-        document.getElementById("xInput").value = "0.3, 0.6, 0.9, 1.2, 1.5, 1.8"; 
-        document.getElementById("yInput").value = "0.7, 0.5, 0.3, 0.1, -0.1, -0.3"; 
-
-        // Regression Button Click Handler (Simplified for C1 only)
-        document.getElementById("runRegression").addEventListener("click", () => {
-            hideError();
-            
-            const X = parseInput("xInput");
-            const Y = parseInput("yInput");
-
-            // 1. Basic Data Validation
-            if (X.length !== Y.length || X.length < 2) {
-                displayError("The length of the X and Y data arrays must match, and at least 2 data points are required.");
-                return;
-            }
-
-            // 2. Run C1 Simple OLS Regression
-            const result = ols(X, Y); 
-
-            if (result.error) { 
-                displayError("Calculation Error: " + result.error); 
-                return; 
-            }
-            
-            // 3. Prepare Result Text
-            const { b0, b1, r2 } = result;
-            const text = 
-                `*** Model: C1 (log_Y ~ log_X) ***\n` +
-                `Regression Equation: Y = ${b1.toFixed(4)} * X + ${b0.toFixed(4)}\n\n` +
-                `SIGI Coefficient (β₁): ${b1.toFixed(4)}\n` +
-                `Intercept (β₀): ${b0.toFixed(4)}\n` +
-                `R² (Explained Variance): ${r2.toFixed(4)}\n\n` +
-                `Interpretation: For a one-unit increase in log(SIGI), the log(Victim Ratio) changes by ${b1.toFixed(4)}.`;
-
-            document.getElementById("regResult").classList.remove("hidden");
-            document.getElementById("resultText").textContent = text;
-            
-            // 4. Draw Plot
-            drawScatterPlot(X, Y, b0, b1);
-        });
-        
-        // Run initial calculation on load
-        window.onload = () => {
-            document.getElementById("runRegression").click();
-        }
-    </script>
-</body>
-</html>
-
+        </section>
 
         <!-- 6. DOWNLOADABLE RESOURCES -->
         <section class="mt-24 pt-16">
@@ -521,16 +322,11 @@
                     if (entry.isIntersecting) {
                         // Element is in view, make it visible
                         entry.target.classList.add('is-visible');
-                        // Optional: stop observing once visible to save resources
-                        // observer.unobserve(entry.target); 
-                    } else {
-                        // Optional: remove class when it leaves the viewport (for re-triggering on scroll up)
-                        // entry.target.classList.remove('is-visible');
                     }
                 });
             }, {
-                rootMargin: '0px 0px -20% 0px', // Trigger when 80% of the element is in view
-                threshold: 0.1 // Trigger when 10% of the element is visible
+                rootMargin: '0px 0px -20% 0px', 
+                threshold: 0.1 
             });
 
             // Observe each narrative step
@@ -551,9 +347,9 @@
             const canvas = document.getElementById('regressionCanvas');
             const ctx = canvas.getContext('2d');
 
-            // Default mock data based on the provided analysis's structure (positive slope)
-            xDataInput.value = "10, 12, 14, 16, 18, 20";
-            yDataInput.value = "50, 55, 63, 68, 70, 75";
+            // Set default mock data for negative correlation, matching SIGI analysis 
+            xDataInput.value = "2.0, 2.3, 2.6, 2.9, 3.2, 3.5"; 
+            yDataInput.value = "0.8, 0.4, 0.1, -0.2, -0.6, -1.0"; 
 
             // Helper function to parse input strings into number arrays
             function parseData(dataString) {
@@ -647,7 +443,7 @@
                 if (rangeX === 0 && rangeY === 0) {
                     ctx.fillStyle = '#ef4444'; // Red-600
                     ctx.font = '14px Inter';
-                    ctx.fillText('플롯 불가: X, Y 데이터가 일정합니다. (Cannot plot: X and Y data are constant).', 10, canvas.height / 2);
+                    ctx.fillText('Cannot plot: X and Y data are constant.', 10, canvas.height / 2);
                     return;
                 }
                 
@@ -721,7 +517,7 @@
                     // Handle vertical line case (all X are the same)
                     ctx.fillStyle = '#ef4444'; 
                     ctx.font = '14px Inter';
-                    ctx.fillText('회귀선 플롯 불가: X 값이 모두 같습니다. (Cannot draw regression line: X values are identical).', 10, canvas.height / 2);
+                    ctx.fillText('Cannot draw regression line: X values are identical.', 10, canvas.height / 2);
                 }
                 
                 // --- Draw Labels (min/max) ---
@@ -736,31 +532,26 @@
                 ctx.fillText(minY.toFixed(1), 5, padding + height - 5);
                 ctx.fillText(maxY.toFixed(1), 5, padding + 10);
 
-                // ** NEW: Axis Title Labels **
+                // ** Axis Title Labels **
                 ctx.font = '12px Inter bold';
                 // X Axis Label
                 ctx.save();
                 ctx.textAlign = 'center';
-                ctx.fillText('X Value (Independent)', padding + width / 2, canvas.height - 5);
+                ctx.fillText('X Value (Independent: Log SIGI)', padding + width / 2, canvas.height - 5);
                 ctx.restore();
                 // Y Axis Label
                 ctx.save();
                 ctx.translate(15, canvas.height / 2);
                 ctx.rotate(-Math.PI / 2);
                 ctx.textAlign = 'center';
-                ctx.fillText('Y Value (Dependent)', 0, 0);
+                ctx.fillText('Y Value (Dependent: Log Victim Ratio)', 0, 0);
                 ctx.restore();
             }
 
             // New wrapper function to handle calculation and plotting
             function calculateAndPlot() {
                 errorMsg.classList.add('hidden');
-                // Don't hide resultsDiv on error, but ensure it's hidden before successful calculation
-                if (xDataInput.value.length === 0 || yDataInput.value.length === 0) {
-                     resultsDiv.classList.add('hidden');
-                }
-
-
+                
                 const xData = parseData(xDataInput.value);
                 const yData = parseData(yDataInput.value);
                 
@@ -769,14 +560,16 @@
 
                 // Validation
                 if (xData.length === 0 || yData.length === 0) {
-                    errorMsg.textContent = "오류: X 및 Y 데이터셋 모두에 데이터를 입력해주세요. (Error: Please enter data for both X and Y datasets.)";
+                    errorMsg.textContent = "Error: Please enter data for both X and Y datasets.";
                     errorMsg.classList.remove('hidden');
+                    resultsDiv.classList.add('hidden');
                     return;
                 }
 
                 if (xData.length !== yData.length) {
-                    errorMsg.textContent = "오류: X 및 Y 데이터셋의 데이터 포인트 수가 일치해야 합니다. (Error: X and Y datasets must have the same number of data points.)";
+                    errorMsg.textContent = "Error: X and Y datasets must have the same number of data points.";
                     errorMsg.classList.remove('hidden');
+                    resultsDiv.classList.add('hidden');
                     return;
                 }
 
@@ -795,7 +588,7 @@
                     resultsDiv.classList.remove('hidden');
 
                 } catch (error) {
-                    errorMsg.textContent = "계산 오류: " + error.message;
+                    errorMsg.textContent = "Calculation Error: " + error.message;
                     errorMsg.classList.remove('hidden');
                     resultsDiv.classList.add('hidden'); // Hide results on fatal error
                 }
@@ -804,7 +597,7 @@
 
             calculateBtn.addEventListener('click', calculateAndPlot);
             
-            // ** 1. Initial calculation and plot on load with default data **
+            // ** Initial calculation and plot on load with default data **
             calculateAndPlot(); 
 
 
@@ -831,11 +624,11 @@
             downloadCsvBtn.addEventListener('click', () => {
                 const csvContent =
                     "Country,Log_SIGI,Log_Victim_Ratio,Education_Rate,Gov_Effectiveness\n" +
-                    "A,0.5,0.7,0.85,1.2\n" +
-                    "B,1.2,0.4,0.60,0.5\n" +
-                    "C,1.8,0.2,0.45,-0.1\n" +
-                    "D,0.3,0.9,0.92,1.5\n" +
-                    "E,2.1,0.1,0.30,-0.8"; // Mock data showing negative trend between SIGI and Reported Ratio
+                    "A,2.0,0.8,0.85,1.2\n" +
+                    "B,2.5,0.4,0.60,0.5\n" +
+                    "C,3.0,0.1,0.45,-0.1\n" +
+                    "D,3.5,-0.2,0.30,-0.8\n" +
+                    "E,4.0,-0.6,0.15,-1.2"; // Mock data showing negative trend between SIGI and Reported Ratio
                 downloadFile("SIGI_Analysis_Data.csv", csvContent, 'text/csv');
             });
 
@@ -846,9 +639,8 @@
                     "Conclusion:\n" +
                     "The analysis showed that a higher SIGI index (greater inequality) correlates with a lower reported female victimization ratio. This counter-intuitive finding is interpreted as evidence of widespread underreporting in highly unequal societies, not lower actual violence.\n\n" +
                     "Policy Focus: Increase Visibility (Education) and Strengthen Protection (Government Effectiveness).\n\n" +
-                    "R-squared (Model C1): 0.257 | SIGI Coeff: -0.9805";
+                    "R-squared (Model C1): 0.257 | F-statistic: 10.40 (p=0.00304)";
                 
-                // Note: Actual PDF generation requires external libraries (not allowed here).
                 // This generates a text file with a .pdf extension as a placeholder mock.
                 downloadFile("SIGI_Analysis_Report_Mock.pdf", pdfMockContent, 'text/plain'); 
             });
