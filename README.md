@@ -199,7 +199,7 @@
         </tr>
         <tr>
           <td class="font-semibold">Adj. R-squared</td>
-          <td>0.326</td>
+          <td>0.322</td>
           <td class="text-gray-600">The model maintains a good fit after including two predictors.</td>
         </tr>
         <tr>
@@ -210,7 +210,7 @@
         <tr>
           <td class="font-semibold">Prob (F-statistic)</td>
           <td class="font-bold text-red-600">0.00135</td>
-          <td class="text-red-700 font-medium">The relationship remains statistically significant ($p < 0.01$).</td>
+          <td class="text-red-700 font-medium">The relationship remains statistically significant.</td>
         </tr>
       </tbody>
     </table>
@@ -220,10 +220,7 @@
   <div class="mt-6 p-4 border border-green-300 rounded-lg bg-green-50">
     <p class="text-lg font-bold text-green-700 mb-2">Key Finding (Model C2)</p>
     <p class="text-base text-gray-800">
-      The coefficient for <strong>Education Rate</strong> is significantly positive (approx. +0.0284).
-    </p>
-    <p class="text-base text-gray-800 mt-2">
-      <strong>Interpretation:</strong> Higher education levels are significantly associated with a higher <em>reported</em> Female/Male Victim Ratio, suggesting that education improves public awareness and reporting.
+      Higher education levels are significantly associated with higher reported female victim ratios.
     </p>
   </div>
 </section>
