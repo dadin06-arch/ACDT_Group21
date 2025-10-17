@@ -66,41 +66,43 @@
                 </ul>
             </div>
             
-            <!-- DATA SOURCES -->
-            <div class="mt-10 pt-4 border-t border-gray-200">
-                <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
-                    <span class="text-indigo-600 mr-2">🔗</span> Data Sources
-                </h3>
-                <p class="text-base text-gray-600 mb-4">
-                    Note: Both SIGI and the Victim Ratio were **Log-Transformed** to normalize distributions and ensure model robustness.
-                </p>
-                <div class="p-5 bg-gray-50 rounded-xl border border-gray-200 shadow-inner">
-                    <ul class="space-y-3 text-base">
-                        <li class="flex flex-col sm:flex-row items-start sm:items-baseline">
-                            <span class="text-gray-700 font-semibold w-64 shrink-0">Victims by Gender:</span>
-                            <a href="https://dataunodc.un.org/" target="_blank" class="text-blue-600 hover:text-blue-800 hover:underline transition ml-0 sm:ml-4 mt-1 sm:mt-0">UNODC Data Portal</a>
-                        </li>
-                        <li class="flex flex-col sm:flex-row items-start sm:items-baseline">
-                            <span class="text-gray-700 font-semibold w-64 shrink-0">Social Institutions and Gender Index (SIGI):</span>
-                            <a href="https://www.oecd.org/en/data/dashboards/social-institutions-gender-index.html" target="_blank" class="text-blue-600 hover:text-blue-800 hover:underline transition ml-0 sm:ml-4 mt-1 sm:mt-0">OECD</a>
-                        </li>
-                        <li class="flex flex-col sm:flex-row items-start sm:items-baseline">
-                            <span class="text-gray-700 font-semibold w-64 shrink-0">GDP:
-                            <a href="https://www.worldbank.org/ext/en/home" target="_blank" class="text-blue-600 hover:text-blue-800 hover:underline transition ml-0 sm:ml-4 mt-1 sm:mt-0">World Back</a>/span>
-                        </li>
-                        <li class="flex flex-col sm:flex-row items-start sm:items-baseline">
-                            <span class="text-gray-700 font-semibold w-64 shrink-0">Education level:
-                            <a href="https://www.oecd.org/en/data/indicators.html?orderBy=mostRelevant&page=0" target="_blank" class="text-blue-600 hover:text-blue-800 hover:underline transition ml-0 sm:ml-4 mt-1 sm:mt-0">OECD</a>/span>
-                            </li>
-                            <li class="flex flex-col sm:flex-row items-start sm:items-baseline">
-                            <span class="text-gray-700 font-semibold w-64 shrink-0">Government Effectiveness:
-                            <a href="https://www.worldbank.org/ext/en/home " target="_blank" class="text-blue-600 hover:text-blue-800 hover:underline transition ml-0 sm:ml-4 mt-1 sm:mt-0">World Back</a>/span>
-                             </li>
-                    </ul>
-                </div>
-            </div>
-            <!-- END DATA SOURCES -->
-        </section>
+           <!-- DATA SOURCES -->
+<section aria-labelledby="data-sources">
+  <div class="mt-10 pt-4 border-t border-gray-200">
+    <h3 id="data-sources" class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+      <span class="text-indigo-600 mr-2" aria-hidden="true">🔗</span> Data Sources
+    </h3>
+    <p class="text-base text-gray-600 mb-4">
+      Note: Both SIGI and the Victim Ratio were <strong>log-transformed</strong> to normalize distributions and ensure model robustness.
+    </p>
+    <div class="p-5 bg-gray-50 rounded-xl border border-gray-200 shadow-inner">
+      <ul class="space-y-3 text-base">
+        <li class="flex flex-col sm:flex-row items-start sm:items-baseline">
+          <span class="text-gray-700 font-semibold w-64 shrink-0">Victims by Gender:</span>
+          <a href="https://dataunodc.un.org/" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 hover:underline transition sm:ml-4 mt-1 sm:mt-0">UNODC Data Portal</a>
+        </li>
+        <li class="flex flex-col sm:flex-row items-start sm:items-baseline">
+          <span class="text-gray-700 font-semibold w-64 shrink-0">Social Institutions and Gender Index (SIGI):</span>
+          <a href="https://www.oecd.org/en/data/dashboards/social-institutions-gender-index.html" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 hover:underline transition sm:ml-4 mt-1 sm:mt-0">OECD</a>
+        </li>
+        <li class="flex flex-col sm:flex-row items-start sm:items-baseline">
+          <span class="text-gray-700 font-semibold w-64 shrink-0">GDP:</span>
+          <a href="https://data.worldbank.org/" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 hover:underline transition sm:ml-4 mt-1 sm:mt-0">World Bank</a>
+        </li>
+        <li class="flex flex-col sm:flex-row items-start sm:items-baseline">
+          <span class="text-gray-700 font-semibold w-64 shrink-0">Education Level:</span>
+          <a href="https://www.oecd.org/en/data/indicators.html" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 hover:underline transition sm:ml-4 mt-1 sm:mt-0">OECD</a>
+        </li>
+        <li class="flex flex-col sm:flex-row items-start sm:items-baseline">
+          <span class="text-gray-700 font-semibold w-64 shrink-0">Government Effectiveness:</span>
+          <a href="https://info.worldbank.org/governance/wgi/" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 hover:underline transition sm:ml-4 mt-1 sm:mt-0">World Bank (WGI)</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+<!-- END DATA SOURCES -->
+
 
         <!-- STEP 2: ANALYSIS RESULTS (UPDATED) -->
         <section id="step-2" class="data-step pt-16 border-l-4 border-indigo-500 pl-6 bg-white p-8 rounded-xl shadow-lg">
