@@ -296,7 +296,7 @@
   <div class="mt-6 p-4 border border-yellow-300 rounded-lg bg-yellow-50">
     <p class="text-lg font-bold text-yellow-700 mb-2">Key Finding (Model C3)</p>
     <p class="text-base text-gray-800">
-      Higher Government Effectiveness are associated with higher reported female victim ratios.
+      In countries with high government effectiveness, gender inequality has less impact on victimization disparit.
     </p>
   </div>
 </section>
