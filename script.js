@@ -1,80 +1,21 @@
-// script.js - AI StyleMate Logic (Final Version with Face Detection)
+// script.js - AI StyleMate Logic (Final Version with Dual Mode and Low Confidence Guidance)
 
 // ----------------------------------------------------
-// 1. MODEL PATHS, VARIABLES & DATA DEFINITION
+// 1. MODEL PATHS, CONSTANTS & DATA DEFINITION
 // ----------------------------------------------------
 const URL_MODEL_1 = "./models/model_1/"; 
 const URL_MODEL_2 = "./models/model_2/"; 
 
+// 💡 새로운 상수: 신뢰도 임계값 (60% 미만 시 경고 메시지 출력)
+const CONFIDENCE_THRESHOLD = 0.60; 
+
 let model1, model2, webcam;
-let faceDetectorModel; // 💡 얼굴 감지 모델 변수
 let labelContainer = document.getElementById("label-container");
 let currentModel = 0; 
-let requestID; 
-let isRunning = false; 
-let isInitialized = false; 
-let currentSource = 'webcam'; 
-
-// 💡 얼굴 감지 임계값 (필요 시 조정 가능)
-const FACE_DETECTION_THRESHOLD = 0.9; // 얼굴 감지 신뢰도
-const MIN_FACE_SIZE = 50; // 최소 얼굴 크기 (픽셀)
-
-// 💡 얼굴형별 추천 데이터 및 이미지 URL 정의
-const faceTypeData = {
-    "Oval": {
-        summary: "The most versatile face shape. Naturally suits most hairstyles.",
-        short: "Crop cut, undercut, bob.",
-        long: "Layered cuts, natural waves.",
-        shortImage: 'images/oval_short.png',
-        longImage: 'images/oval_long.png'
-    },
-    "Round": {
-        summary: "Styles that look longer and sharper work well. Best with styles that add vertical length and slim the sides.",
-        short: "Asymmetrical cuts, volume on top.",
-        long: "Long bob, side-flowing layers.",
-        shortImage: 'images/round_short.png',
-        longImage: 'images/round_long.png'
-    },
-    "Square": {
-        summary: "Reduce sharp angles and add soft lines. Softens a strong jawline with gentle curves.",
-        short: "Textured cuts, side-swept styles.",
-        long: "Waves with face-framing layers.",
-        shortImage: 'images/square_short.png',
-        longImage: 'images/square_long.png'
-    },
-    "Heart": {
-        summary: "Keep the top light and add volume toward the bottom. Balances a wider forehead and narrower chin.",
-        short: "Side bangs, face-hugging layers.",
-        long: "Heavier layers below the chin, side parts.",
-        shortImage: 'images/heart_short.png',
-        longImage: 'images/heart_long.png'
-    },
-    "Oblong": {
-        summary: "Shorten the appearance of length and widen the silhouette. Works best with styles that reduce length and increase width.",
-        short: "Jaw-line bobs, forehead-covering bangs.",
-        long: "Medium-length layers, styles with side volume.",
-        shortImage: 'images/oblong_short.png',
-        longImage: 'images/oblong_long.png'
-    }
-};
-
-// 💡 퍼스널 톤 추천 데이터 및 이미지 URL 정의 (파일명 최종 수정됨)
-const personalToneData = {
-    "Cool": {
-        summary: "Blue-based and purple-based cool hues make the skin look clearer and brighter.",
-        hair: "Ash brown, ash blonde, blue-black",
-        clothing: "Light tones: Ice blue, lavender, lilac pink | Dark tones: Navy, charcoal gray, burgundy | Neutrals: White, cool gray",
-        makeup: "Lips: Raspberry, fuchsia, cool pink | Eyes: Mauve, silver, cool brown | Blush: Rose pink, lilac pink",
-        image: 'images/cool_tone.png' 
-    },
-    "Warm": {
-        summary: "Yellow-based and orange-based warm hues enhance natural warmth and give a healthy glow.",
-        hair: "Golden brown, copper brown",
-        clothing: "Light tones: Coral, peach, salmon | Dark tones: Olive, khaki, mustard | Neutrals: Beige, ivory, cream",
-        makeup: "Lips: Coral, orange-red, brick | Eyes: Gold, bronze, warm brown | Blush: Peach, coral, apricot",
-        image: 'images/warm_tone.png' 
-    }
-};
+let requestID; // window.requestAnimationFrame의 ID 저장용
+let isRunning = false; // 웹캠 실시간 분석 상태 (Webcam Mode 전용)
+let isInitialized = false; // 모델 및 웹캠 초기화 여부
+let currentSource = 'webcam'; // 현재 입력 소스: 'webcam' 또는 'image'
 
 
 // ===============================================
@@ -82,46 +23,28 @@ const personalToneData = {
 // ===============================================
 
 document.addEventListener("DOMContentLoaded", () => {
+    // 버튼 연결
     document.getElementById("start-button").addEventListener("click", toggleAnalysis);
     
+    // 모델 전환 버튼 연결 (handleModelChange 함수 사용)
     document.getElementById("model1-btn").addEventListener("click", () => handleModelChange(1));
     document.getElementById("model2-btn").addEventListener("click", () => handleModelChange(2));
     
+    // 모드 전환 버튼 연결
     document.getElementById("mode-webcam").addEventListener("click", () => switchMode('webcam'));
     document.getElementById("mode-upload").addEventListener("click", () => switchMode('image'));
 
+    // 이미지 업로드 및 처리 버튼 연결
     document.getElementById("image-upload").addEventListener("change", handleImageUpload);
     document.getElementById("process-image-btn").addEventListener("click", processUploadedImage);
     
-    document.querySelectorAll('.face-select-btn').forEach(button => {
-        button.addEventListener('click', (e) => {
-            document.querySelectorAll('.face-select-btn').forEach(btn => btn.classList.remove('active'));
-            document.querySelectorAll('.tone-select-btn').forEach(btn => btn.classList.remove('active')); 
-            e.target.classList.add('active');
-            const faceType = e.target.getAttribute('data-facetype');
-            showRecommendation(faceType); 
-        });
-    });
-
-    document.querySelectorAll('.tone-select-btn').forEach(button => {
-        button.addEventListener('click', (e) => {
-            document.querySelectorAll('.face-select-btn').forEach(btn => btn.classList.remove('active')); 
-            document.querySelectorAll('.tone-select-btn').forEach(btn => btn.classList.remove('active'));
-            e.target.classList.add('active');
-            const toneType = e.target.getAttribute('data-tonetype');
-            showToneRecommendation(toneType); 
-        });
-    });
-    
-    switchMode('webcam');
-    
-    document.getElementById("style-selection-controls").style.display = 'none';
-    document.getElementById("tone-selection-controls").style.display = 'none';
+    // 초기 모드 설정
+    switchMode('webcam'); 
 });
 
 
 // ===============================================
-// 3. Mode Switching Logic 
+// 3. Mode Switching Logic
 // ===============================================
 
 function switchMode(mode) {
@@ -136,6 +59,7 @@ function switchMode(mode) {
     
     currentSource = mode;
     
+    // 활성화된 모드 버튼 스타일 변경
     document.getElementById("mode-webcam").classList.remove('active');
     document.getElementById("mode-upload").classList.remove('active');
     
@@ -146,330 +70,183 @@ function switchMode(mode) {
         document.getElementById("mode-webcam").classList.add('active');
         webcamControls.style.display = 'block';
         uploadControls.style.display = 'none';
-        webcamContainer.innerHTML = '<p id="initial-message">Click "Start Analysis" to load webcam.</p>';
         
         if(webcam && webcam.canvas) {
             webcamContainer.appendChild(webcam.canvas);
+        } else {
+            webcamContainer.innerHTML = '<p id="initial-message">분석을 시작하려면 "분석 시작" 버튼을 클릭하세요.</p>';
         }
 
     } else if (mode === 'image') {
         document.getElementById("mode-upload").classList.add('active');
         webcamControls.style.display = 'none';
         uploadControls.style.display = 'block';
-        webcamContainer.innerHTML = '<p id="initial-message">Please upload an image.</p>';
+        webcamContainer.innerHTML = '<p id="initial-message">분석할 이미지를 업로드해 주세요.</p>';
         
         if(webcam) {
             webcam.pause();
         }
     }
     
-    labelContainer.innerHTML = (mode === 'webcam' && isRunning) ? 'Running analysis...' : 'Waiting for analysis...';
-    document.getElementById("recommendation-output").innerHTML = '<p>Select a model to begin the analysis or selection.</p>';
+    // 모드 전환 시 결과 영역 초기화
+    labelContainer.innerHTML = (mode === 'webcam' && isRunning) ? '실시간 분석 중...' : '분석 대기 중...';
 }
-
-
-// ===============================================
-// 4. Initialization, Webcam Loop Control (toggleAnalysis)
-// ===============================================
-
-async function toggleAnalysis() {
-    const startButton = document.getElementById("start-button");
-    
-    if (isRunning) {
-        window.cancelAnimationFrame(requestID);
-        startButton.innerText = "▶️ Resume Analysis";
-        startButton.classList.replace('primary-btn', 'secondary-btn');
-        isRunning = false;
-        return; 
-    }
-    
-    if (!isInitialized) {
-        startButton.innerText = "LOADING...";
-        startButton.disabled = true;
-        document.getElementById("webcam-container").innerHTML = "Loading models and setting up webcam. Please wait...";
-        
-        try {
-            model1 = await tmImage.load(URL_MODEL_1 + "model.json", URL_MODEL_1 + "metadata.json");
-            model2 = await tmImage.load(URL_MODEL_2 + "model.json", URL_MODEL_2 + "metadata.json");
-            
-            // 💡 얼굴 감지 모델 로드 추가
-            faceDetectorModel = await blazeface.load();
-
-            const flip = true; 
-            webcam = new tmImage.Webcam(400, 300, flip); 
-            await webcam.setup(); 
-            await webcam.play();
-            
-            document.getElementById("webcam-container").innerHTML = ''; 
-            document.getElementById("webcam-container").appendChild(webcam.canvas);
-            
-            currentModel = 1; 
-            updateModelInfo();
-            isInitialized = true;
-
-        } catch (error) {
-            console.error("Initialization error:", error);
-            document.getElementById("webcam-container").innerHTML = "<p style='color:red;'>⚠️ Error! Check console. (Ensure files are present and running on HTTPS)</p>";
-            startButton.innerText = "⚠️ Error. Retry";
-            startButton.disabled = false;
-            return;
-        }
-        startButton.disabled = false;
-    }
-
-    if(webcam) webcam.play(); 
-    startButton.innerText = "⏸️ Pause & Lock Result";
-    startButton.classList.replace('secondary-btn', 'primary-btn');
-    isRunning = true;
-    loop(); 
-}
-
-
-// ===============================================
-// 5. Webcam Prediction Loop and Model Change Handler 
-// ===============================================
-
-function loop() {
-    if (currentSource === 'webcam') {
-        webcam.update(); 
-        
-        if (currentModel === 1 && model1) {
-            predict(model1, "Face Type Analysis", webcam.canvas);
-        } else if (currentModel === 2 && model2) {
-            predict(model2, "Personal Tone Analysis", webcam.canvas);
-        }
-    }
-    
-    requestID = window.requestAnimationFrame(loop); 
-}
-
-
-function handleModelChange(newModel) {
-    if (currentModel === newModel) return;
-
-    currentModel = newModel;
-    updateModelInfo();
-    
-    const styleControls = document.getElementById("style-selection-controls");
-    const toneControls = document.getElementById("tone-selection-controls"); 
-    const recommendationOutput = document.getElementById("recommendation-output");
-    
-    if (newModel === 1) { 
-        styleControls.style.display = 'block';
-        toneControls.style.display = 'none';
-        recommendationOutput.innerHTML = '<p>Select a Face Type button from the **Hair Style Guide** to see recommendations.</p>';
-        document.querySelectorAll('.tone-select-btn').forEach(btn => btn.classList.remove('active'));
-        
-    } else { 
-        styleControls.style.display = 'none'; 
-        toneControls.style.display = 'block'; 
-        recommendationOutput.innerHTML = '<p>Select a Personal Tone button from the **Personal Tone Guide** to see recommendations.</p>';
-        document.querySelectorAll('.face-select-btn').forEach(btn => btn.classList.remove('active'));
-    }
-    
-    if ((currentSource === 'webcam' && !isRunning && isInitialized) || currentSource === 'image') {
-        const modelToUse = (currentModel === 1) ? model1 : model2;
-        const modelName = (currentModel === 1) ? "Face Type Analysis" : "Personal Tone Analysis";
-        const element = (currentSource === 'webcam') ? webcam.canvas : document.getElementById('uploaded-image');
-        
-        if(element) {
-            predict(modelToUse, modelName, element);
-        }
-    } 
-}
-
-
-// ===============================================
-// 6. Image Upload Logic
-// ===============================================
 
 function handleImageUpload(event) {
     const file = event.target.files[0];
-    if (!file) return;
+    const processBtn = document.getElementById("process-image-btn");
+    const webcamContainer = document.getElementById("webcam-container");
 
-    const reader = new FileReader();
-    reader.onload = (e) => {
-        const imgElement = document.createElement('img');
-        imgElement.id = 'uploaded-image';
-        imgElement.src = e.target.result;
-        
-        const container = document.getElementById("webcam-container");
-        container.innerHTML = ''; 
-        container.appendChild(imgElement);
-
-        document.getElementById("process-image-btn").disabled = false;
-        labelContainer.innerHTML = 'Image uploaded. Click "Process Uploaded Image" to analyze.';
-    };
-    reader.readAsDataURL(file);
+    if (file && file.type.startsWith('image/')) {
+        // 이미지 미리보기를 위한 FileReader 사용
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            webcamContainer.innerHTML = `<img id="uploaded-img" src="${e.target.result}" alt="Uploaded Image" style="width: 100%; height: auto; border-radius: 10px;">`;
+            processBtn.disabled = false;
+        };
+        reader.readAsDataURL(file);
+    } else {
+        // 💡 유효하지 않은 파일 오류 처리
+        webcamContainer.innerHTML = `
+            <div class="error-message">
+                <i class="fas fa-times-circle"></i>
+                <h3>🚫 파일 오류: 유효하지 않은 파일입니다.</h3>
+                <p>이미지 파일(JPG, PNG 등)만 업로드할 수 있습니다.</p>
+            </div>
+        `;
+        processBtn.disabled = true;
+    }
 }
 
-async function processUploadedImage() {
-    const imgElement = document.getElementById('uploaded-image');
-    if (!imgElement) return;
-    
-    if (!isInitialized) {
-        labelContainer.innerHTML = 'Loading models... Please wait.';
-        try {
-            model1 = await tmImage.load(URL_MODEL_1 + "model.json", URL_MODEL_1 + "metadata.json");
-            model2 = await tmImage.load(URL_MODEL_2 + "model.json", URL_MODEL_2 + "metadata.json");
-            faceDetectorModel = await blazeface.load(); // 💡 얼굴 감지 모델 로드
-            isInitialized = true;
-        } catch(e) {
-            labelContainer.innerHTML = 'Error loading models. Check console.';
-            return;
+function processUploadedImage() {
+    if (currentModel === 0) {
+        labelContainer.innerHTML = `<div class="error-message"><h3>❌ 모델 오류: 분석을 시작하기 전에 모델을 선택해 주세요.</h3></div>`;
+        return;
+    }
+    const uploadedImg = document.getElementById('uploaded-img');
+    if (uploadedImg) {
+        labelContainer.innerHTML = '이미지 분석 중... 잠시만 기다려 주세요.';
+        predict(uploadedImg);
+    } else {
+        labelContainer.innerHTML = `<div class="error-message"><h3>❌ 오류: 업로드된 이미지를 찾을 수 없습니다. 파일을 다시 선택해 주세요.</h3></div>`;
+    }
+}
+
+
+// ===============================================
+// 4. Initialization, Webcam Loop Control (Enhanced Error Handling)
+// ===============================================
+
+async function init() {
+    if (isInitialized) return;
+
+    try {
+        // 모델 로드
+        model1 = await tmImage.load(URL_MODEL_1 + "model.json", URL_MODEL_1 + "metadata.json");
+        model2 = await tmImage.load(URL_MODEL_2 + "model.json", URL_MODEL_2 + "metadata.json");
+        isInitialized = true;
+        
+        // 초기 모델 설정 (기본 모델 1)
+        handleModelChange(1); 
+        
+        // 웹캠 초기화 (캔버스 준비)
+        const size = 400; // 캔버스 크기
+        const flip = true; 
+        
+        // webcamContainer에 캔버스를 직접 추가하여 초기 메시지 제거
+        const webcamContainer = document.getElementById("webcam-container");
+        webcam = new tmImage.Webcam(size, size, flip); 
+        await webcam.setup(); // 웹캠 스트림 요청
+        webcamContainer.innerHTML = ''; // 초기 메시지 제거
+        webcamContainer.appendChild(webcam.canvas); // 캔버스 삽입
+        
+        document.getElementById("start-button").textContent = '⏸️ Stop Analysis';
+        isRunning = true;
+        loop(); // 초기 루프 시작
+        
+        document.getElementById("initial-message")?.remove(); // 혹시 남아있을 경우 제거
+
+    } catch (e) {
+        console.error("Initialization error:", e);
+        let errorMessage = "AI 모델 로드에 실패했거나 웹캠에 접근할 수 없습니다.";
+
+        if (e.name === "NotAllowedError" || e.name === "PermissionDeniedError") {
+            // 💡 웹캠 권한 거부 오류 처리
+            errorMessage = `
+                <i class="fas fa-video-slash"></i>
+                <h3>🚫 권한 오류: 웹캠 사용이 거부되었습니다.</h3>
+                <p>브라우저 설정에서 카메라 접근 권한을 **허용**해 주세요.</p>
+            `;
+        } else {
+            // 💡 모델 로드 실패 및 기타 네트워크 오류 처리
+             errorMessage = `
+                <i class="fas fa-network-wired"></i>
+                <h3>❌ 오류: AI 모델 로드 실패 또는 네트워크 문제</h3>
+                <p>파일 경로(\`models/\`)를 확인하거나 네트워크 상태를 점검해 주세요. 자세한 내용은 콘솔을 확인하십시오.</p>
+            `;
         }
-    }
-
-    const modelToUse = (currentModel === 1) ? model1 : model2;
-    const modelName = (currentModel === 1) ? "Face Type Analysis" : "Personal Tone Analysis";
-
-    labelContainer.innerHTML = 'Analyzing image...';
-    await predict(modelToUse, modelName, imgElement); 
-    
-    document.getElementById("process-image-btn").innerText = 'Analysis Complete (Click to re-analyze)';
-}
-
-
-// ===============================================
-// 7. Core Prediction and UI Update (핵심 수정 부분)
-// ===============================================
-
-async function predict(modelToUse, modelName, element) {
-    if (!modelToUse || !faceDetectorModel) {
-        labelContainer.innerHTML = `Error: ${modelName} or Face Detector is not loaded.`;
-        return;
-    }
-    
-    // ----------------------------------------------------------------
-    // 💡 1. 얼굴 감지(Face Detection) 로직: 얼굴의 명확성 확인
-    // ----------------------------------------------------------------
-    const predictions = await faceDetectorModel.estimateFaces(element, FACE_DETECTION_THRESHOLD);
-
-    if (predictions.length === 0) {
-        labelContainer.innerHTML = '<div style="color: red; font-weight: bold; padding: 10px;">⚠️ 경고: 얼굴이 명확하게 감지되지 않았습니다!</div><p>분석을 진행하려면 얼굴이 정면으로 잘 보이고, 충분히 밝으며, 가려지지 않았는지 확인해 주세요.</p>';
-        document.getElementById("recommendation-output").innerHTML = '<p>얼굴 인식 실패: 명확한 얼굴을 감지할 수 없습니다.</p>';
         
-        document.getElementById("style-selection-controls").style.display = 'none';
-        document.getElementById("tone-selection-controls").style.display = 'none';
-        return; 
+        // 오류 메시지를 labelContainer에 표시
+        labelContainer.innerHTML = `<div class="error-message">${errorMessage}</div>`;
+        isInitialized = false;
+        isRunning = false; 
     }
-    
-    // 선택적: 얼굴 크기 검사 (너무 멀리 있거나 작게 찍힌 경우)
-    const largestFace = predictions[0]; 
-    const faceWidth = largestFace.bottomRight[0] - largestFace.topLeft[0];
-    const faceHeight = largestFace.bottomRight[1] - largestFace.topLeft[1];
+}
 
-    if (faceWidth < MIN_FACE_SIZE || faceHeight < MIN_FACE_SIZE) {
-        labelContainer.innerHTML = '<div style="color: orange; font-weight: bold; padding: 10px;">⚠️ 경고: 얼굴 크기가 너무 작습니다!</div><p>카메라에 더 가까이 다가가거나, 사진에서 얼굴이 더 크게 보이도록 해 주세요.</p>';
-        document.getElementById("recommendation-output").innerHTML = '<p>얼굴 인식 실패: 얼굴 크기가 너무 작습니다.</p>';
-        
-        document.getElementById("style-selection-controls").style.display = 'none';
-        document.getElementById("tone-selection-controls").style.display = 'none';
+async function loop() {
+    if (!isRunning || currentSource !== 'webcam') {
         return;
     }
     
-    // ----------------------------------------------------------------
-    // 💡 2. 분류(Classification) 로직: 얼굴이 명확할 때만 실행
-    // ----------------------------------------------------------------
+    webcam.update(); 
+    await predict(webcam.canvas); 
     
-    const currentMaxPredictions = modelToUse.getTotalClasses(); 
-    const prediction = await modelToUse.predict(element);
+    requestID = window.requestAnimationFrame(loop);
+}
 
-    let resultHTML = `<div class="model-name-title"><h3>${modelName} Results:</h3></div>`;
-    
-    for (let i = 0; i < currentMaxPredictions; i++) {
-        const classPrediction = 
-            `<strong>${prediction[i].className}</strong>: ${(prediction[i].probability * 100).toFixed(1)}%`;
-        resultHTML += `<div class="prediction-item">${classPrediction}</div>`;
+function toggleAnalysis() {
+    const startButton = document.getElementById("start-button");
+    if (currentSource !== 'webcam') return;
+
+    if (!isInitialized) {
+        // 초기화 필요
+        startButton.textContent = '모델 로드 중...';
+        init();
+        return;
     }
-    labelContainer.innerHTML = resultHTML;
-    
-    if (currentModel === 1) {
-        document.getElementById("style-selection-controls").style.display = 'block';
-        document.getElementById("tone-selection-controls").style.display = 'none'; 
-    } else if (currentModel === 2) {
-        document.getElementById("tone-selection-controls").style.display = 'block';
-        document.getElementById("style-selection-controls").style.display = 'none'; 
+
+    if (isRunning) {
+        // 분석 중지
+        window.cancelAnimationFrame(requestID);
+        webcam.pause();
+        startButton.textContent = '🚀 Start Analysis';
+        labelContainer.innerHTML = '분석이 중지되었습니다.';
+    } else {
+        // 분석 시작 (이미 초기화됨)
+        webcam.play();
+        startButton.textContent = '⏸️ Stop Analysis';
+        isRunning = true;
+        loop();
+        labelContainer.innerHTML = '실시간 분석 중...';
     }
+    isRunning = !isRunning;
 }
 
 
 // ===============================================
-// 8. Manual Recommendation Output 
+// 5. Model Switching
 // ===============================================
 
-// 얼굴형 추천 출력
-function showRecommendation(faceType) {
-    const data = faceTypeData[faceType]; 
-    const outputContainer = document.getElementById("recommendation-output");
-    
-    if (!data) {
-        outputContainer.innerHTML = `<p style="color:red;">Error: No recommendation data found for ${faceType}.</p>`;
+function handleModelChange(modelId) {
+    if (!isInitialized && modelId !== currentModel) {
+        // 모델이 초기화되지 않은 상태에서 모델 전환 시도 -> 초기화 유도
+        labelContainer.innerHTML = `<div class="warning-message">모델을 먼저 로드해 주세요. '분석 시작' 버튼을 눌러 초기화할 수 있습니다.</div>`;
         return;
     }
-
-    const recommendationHTML = `
-        <div class="recommendation-content">
-            <h4>✨ Hairstyle Guide for ${faceType} Face Shape</h4>
-            
-            <p class="summary-text">${data.summary}</p>
-            
-            <div class="hair-styles-container">
-                <div class="style-column">
-                    <h5><i class="fas fa-cut"></i> Short Hair: ${data.short}</h5>
-                    <img src="${data.shortImage}" alt="${faceType} Short Hairstyle">
-                </div>
-                
-                <div class="style-column">
-                    <h5><i class="fas fa-spa"></i> Long Hair: ${data.long}</h5>
-                    <img src="${data.longImage}" alt="${faceType} Long Hairstyle">
-                </div>
-            </div>
-        </div>
-    `;
-    outputContainer.innerHTML = recommendationHTML; 
+    currentModel = modelId;
+    updateModelInfo();
+    labelContainer.innerHTML = `모델 ${modelId} **(${modelId === 1 ? '얼굴형' : '퍼스널 톤'})**이 활성화되었습니다.`;
 }
-
-// 퍼스널 톤 추천 출력
-function showToneRecommendation(toneType) {
-    const data = personalToneData[toneType]; 
-    const outputContainer = document.getElementById("recommendation-output");
-    
-    if (!data) {
-        outputContainer.innerHTML = `<p style="color:red;">Error: No recommendation data found for ${toneType}.</p>`;
-        return;
-    }
-
-    const recommendationHTML = `
-        <div class="recommendation-content">
-            <h4>✨ Personal Color Guide for ${toneType} Tone</h4>
-            
-            <p class="summary-text">${data.summary}</p>
-            
-            <div class="tone-styles-container">
-                <div class="tone-text-column">
-                    <div class="tone-category">
-                        <h5><i class="fas fa-cut"></i> Hair Colors</h5>
-                        <p>${data.hair}</p>
-                    </div>
-                    <div class="tone-category">
-                        <h5><i class="fas fa-tshirt"></i> Clothing Colors</h5>
-                        <p>${data.clothing}</p>
-                    </div>
-                    <div class="tone-category">
-                        <h5><i class="fas fa-gem"></i> Makeup Colors</h5>
-                        <p>${data.makeup}</p>
-                    </div>
-                </div>
-                <div class="tone-image-column">
-                    <img src="${data.image}" alt="${toneType} Color Palette">
-                </div>
-            </div>
-        </div>
-    `;
-    outputContainer.innerHTML = recommendationHTML; 
-}
-
 
 function updateModelInfo() {
     const infoElement = document.getElementById("current-model-info");
@@ -484,9 +261,57 @@ function updateModelInfo() {
         infoElement.innerHTML = "Active Model: **Personal Tone Analysis**";
         btn1.classList.remove('active');
         btn2.classList.add('active');
+    } else {
+        infoElement.innerHTML = "Active Model: **Not yet loaded**";
+        btn1.classList.remove('active');
+        btn2.classList.remove('active');
     }
+}
 
-    if (currentSource === 'image' && document.getElementById('uploaded-image')) {
-         document.getElementById("process-image-btn").innerText = 'Re-Analyze Image';
+
+// ===============================================
+// 6. Prediction Logic (with Low Confidence Check)
+// ===============================================
+
+async function predict(element) {
+    if (currentModel === 0) return; // 모델이 선택되지 않았을 경우
+    
+    const modelToUse = currentModel === 1 ? model1 : model2;
+    const modelName = currentModel === 1 ? "Face Type Analysis" : "Personal Tone Analysis";
+    
+    // 💡 클래스 개수 불일치 오류 해결 로직 (핵심)
+    const currentMaxPredictions = modelToUse.getTotalClasses(); 
+
+    // 예측 수행 (캔버스 또는 이미지 사용)
+    const prediction = await modelToUse.predict(element);
+
+    // 💡 신뢰도 기반 피드백 및 안내 메시지 로직 (요청 반영)
+    const topPredictionProbability = prediction[0].probability;
+
+    if (topPredictionProbability < CONFIDENCE_THRESHOLD) {
+        // 신뢰도가 낮을 경우, 안내 메시지 출력
+        labelContainer.innerHTML = `
+            <div class="low-confidence-warning">
+                <i class="fas fa-exclamation-triangle"></i>
+                <h3>⚠️ 경고: 현재 이미지의 신뢰도가 낮습니다.</h3>
+                <p>더 정확한 결과를 위해 **조명을 밝게 하거나, 얼굴을 정면으로 하고, 배경을 단순화**하여 다시 시도해 주세요.</p>
+            </div>
+        `;
+        return; // 낮은 신뢰도일 경우, Top-K 표시를 건너뛰고 함수 종료
     }
+    
+    // 신뢰도가 높을 경우, 기존 Top-K 표시 로직 실행
+    let resultHTML = `<div class=\"model-name-title\"><h3>${modelName} Results:</h3></div>`;
+    
+    // 동적으로 가져온 개수만큼만 반복하여 오류를 방지합니다.
+    for (let i = 0; i < currentMaxPredictions; i++) {
+        const classPrediction = 
+            `<strong>${prediction[i].className}</strong>: ${(prediction[i].probability * 100).toFixed(1)}%`;
+        
+        // 최고 확률 항목은 강조
+        const isTop = (i === 0);
+        
+        resultHTML += `<div class=\"prediction-item ${isTop ? 'top-prediction' : ''}\">${classPrediction}</div>`;
+    }
+    labelContainer.innerHTML = resultHTML;
 }
