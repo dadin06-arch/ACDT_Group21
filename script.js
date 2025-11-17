@@ -6,7 +6,7 @@
 const URL_MODEL_1 = "./models/model_1/"; 
 const URL_MODEL_2 = "./models/model_2/"; 
 
-// 💡 새로운 상수: 신뢰도 임계값 (60% 미만 시 경고 메시지 출력)
+// 💡 신뢰도 임계값: 가장 높은 확률이 60% (0.60) 미만일 경우 경고 메시지 출력
 const CONFIDENCE_THRESHOLD = 0.60; 
 
 let model1, model2, webcam;
@@ -285,7 +285,7 @@ async function predict(element) {
     // 예측 수행 (캔버스 또는 이미지 사용)
     const prediction = await modelToUse.predict(element);
 
-    // 💡 신뢰도 기반 피드백 및 안내 메시지 로직 (요청 반영)
+    // 💡 신뢰도 기반 피드백 및 안내 메시지 로직: Top-1 확률 확인
     const topPredictionProbability = prediction[0].probability;
 
     if (topPredictionProbability < CONFIDENCE_THRESHOLD) {
