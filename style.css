@@ -1,345 +1,499 @@
-/* style.css - Hanyang University Layout + Modern Gradient Color & Icons */
+/* style.css - 최종 통합 버전 (퍼스널 톤 추천 스타일 및 이미지 크기 강제 축소 적용) */
 
 /* 변수 설정 */
 :root {
-    --gradient-start: #FFC0CB;        /* 연한 핑크 */
-    --gradient-end: #ADD8E6;          /* 연한 스카이 블루 */
-    --main-text-color: #333333;       /* 메인 텍스트 색상 */
-    --h2-underline-color: linear-gradient(to right, #FFC0CB, #ADD8E6); /* H2 밑줄 그라데이션 */
-    --card-bg: #FFFFFF;               /* 카드 배경색 */
-    --bg-light: #F8F9FA;              /* 밝은 배경색 */
+    --gradient-start: #FFC0CB;        
+    --gradient-end: #ADD8E6;          
+    --main-text-color: #333333;       
+    --h2-underline-color: linear-gradient(to right, #FFC0CB, #ADD8E6); 
+    --card-bg: #FFFFFF;               
+    --bg-light: #F8F9FA;              
     --shadow-color: rgba(0, 0, 0, 0.1);
 
     --font-montserrat: 'Montserrat', sans-serif;
     --font-lato: 'Lato', sans-serif;
 
     /* 버튼 색상 */
-    --primary-button-bg: linear-gradient(to right, #6a82fb, #fc5c7d); /* Start 버튼 그라데이션 */
+    --primary-button-bg: linear-gradient(to right, #6a82fb, #fc5c7d); 
     --primary-button-hover-bg: linear-gradient(to right, #4c62e0, #e04461);
-    --secondary-button-bg: #5a5a5a; /* Pause 버튼 진한 회색 */
+    --secondary-button-bg: #5a5a5a; 
     --secondary-button-hover-bg: #4a4a4a;
 
-    --mode-button-border: #888;
-    --mode-button-active-bg: #6a82fb;
+    --mode-button-border: #888888; 
+    --mode-button-active-bg: linear-gradient(to right, #6a82fb, #fc5c7d); 
+    --mode-button-active-text: #FFFFFF;
 
-    /* 경고 색상 */
-    --warning-yellow: #f1c40f;
-    --warning-bg: #fffbe6;
+    --model-select-bg: #e0e0e0; 
+    --model-select-active-bg: linear-gradient(45deg, #FFD700, #FFA500); 
+    --model-select-disabled-bg: #e0e0e0; 
 }
 
-/* 기본 스타일 및 글꼴 */
 body {
-    font-family: var(--font-montserrat);
-    background: linear-gradient(to bottom right, var(--gradient-start), var(--gradient-end));
+    font-family: var(--font-lato);
+    background-color: var(--card-bg);
     color: var(--main-text-color);
     margin: 0;
     padding: 0;
-    min-height: 100vh;
+    text-align: center;
+    line-height: 1.6;
     display: flex;
-    justify-content: center;
-    align-items: flex-start; /* 상단 정렬 */
-    padding-top: 40px;
-}
-
-.container {
-    width: 90%;
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 30px;
+    flex-direction: column;
+    align-items: center;
+    min-height: 10vh;
 }
 
 header {
     width: 100%;
-    background-color: var(--card-bg);
-    padding: 20px 0;
-    box-shadow: 0 4px 10px var(--shadow-color);
+    background: linear-gradient(90deg, var(--gradient-start) 0%, var(--gradient-end) 100%); 
+    color: var(--main-text-color); 
+    padding: 40px 20px;
+    box-shadow: 0 6px 15px var(--shadow-color);
     margin-bottom: 30px;
+    display: flex;
+    justify-content: center;
 }
 
 .header-content-wrapper {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    width: 100%;
+    gap: 20px;
 }
+
+.header-text-group {
+    flex-grow: 1; 
+}
+
+.header-icons-left, .header-icons-right {
+    display: flex;
+    gap: 15px; 
+}
+
+.header-icon {
+    width: 80px; 
+    height: 80px;
+    filter: none; 
+    opacity: 1.0; 
+    transition: transform 0.2s;
+}
+
+.header-icon:hover {
+    transform: scale(1.1);
+    filter: none;
+}
+
 
 h1 {
     font-family: var(--font-montserrat);
-    font-weight: 700;
-    font-size: 1.8em;
+    font-weight: 800; 
+    font-size: 3.8em; 
+    margin-bottom: 5px;
+    letter-spacing: 2px; 
+    color: var(--main-text-color); 
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1); 
+}
+
+.subtitle {
+    font-family: var(--font-lato);
+    font-size: 1.3em; 
+    opacity: 0.9; 
+    max-width: 800px;
+    margin: 0 auto;
     color: var(--main-text-color);
-    margin: 0;
-}
-
-/* 카드 및 섹션 스타일 */
-.card {
-    background-color: var(--card-bg);
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-}
-
-#input-area, #controls {
-    flex: 1; 
-    min-width: 300px;
-}
-
-#results {
-    flex: 2; 
-    min-width: 350px;
 }
 
 h2 {
     font-family: var(--font-montserrat);
     font-weight: 600;
-    font-size: 1.5em;
-    padding-bottom: 5px;
-    margin-top: 0;
-    border-bottom: 3px solid transparent;
-    border-image: var(--h2-underline-color) 1;
-    display: inline-block;
+    font-size: 1.8em;
+    color: var(--main-text-color);
+    border-bottom: 3px solid;
+    border-image: var(--h2-underline-color);
+    border-image-slice: 1;
+    padding-bottom: 10px;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+h2 .fas {
+    color: var(--main-text-color);
 }
 
-h2 i {
-    color: #fc5c7d;
-    margin-right: 10px;
+
+/* 메인 컨텐츠 및 카드 스타일 */
+#main-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    padding: 0 20px 50px;
+    max-width: 1300px;
+    width: 100%;
+}
+
+.card {
+    background-color: var(--card-bg);
+    padding: 35px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px var(--shadow-color);
+    flex: 1 1 350px; 
+    min-width: 320px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
 }
 
 /* 버튼 스타일 */
 .btn {
-    padding: 12px 25px;
-    border: none;
-    border-radius: 8px;
+    font-family: var(--font-montserrat);
     font-weight: 600;
+    border: none;
+    padding: 14px 28px;
+    margin: 10px 8px;
+    border-radius: 30px; 
     cursor: pointer;
+    font-size: 1em;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    font-family: var(--font-lato);
-    margin: 5px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.primary-btn { 
+    background: var(--primary-button-bg); 
+    color: var(--mode-button-active-text);
+    box-shadow: 0 4px 10px rgba(106, 130, 251, 0.3);
 }
 
-.primary-btn {
-    background: var(--primary-button-bg);
-    color: white;
-}
-
-.primary-btn:hover:not(:disabled) {
-    background: var(--primary-button-hover-bg);
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
-}
-
-.primary-btn:disabled {
-    background: #cccccc;
-    cursor: not-allowed;
-    box-shadow: none;
-}
-
-.model-select-btn {
-    background-color: #f1f1f1;
-    color: var(--main-text-color);
-    border: 1px solid #ddd;
-}
-
-.model-select-btn.active, .mode-btn.active {
-    background-color: var(--mode-button-active-bg);
-    color: white;
-    border-color: var(--mode-button-active-bg);
-    box-shadow: 0 4px 10px rgba(106, 130, 251, 0.4);
-}
-
-.button-group {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 20px;
-}
-
-.mode-btn {
-    background-color: #f1f1f1;
-    color: var(--main-text-color);
-    border: 1px solid var(--mode-button-border);
-}
-
-/* 웹캠 및 이미지 컨테이너 */
-#webcam-container {
-    width: 100%;
-    min-height: 400px;
+/* 듀얼 모드 버튼 스타일 */
+.mode-select-group {
     display: flex;
     justify-content: center;
-    align-items: center;
-    background-color: #e9ecef;
-    border-radius: 10px;
-    margin-top: 20px;
-    overflow: hidden;
-    position: relative;
+    margin-bottom: 20px;
+}
+.mode-btn {
+    background-color: var(--card-bg);
+    color: var(--main-text-color);
+    border: 1px solid var(--mode-button-border);
+    padding: 10px 20px;
+    margin: 0 5px;
+    border-radius: 5px; 
+    transition: all 0.2s;
+    font-weight: 400;
+}
+.mode-btn.active {
+    background: var(--mode-button-active-bg);
+    color: var(--mode-button-active-text);
+    border-color: transparent;
+    font-weight: 600;
 }
 
-#webcam-container canvas, #webcam-container img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 10px;
+/* 모델 선택 버튼 스타일 */
+.model-select-btn { 
+    background-color: var(--model-select-bg);
+    color: var(--main-text-color);
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 10px 15px; 
+}
+.model-select-btn.active {
+    background: linear-gradient(45deg, #FFD700, #FFA500);
+    color: var(--main-text-color);
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+    transform: scale(1.05);
 }
 
-/* 초기 메시지 및 컨트롤 */
-#initial-message {
-    color: #6c757d;
-    font-size: 1.1em;
-}
-
-#webcam-controls, #upload-controls {
+/* 💡 얼굴형 선택 버튼 그룹 스타일 */
+#style-selection-controls {
     text-align: center;
-    margin-top: 20px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: var(--bg-light);
+    margin-top: 30px; 
+}
+#style-selection-controls h3 {
+    margin-bottom: 10px;
+    font-size: 1.2em;
+    color: #007bff; 
 }
 
-/* 결과 표시 영역 */
+.face-type-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 10px;
+}
+.face-select-btn {
+    background-color: #6c757d; 
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-weight: 700;
+    flex: 1 1 100px; 
+    margin: 0;
+    font-size: 0.9em;
+    text-transform: capitalize;
+    transition: background-color 0.2s, transform 0.2s;
+}
+.face-select-btn.active {
+    background: linear-gradient(45deg, #007bff, #0056b3); 
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.4);
+}
+
+/* 💡 퍼스널 톤 선택 버튼 그룹 스타일 */
+#tone-selection-controls {
+    text-align: center;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: var(--bg-light);
+    margin-top: 30px; 
+}
+#tone-selection-controls h3 {
+    margin-bottom: 10px;
+    font-size: 1.2em;
+    color: #fc5c7d; 
+}
+
+.tone-type-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 10px;
+}
+.tone-select-btn {
+    background-color: #6c757d; 
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: 700;
+    font-size: 1em;
+    transition: background-color 0.2s, transform 0.2s;
+}
+.tone-select-btn.active {
+    background: linear-gradient(45deg, #fc5c7d, #6a82fb); 
+    box-shadow: 0 4px 8px rgba(252, 92, 125, 0.4);
+}
+
+
+/* 웹캠/이미지 영역 */
+#webcam-container canvas, #webcam-container img {
+    border-radius: 10px;
+    border: 4px solid;
+    border-image: linear-gradient(to right, #6a82fb, #fc5c7d) 1; 
+    box-shadow: 0 0 12px rgba(106, 130, 251, 0.3);
+    width: 100%; 
+    height: auto;
+    max-width: 400px; 
+    display: block; 
+    margin: 0 auto;
+}
+
+/* 예측 결과 (퍼센트) 컨테이너 */
 #label-container {
-    margin-top: 25px;
-    text-align: left;
-    padding: 20px;
+    margin-top: 15px;
+    padding: 15px;
     border-radius: 10px;
     background-color: var(--bg-light);
     box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
-    font-family: var(--font-lato);
 }
 
 .prediction-item {
-    padding: 10px 0;
-    font-weight: 400;
+    padding: 8px 0;
     border-bottom: 1px solid #E0E0E0; 
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 1.05em;
+    font-size: 1em;
 }
 .prediction-item strong {
-    color: #6a82fb; 
-}
-.prediction-item:last-child {
-    border-bottom: none;
+    color: #fc5c7d; 
 }
 
-.top-prediction {
-    font-weight: 700;
-    color: var(--primary-button-bg); /* 최고 확률 항목 강조 */
-    font-size: 1.1em;
-}
-.top-prediction strong {
-    color: #fc5c7d;
-}
 
-.model-name-title {
-    padding-bottom: 15px;
-    margin-bottom: 10px;
-    border-bottom: 2px solid #ddd;
-}
-.model-name-title h3 {
-    margin: 0;
-    font-size: 1.2em;
-    color: #4a4a4a;
-}
-
-/* 파일 업로드 입력창 스타일 */
-.file-input {
-    display: block;
-    margin: 20px auto 10px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-}
-
-/* 💡 오류 및 경고 메시지 스타일 */
-.error-message, .warning-message {
+/* 💡 공통 추천 결과 (텍스트 + 이미지) 레이아웃 */
+#recommendation-output {
+    text-align: left;
     padding: 15px;
+    border: 1px dashed #ccc;
     border-radius: 10px;
-    margin: 10px 0;
-    font-family: var(--font-lato);
-    font-weight: 500;
+    margin-top: 20px; 
 }
 
-.error-message {
-    background-color: #f8d7da; /* Light Red */
-    color: #721c24; /* Dark Red */
-    border: 1px solid #f5c6cb;
-}
-.error-message i {
-    margin-right: 10px;
-    color: #f00;
-}
-
-.warning-message {
-    background-color: #fff3cd; /* Light Yellow */
-    color: #856404; /* Dark Yellow */
-    border: 1px solid #ffeeba;
-}
-
-/* 💡 낮은 신뢰도 경고 스타일 (요청 반영) */
-.low-confidence-warning {
-    background-color: var(--warning-bg); 
-    color: #b8860b; /* Goldenrod-like color for visibility */
-    border: 2px solid var(--warning-yellow);
+.recommendation-content {
+    background-color: #f8f9fa; 
     padding: 20px;
-    border-radius: 10px;
-    text-align: center;
-    animation: pulse-warn 1.5s infinite alternate;
+    border-radius: 8px;
 }
 
-.low-confidence-warning h3 {
+.recommendation-content h4 {
+    color: var(--primary-button-bg); 
+    font-size: 1.5em;
     margin-top: 0;
-    color: #a8790a;
+    border-bottom: 2px solid var(--gradient-start);
+    padding-bottom: 10px;
 }
 
-.low-confidence-warning p {
+.summary-text {
     font-size: 1.1em;
+    margin-bottom: 20px;
+    font-style: italic;
+    color: #555;
+}
+
+
+/* ---------------------------------------------------- */
+/* 🌟 1. 얼굴형 추천 스타일 (Hair Style Guide) */
+/* ---------------------------------------------------- */
+.hair-styles-container {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 15px;
+}
+
+.style-column {
+    flex: 1 1 calc(50% - 10px);
+    min-width: 250px;
+    padding: 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    background-color: white;
+    
+    display: flex; 
+    flex-direction: row; 
+    gap: 10px; 
+    align-items: center; 
+}
+
+.style-column h5 {
+    color: #4CAF50; 
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 1.0em; 
+    flex: 1; 
+    line-height: 1.4;
+}
+
+.style-column img {
+    /* 🌟 얼굴형 이미지 크기 강제 고정 */
+    width: 120px !important; 
+    height: 120px !important; 
+    max-width: 120px !important;
+    object-fit: cover; 
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    flex-shrink: 0; 
+}
+
+
+/* ---------------------------------------------------- */
+/* 🌟 2. 퍼스널 톤 추천 스타일 (Personal Tone Guide) */
+/* ---------------------------------------------------- */
+.tone-styles-container {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start; 
+    margin-top: 15px;
+}
+
+/* 이미지 영역 (150px 원형) */
+.tone-image-column {
+    flex: 0 0 150px; 
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; 
+}
+
+.tone-image-column img {
+    /* 🌟 톤 이미지 크기 고정 및 원형 */
+    width: 150px !important; 
+    height: 150px !important; 
+    max-width: 150px !important;
+    object-fit: cover; 
+    border-radius: 50%; 
+    border: 3px solid #FFC0CB;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    flex-shrink: 0; 
+}
+
+/* 텍스트 영역 */
+.tone-text-column {
+    flex: 1; 
+    text-align: left;
+}
+
+.tone-category {
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+    border-bottom: 1px dashed #eee;
+}
+.tone-category:last-child {
+    border-bottom: none;
     margin-bottom: 0;
 }
 
-@keyframes pulse-warn {
-    from {
-        box-shadow: 0 0 5px rgba(241, 196, 15, 0.4);
-    }
-    to {
-        box-shadow: 0 0 10px rgba(241, 196, 15, 0.8);
-    }
+
+.tone-category h5 {
+    font-size: 1.1em;
+    color: #4CAF50; 
+    margin: 0 0 5px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.tone-category p {
+    margin: 0;
+    font-size: 0.95em;
+    color: #555;
 }
 
 
 /* 반응형 디자인 */
-@media (max-width: 992px) {
-    .container {
-        flex-direction: column;
-        gap: 20px;
-    }
-    #input-area, #controls, #results {
-        min-width: unset;
-        width: 100%;
-    }
-    body {
-        padding-top: 20px;
-        padding-bottom: 40px;
-    }
-}
-
 @media (max-width: 768px) {
-    .header-content-wrapper {
-        flex-direction: column;
-        gap: 15px;
+    /* 얼굴형 추천 반응형 유지 */
+    .style-column {
+        flex-direction: column; 
+        align-items: center;
+    }
+    .style-column h5 {
         text-align: center;
     }
-    h1 {
-        font-size: 1.5em;
+    .style-column img {
+        width: 80% !important; 
+        height: auto !important; 
+        max-width: 250px !important;
     }
-    .button-group {
-        justify-content: center;
+
+    /* 톤 추천 반응형 수정 */
+    .tone-styles-container {
+        flex-direction: column; 
+        align-items: center;
     }
-    .btn {
+    .tone-image-column {
+        margin-bottom: 15px;
+        flex: 0 0 auto;
+    }
+    .tone-image-column img {
+        width: 120px !important; 
+        height: 120px !important; 
+        max-width: 120px !important;
+    }
+    .tone-text-column {
         width: 100%;
+        padding: 0 10px;
     }
-    .card {
-        padding: 20px;
+    .tone-category {
+        text-align: left; 
+    }
+    .tone-category h5 {
+        justify-content: flex-start;
     }
 }
